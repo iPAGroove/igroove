@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход на сайт</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Авторизация</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="login-container">
-        <h2>Вход в репозиторий</h2>
-        <form>
-            <div class="input-group">
-                <label for="username">Имя пользователя:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Пароль:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Войти</button>
-            <p class="register-link">Ещё нет аккаунта? <a href="#">Зарегистрироваться</a></p>
-        </form>
-    </div>
+  <div class="stars"></div>
+  <div class="auth-container">
+    <h2>Вход или регистрация</h2>
+    <form id="loginForm">
+      <input type="text" placeholder="Email" required />
+      <input type="password" placeholder="Пароль" required />
+      <button type="submit">Войти</button>
+      <div class="auth-switch">
+        Нет аккаунта? <a href="#" id="toRegister">Зарегистрироваться</a>
+      </div>
+    </form>
+    <form id="registerForm" style="display:none;">
+      <input type="text" placeholder="Email" required />
+      <input type="password" placeholder="Пароль" required />
+      <button type="submit">Зарегистрироваться</button>
+      <div class="auth-switch">
+        Уже есть аккаунт? <a href="#" id="toLogin">Войти</a>
+      </div>
+    </form>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
