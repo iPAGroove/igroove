@@ -1,4 +1,4 @@
-// Анимация звезд (просто для красоты, не влияет на функционал)
+// Анимация звезд
 const stars = document.querySelector('.stars');
 if (stars) {
   const numStars = 130;
