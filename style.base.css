@@ -8,7 +8,6 @@ html, body {
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
-  /* Градиент с анимацией */
   background: linear-gradient(120deg, #1a103f 0%, #24243e 30%, #373b44 60%, #008cff 100%);
   background-size: 200% 200%;
   animation: animatedBg 18s ease-in-out infinite;
@@ -30,18 +29,18 @@ html, body {
   pointer-events: none;
 }
 
-/* Неоновые точки */
+/* Неоновые точки — ЧЁТКИЕ, без blur */
 .star {
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 8px 2px #52baff, 0 0 15px 4px #0078d4, 0 0 30px 6px #75eaff99;
+  box-shadow: 0 0 8px 2px #52baff, 0 0 15px 4px #0078d4;
   background: linear-gradient(135deg, #75eaff 0%, #1f47b7 100%);
   opacity: 0.82;
   transition: opacity 0.4s;
   animation: starTwinkle 2.4s infinite ease-in-out;
 }
 @keyframes starTwinkle {
-  0%   { opacity: 0.8;   filter: blur(0px);}
-  50%  { opacity: 0.3;   filter: blur(2.2px);}
-  100% { opacity: 0.8;   filter: blur(0px);}
+  0%   { opacity: 0.8;}
+  50%  { opacity: 0.4;}
+  100% { opacity: 0.8;}
 }
