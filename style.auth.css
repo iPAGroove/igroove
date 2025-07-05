@@ -6,20 +6,17 @@
   border-radius: 18px;
   padding: 34px 18px 28px 18px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  width: 340px;
-  max-width: 94vw;
-  min-width: 230px;
+  width: 270px;       /* МЕНЬШАЯ ширина окна */
+  max-width: 90vw;    /* Ограничение по ширине для адаптивности */
+  min-width: 180px;
   text-align: center;
   transition: width 0.2s, padding 0.2s;
 }
-@media (max-width: 540px) {
-  .auth-container {
-    width: 97vw;
-    max-width: 97vw;
-    min-width: 0;
-    padding: 22px 6vw 20px 6vw;
-    border-radius: 13px;
-  }
+.auth-container h2 {
+  margin-bottom: 28px;
+  color: #fff;
+  font-size: 26px;
+  letter-spacing: 0.5px;
 }
 .auth-container input {
   width: 95%;
@@ -49,7 +46,26 @@
 .auth-container button:active {
   transform: scale(0.98);
 }
+.auth-switch {
+  margin-top: 15px;
+  color: #eee;
+  font-size: 14px;
+}
+.auth-switch a {
+  color: #00e0ff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Адаптация для телефонов */
 @media (max-width: 540px) {
+  .auth-container {
+    width: 92vw;
+    max-width: 92vw;
+    min-width: 0;
+    padding: 20px 4vw 18px 4vw;
+    border-radius: 13px;
+  }
   .auth-container input,
   .auth-container button {
     font-size: 16px;
