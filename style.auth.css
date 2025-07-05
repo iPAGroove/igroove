@@ -63,7 +63,7 @@
 /* Адаптация для телефонов */
 @media (max-width: 540px) {
   .auth-container {
-    width: 95vw;
+    width: 80vw;
     max-width: 95vw;
     min-width: 0;
     padding: 15px 2vw 13px 2vw;
