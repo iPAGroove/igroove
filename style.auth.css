@@ -4,44 +4,42 @@
   transform: translate(-50%, -50%);
   background: rgba(30,30,60,0.90);
   border-radius: 18px;
-  padding: 24px 10px 20px 10px;      /* Меньше padding для компактности */
+  padding: 14px 4px 12px 4px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  width: 140px;                     /* МЕНЬШАЯ ширина окна */
-  max-width: 85vw;                  /* Адаптив — не больше 85% экрана */
-  min-width: 120px;                 /* Минимум на очень маленьких экранах */
+  width: 140px;
+  max-width: 85vw;
+  min-width: 70px;
   text-align: center;
   transition: width 0.2s, padding 0.2s;
 }
-
 .auth-container h2 {
-  margin-bottom: 22px;
+  margin-bottom: 10px;
   color: #fff;
-  font-size: 21px;                  /* Чуть меньше для мини-окна */
+  font-size: 17px;
   letter-spacing: 0.5px;
 }
-
-.auth-container input {
-  width: 96%;
-  padding: 10px 8px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: none;
-  background: #23223c;
-  color: #fff;
-  font-size: 15px;                  /* Чуть меньше для маленького окна */
-  outline: none;
-}
-
+.auth-container input,
 .auth-container button {
   width: 100%;
-  padding: 11px 0;
-  border-radius: 10px;
+  min-width: 0;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 6px 2px;
+  border-radius: 7px;
+}
+.auth-container input {
+  margin: 7px 0;
+  background: #23223c;
+  color: #fff;
   border: none;
+  outline: none;
+}
+.auth-container button {
+  margin-top: 8px;
+  font-weight: bold;
   background: linear-gradient(90deg, #7f57ff 0%, #00e0ff 100%);
   color: #fff;
-  font-weight: bold;
-  font-size: 15px;
-  margin-top: 12px;
+  border: none;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
@@ -50,29 +48,27 @@
   transform: scale(0.98);
 }
 .auth-switch {
-  margin-top: 12px;
+  margin-top: 8px;
   color: #eee;
-  font-size: 13px;
+  font-size: 12px;
 }
 .auth-switch a {
   color: #00e0ff;
   cursor: pointer;
   text-decoration: underline;
 }
-
-/* Адаптация для телефонов */
 @media (max-width: 540px) {
   .auth-container {
     width: 80vw;
     max-width: 95vw;
     min-width: 0;
-    padding: 15px 2vw 13px 2vw;
-    border-radius: 11px;
+    padding: 8px 2vw 9px 2vw;
+    border-radius: 8px;
   }
   .auth-container input,
   .auth-container button {
-    font-size: 14px;
-    padding: 10px 6px;
-    border-radius: 8px;
+    font-size: 12px;
+    padding: 8px 2px;
+    border-radius: 7px;
   }
 }
