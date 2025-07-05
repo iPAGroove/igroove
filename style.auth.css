@@ -4,41 +4,44 @@
   transform: translate(-50%, -50%);
   background: rgba(30,30,60,0.90);
   border-radius: 18px;
-  padding: 34px 18px 28px 18px;
+  padding: 24px 10px 20px 10px;      /* Меньше padding для компактности */
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  width: 270px;       /* МЕНЬШАЯ ширина окна */
-  max-width: 90vw;    /* Ограничение по ширине для адаптивности */
-  min-width: 180px;
+  width: 180px;                     /* МЕНЬШАЯ ширина окна */
+  max-width: 85vw;                  /* Адаптив — не больше 85% экрана */
+  min-width: 120px;                 /* Минимум на очень маленьких экранах */
   text-align: center;
   transition: width 0.2s, padding 0.2s;
 }
+
 .auth-container h2 {
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   color: #fff;
-  font-size: 26px;
+  font-size: 21px;                  /* Чуть меньше для мини-окна */
   letter-spacing: 0.5px;
 }
+
 .auth-container input {
-  width: 95%;
-  padding: 13px 12px;
-  margin: 12px 0;
-  border-radius: 11px;
+  width: 96%;
+  padding: 10px 8px;
+  margin: 10px 0;
+  border-radius: 10px;
   border: none;
   background: #23223c;
   color: #fff;
-  font-size: 17px;
+  font-size: 15px;                  /* Чуть меньше для маленького окна */
   outline: none;
 }
+
 .auth-container button {
   width: 100%;
-  padding: 13px 0;
-  border-radius: 11px;
+  padding: 11px 0;
+  border-radius: 10px;
   border: none;
   background: linear-gradient(90deg, #7f57ff 0%, #00e0ff 100%);
   color: #fff;
   font-weight: bold;
-  font-size: 17px;
-  margin-top: 14px;
+  font-size: 15px;
+  margin-top: 12px;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
@@ -47,9 +50,9 @@
   transform: scale(0.98);
 }
 .auth-switch {
-  margin-top: 15px;
+  margin-top: 12px;
   color: #eee;
-  font-size: 14px;
+  font-size: 13px;
 }
 .auth-switch a {
   color: #00e0ff;
@@ -60,16 +63,16 @@
 /* Адаптация для телефонов */
 @media (max-width: 540px) {
   .auth-container {
-    width: 92vw;
-    max-width: 92vw;
+    width: 95vw;
+    max-width: 95vw;
     min-width: 0;
-    padding: 20px 4vw 18px 4vw;
-    border-radius: 13px;
+    padding: 15px 2vw 13px 2vw;
+    border-radius: 11px;
   }
   .auth-container input,
   .auth-container button {
-    font-size: 16px;
-    padding: 13px 8px;
-    border-radius: 9px;
+    font-size: 14px;
+    padding: 10px 6px;
+    border-radius: 8px;
   }
 }
