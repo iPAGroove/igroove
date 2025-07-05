@@ -6,7 +6,7 @@
   border-radius: 18px;
   padding: 24px 10px 20px 10px;      /* Меньше padding для компактности */
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  width: 180px;                     /* МЕНЬШАЯ ширина окна */
+  width: 140px;                     /* МЕНЬШАЯ ширина окна */
   max-width: 85vw;                  /* Адаптив — не больше 85% экрана */
   min-width: 120px;                 /* Минимум на очень маленьких экранах */
   text-align: center;
