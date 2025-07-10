@@ -10,19 +10,17 @@
             margin: 0;
             padding: 0;
             font-family: 'Open Sans', sans-serif;
-            color: #fff; /* Белый цвет текста для контраста с темным фоном */
-            display: flex; /* Используем flexbox для центрирования контента */
-            justify-content: center; /* Центрирование по горизонтали */
-            align-items: center; /* Центрирование по вертикали */
-            min-height: 100vh; /* Минимальная высота viewport, чтобы занимать весь экран */
-            background: linear-gradient(to right, #ee1d52, #a80034); /* Красивый градиент TikTok */
-            background-size: cover; /* Покрытие всей области */
-            background-position: center;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); /* Темно-синий/серый градиент */
+            overflow: hidden;
             position: relative;
-            overflow: hidden; /* Скрываем возможное переполнение */
         }
 
-        /* Опционально: эффект частиц или паттерн для фона */
+        /* Эффект сетки/линий */
         body::before {
             content: '';
             position: absolute;
@@ -30,78 +28,151 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/black-linen.png'); /* Пример паттерна, можно заменить или убрать */
-            opacity: 0.1; /* Прозрачность паттерна */
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 30px 30px; /* Размер ячеек сетки */
             z-index: 1;
+            opacity: 0.5;
+        }
+
+        /* Мягкие акцентные пятна */
+        .gradient-spot-1, .gradient-spot-2 {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.6;
+            z-index: 0;
+            animation: pulseEffect 8s infinite alternate ease-in-out;
+        }
+        .gradient-spot-1 {
+            background: #e74c3c; /* Красный акцент */
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            left: 5%;
+        }
+        .gradient-spot-2 {
+            background: #3498db; /* Синий акцент */
+            width: 350px;
+            height: 350px;
+            bottom: 15%;
+            right: 8%;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulseEffect {
+            0% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 0.6; }
         }
 
         .main-content {
-            z-index: 2; /* Поверх фона */
+            z-index: 2;
             text-align: center;
-            background: rgba(0, 0, 0, 0.4); /* Полупрозрачный темный фон для читаемости */
+            background: rgba(0, 0, 0, 0.7);
             padding: 40px 60px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Большая тень */
-            backdrop-filter: blur(5px); /* Эффект размытия фона за блоком */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* Добавляем max-width, чтобы блок не растягивался на очень больших экранах,
+               но также и min-width для очень маленьких, если это нужно */
+            max-width: 90%; /* Ограничиваем ширину на больших экранах, оставляя отступы */
+            box-sizing: border-box; /* Учитываем padding в ширине */
         }
 
         h1 {
-            font-family: 'Montserrat', sans-serif; /* Более выразительный шрифт для заголовка */
-            font-size: 3.5em; /* Очень большой размер */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Тень для текста */
-            letter-spacing: 2px; /* Расстояние между буквами */
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+            letter-spacing: 2px;
+            color: #fff;
+            /* Дополнительно: font-size будет уменьшен в медиазапросе */
         }
 
         .button-container {
             margin-top: 30px;
             display: flex;
-            gap: 20px; /* Расстояние между кнопками */
+            gap: 20px;
             justify-content: center;
+            flex-wrap: wrap; /* Кнопки могут переноситься на новую строку при нехватке места */
         }
 
         .button {
             display: inline-block;
             padding: 15px 40px;
-            font-size: 1.5em; /* Крупный текст на кнопках */
+            font-size: 1.5em;
             font-weight: 700;
             text-decoration: none;
             color: #fff;
-            background-color: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон кнопок */
-            border: 2px solid rgba(255, 255, 255, 0.6); /* Полупрозрачная белая рамка */
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            border: none;
             border-radius: 10px;
-            transition: all 0.3s ease; /* Плавный переход при наведении */
-            backdrop-filter: blur(3px); /* Размытие для кнопок */
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            /* Добавляем flex-shrink, чтобы кнопки могли уменьшаться */
+            flex-shrink: 1;
+            /* Устанавливаем минимальную ширину, чтобы кнопки не становились слишком узкими */
+            min-width: 150px;
         }
 
         .button:hover {
-            background-color: rgba(255, 255, 255, 0.4); /* Увеличиваем прозрачность фона при наведении */
-            border-color: #fff; /* Белая рамка при наведении */
-            transform: translateY(-3px); /* Легкий подъем кнопки */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Тень для кнопок */
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(45deg, #c0392b, #a52a2a);
         }
 
         /* Медиа-запросы для адаптивности на маленьких экранах */
         @media (max-width: 600px) {
             h1 {
-                font-size: 2.5em; /* Уменьшаем заголовок на мобильных */
+                font-size: 2.2em; /* Немного уменьшил для совсем маленьких экранов */
+                margin-bottom: 15px;
             }
             .main-content {
-                padding: 30px;
-                margin: 20px;
+                padding: 25px; /* Уменьшаем padding на мобильных */
+                margin: 15px; /* Уменьшаем margin, чтобы больше места для контента */
             }
             .button-container {
-                flex-direction: column; /* Кнопки одна под другой на мобильных */
-                gap: 15px;
+                flex-direction: column; /* Кнопки одна под другой */
+                gap: 12px; /* Уменьшаем расстояние между кнопками */
             }
             .button {
-                width: 100%; /* Кнопки на всю ширину */
-                font-size: 1.2em;
+                width: 90%; /* Кнопки почти на всю ширину контейнера */
+                font-size: 1.1em; /* Уменьшаем размер шрифта */
+                padding: 12px 20px; /* Уменьшаем padding кнопок */
+                margin: 0 auto; /* Центрируем кнопки, если flex-direction column */
+            }
+            /* Для фоновых пятен, чтобы они не выходили слишком сильно за пределы */
+            .gradient-spot-1, .gradient-spot-2 {
+                width: 300px;
+                height: 300px;
+                filter: blur(60px); /* Меньше размытия на маленьких экранах */
+            }
+        }
+
+        /* Медиа-запрос для очень маленьких экранов (например, iPhone SE) */
+        @media (max-width: 380px) {
+            h1 {
+                font-size: 1.8em;
+                letter-spacing: 1px;
+            }
+            .main-content {
+                padding: 20px;
+                margin: 10px;
+            }
+            .button {
+                font-size: 1em;
+                padding: 10px 15px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="gradient-spot-1"></div>
+    <div class="gradient-spot-2"></div>
     <div class="main-content">
         <h1>Donate iPAGroove</h1>
         <div class="button-container">
