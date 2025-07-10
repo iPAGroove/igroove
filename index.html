@@ -145,7 +145,7 @@
         .icon-container {
             margin-top: 30px;
             display: flex;
-            gap: 30px; /* Увеличиваем расстояние между иконками */
+            gap: 30px; /* Расстояние между иконками */
             justify-content: center;
             flex-wrap: wrap; /* Для адаптивности */
         }
@@ -163,15 +163,18 @@
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
         }
 
-        .icon-link .icon {
-            font-size: 5em; /* Очень большая иконка */
+        .icon-link .icon-img {
+            width: 80px; /* Размер изображения иконки */
+            height: 80px; /* Сохраняем пропорции */
             margin-bottom: 10px;
             transition: transform 0.3s ease;
-            line-height: 1; /* Убираем лишние отступы у иконок-эмодзи */
+            border-radius: 50%; /* Если хочешь, чтобы иконки были круглыми */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* Легкая тень для иконок */
         }
 
-        .icon-link:hover .icon {
+        .icon-link:hover .icon-img {
             transform: scale(1.15) translateY(-5px); /* Увеличение и подъем иконки при наведении */
+            box-shadow: 0 0 25px rgba(238, 29, 82, 0.7); /* Яркая тень при наведении */
         }
 
         .icon-link:hover {
@@ -195,8 +198,9 @@
             .icon-link {
                 font-size: 1em;
             }
-            .icon-link .icon {
-                font-size: 4em; /* Уменьшаем размер иконок на мобильных */
+            .icon-link .icon-img {
+                width: 60px; /* Уменьшаем размер иконок на мобильных */
+                height: 60px;
                 margin-bottom: 5px;
             }
             /* Уменьшаем размер фоновых элементов на мобильных */
@@ -214,8 +218,9 @@
                 padding: 20px;
                 margin: 10px;
             }
-            .icon-link .icon {
-                font-size: 3.5em;
+            .icon-link .icon-img {
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
@@ -238,11 +243,11 @@
         <h1>Donate iPAGroove</h1>
         <div class="icon-container">
             <a href="ua-donations.html" class="icon-link">
-                <span class="icon">🇺🇦</span>
+                <img src="images/UA_icon.png" alt="Украина" class="icon-img">
                 <span>Украина</span>
             </a>
             <a href="world-donations.html" class="icon-link">
-                <span class="icon">🌍</span>
+                <img src="images/WORLD_icon.png" alt="Мир" class="icon-img">
                 <span>Мир</span>
             </a>
         </div>
