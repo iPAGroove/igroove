@@ -115,30 +115,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Binance',
                 contentHtml: `
                     <p>For donations via Binance (USDT TRC20):</p>
-                    <p>Wallet Address: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
+                    <p>Wallet Address: <b>TJCQQHMhKExEuyMXA78mXBAbj1YkMNL3NS</b></p>
                 `,
                 buttonText: 'Copy wallet address',
-                copyButtonData: 'TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789',
+                copyButtonData: 'TJCQQHMhKExEuyMXA78mXBAbj1YkMNL3NS',
                 note: 'Please send only USDT on TRC20 network.'
             },
             ru: {
                 title: 'Binance',
                 contentHtml: `
                     <p>Для доната через Binance (USDT TRC20):</p>
-                    <p>Адрес кошелька: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
+                    <p>Адрес кошелька: <b>TJCQQHMhKExEuyMXA78mXBAbj1YkMNL3NS</b></p>
                 `,
                 buttonText: 'Копировать адрес кошелька',
-                copyButtonData: 'TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789',
+                copyButtonData: 'TJCQQHMhKExEuyMXA78mXBAbj1YkMNL3NS',
                 note: 'Пожалуйста, отправляйте только USDT в сети TRC20.'
             },
             ua: {
                 title: 'Binance',
                 contentHtml: `
                     <p>Для донату через Binance (USDT TRC20):</p>
-                    <p>Адреса гаманця: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
+                    <p>Адреса гаманця: <b>TJCQQHMhKExEuyMXA78mXBAbj1YkMNL3NS</b></p>
                 `,
                 buttonText: 'Копіювати адресу гаманця',
-                copyButtonData: 'TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789',
+                copyButtonData: 'TJCQQHMhKExEuyMXA78mXBAbj1YkMNL3NS',
                 note: 'Будь ласка, надсилайте тільки USDT у мережі TRC20.'
             }
         },
