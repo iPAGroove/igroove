@@ -1,15 +1,25 @@
 :root {
-  --lang-switcher-bg: rgba(255, 255, 255, 0.1);
-  --lang-switcher-hover-bg: rgba(255, 255, 255, 0.2);
-  --lang-switcher-text-color: #ffffff;
-  --lang-switcher-active-color: #87CEEB;
-  --lang-switcher-border-color: rgba(255, 255, 255, 0.2);
   --text-color: #ffffff;
+  --text-glow-color-light: rgba(255, 255, 255, 0.5);
+  --text-glow-color-accent: rgba(135, 206, 250, 0.8);
   --text-gradient-start: #ffffff;
   --text-gradient-middle: #ADD8E6;
   --text-gradient-end: #87CEEB;
+
   --container-bg: rgba(255, 255, 255, 0.08);
   --box-shadow-color: rgba(0, 0, 0, 0.3);
+  --icon-hover-scale: 1.15;
+  --icon-shadow-color: rgba(0, 0, 0, 0.4);
+
+  --scrollbar-track-color: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb-color: rgba(135, 206, 250, 0.6);
+  --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9);
+
+  --lang-switcher-bg: rgba(255, 255, 255, 0.12);
+  --lang-switcher-hover-bg: rgba(255, 255, 255, 0.25);
+  --lang-switcher-text-color: #ffffff;
+  --lang-switcher-active-color: #87CEEB;
+  --lang-switcher-border-color: rgba(255, 255, 255, 0.2);
 }
 
 * {
@@ -53,7 +63,7 @@ h1 {
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
   animation: textGradientFlow 6s linear infinite;
-  text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(135,206,250,0.8), 0 0 15px rgba(135,206,250,0.8);
+  text-shadow: 0 0 5px var(--text-glow-color-light), 0 0 10px var(--text-glow-color-accent), 0 0 15px var(--text-glow-color-accent);
 }
 
 @keyframes textGradientFlow {
@@ -63,13 +73,29 @@ h1 {
 
 .icon-row {
   display: flex;
+  overflow-x: auto;
   gap: 24px;
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  scroll-behavior: smooth;
+}
+
+.icon-row::-webkit-scrollbar {
+  height: 6px;
+  background-color: var(--scrollbar-track-color);
+  border-radius: 3px;
+}
+
+.icon-row::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  border-radius: 3px;
 }
 
 .icon-item {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +105,7 @@ h1 {
 }
 
 .icon-item:hover {
-  transform: scale(1.1);
+  transform: scale(var(--icon-hover-scale));
 }
 
 .icon-img {
@@ -88,8 +114,8 @@ h1 {
   object-fit: contain;
   border-radius: 14px;
   margin-bottom: 8px;
+  box-shadow: 0 4px 10px var(--icon-shadow-color);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .icon-label {
@@ -108,41 +134,25 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  align-items: center;
-  background: var(--lang-switcher-bg);
-  padding: 8px;
-  border-radius: 30px;
-  border: 1px solid var(--lang-switcher-border-color);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  overflow: hidden;
-  transition: width 0.3s ease, padding 0.3s ease;
-  width: 80px;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
+  gap: 16px;
+  background: var(--lang-switcher-bg);
+  padding: 10px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--lang-switcher-border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   user-select: none;
   touch-action: pan-x;
 }
 
-.language-switcher.expanded {
-  width: 240px;
-  justify-content: space-between;
-  padding: 8px 16px;
-}
-
 .lang-option {
   color: var(--lang-switcher-text-color);
-  font-size: 15px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  transition: all 0.3s ease;
+  font-size: 16px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  transition: background 0.3s ease, color 0.3s ease;
   cursor: pointer;
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.language-switcher.expanded .lang-option {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .lang-option.active {
@@ -153,4 +163,32 @@ h1 {
 
 .lang-option:hover {
   background: var(--lang-switcher-hover-bg);
+}
+
+@media (max-width: 480px) {
+  .donate-container {
+    padding: 20px;
+    border-radius: 18px;
+  }
+  h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  .icon-img {
+    width: 50px;
+    height: 50px;
+  }
+  .icon-label {
+    font-size: 12px;
+    max-width: 60px;
+  }
+  .language-switcher {
+    bottom: 15px;
+    gap: 10px;
+    padding: 6px 12px;
+  }
+  .lang-option {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
 }
