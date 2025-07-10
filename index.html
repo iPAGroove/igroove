@@ -1,426 +1,505 @@
 <!DOCTYPE html>
+
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Donate iPAGroove</title>
-    <style>
-        /* Добавил CSS переменные для удобства */
-        :root {
-            /* Обновленные переменные для текста - теперь голубовато-синие */
-            --text-color: #ffffff; /* Основной белый цвет для четкости */
-            --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
-            --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
-            --text-gradient-start: #ffffff; /* Начало градиента: белый */
-            --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
-            --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
 
-            --container-bg: rgba(255, 255, 255, 0.08);
-            --box-shadow-color: rgba(0, 0, 0, 0.3);
-            --icon-hover-scale: 1.15;
-            --icon-shadow-color: rgba(0, 0, 0, 0.4);
-            
-            /* Скроллбар тоже сделаем в тон, голубоватым */
-            --scrollbar-track-color: rgba(255, 255, 255, 0.05);
-            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
-            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
-        }
+    <meta charset="UTF-8" />
 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Donate iPAGroove</title>
 
-        body {
-            height: 100vh;
-            background: url('https://github.com/iPAGroove/igroove/blob/main/images/IMG_6677.jpeg?raw=true') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow: hidden;
-        }
+    <style>
 
-        .donate-container {
-            background: var(--container-bg);
-            border-radius: 24px;
-            padding: 30px;
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(18px);
-            /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
-            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        /* Добавил CSS переменные для удобства */
 
-        /* Контейнер для Canvas и текста */
-        .flame-title-wrapper {
-            position: relative;
-            display: inline-block; /* Важно, чтобы обертка была по ширине текста */
-            margin-bottom: 25px; /* Отступ под заголовком */
-            /* Эти значения обеспечивают пространство для пламени над текстом */
-            min-width: 100%; /* Убедимся, что он охватывает весь заголовок */
-            height: 80px; /* Высота для текста и пламени над ним. Подстройте под свой вкус */
-            overflow: hidden; /* Обрезаем пламя, которое выходит за границы */
-            display: flex; /* Для выравнивания h1 и canvas */
-            justify-content: center; /* Центрируем h1 и canvas внутри wrapper */
-            align-items: flex-end; /* Выравниваем по низу, чтобы пламя было над текстом */
-            box-sizing: border-box; /* Учитываем padding/border в размере */
-            padding-bottom: 5px; /* Небольшой отступ, чтобы пламя было над буквами */
-        }
+        :root {
 
-        h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            /* margin-bottom: 25px; // Убираем отсюда, т.к. wrapper управляет отступом */
-            
-            color: var(--text-color); /* Основной белый цвет для четкости */
-            
-            /* Возвращаем градиент */
-            background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: textGradientFlow 6s linear infinite;
+            /* Обновленные переменные для текста - теперь голубовато-синие */
 
-            /* Возвращаем голубовато-синюю тень */
-            text-shadow: 
-                0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
-                0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
-                0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
+            --text-color: #ffffff; /* Основной белый цвет для четкости */
 
-            position: relative; /* Чтобы текст был над канвасом для mix-blend-mode */
-            z-index: 2; /* Текст должен быть выше Canvas */
-            /* pointer-events: none; // Убираем, если хотим, чтобы текст был интерактивным, но тогда Canvas должен быть фоновым */
-        }
+            --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
 
-        /* Анимация движения градиента текста */
-        @keyframes textGradientFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
+            --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
 
-        #flameCanvas {
-            position: absolute;
-            /* top: 0; // Убираем top:0, чтобы Canvas был позиционирован относительно нижней части wrapper */
-            bottom: 0; /* Привязываем к низу flame-title-wrapper */
-            left: 0;
-            width: 100%; /* Заполнит всю ширину .flame-title-wrapper */
-            height: 100%; /* Заполнит всю высоту .flame-title-wrapper */
-            z-index: 1; /* Canvas под текстом */
-            pointer-events: none; /* Canvas не должен ловить события мыши */
-            /* Добавляем эффект смешивания, чтобы пламя "светилось" сквозь текст */
-            mix-blend-mode: screen; /* или lighter, overlay, hard-light, color-dodge */
-            /* filter: brightness(1.5) contrast(1.2); // Можно добавить для усиления яркости пламени */
-        }
+            --text-gradient-start: #ffffff; /* Начало градиента: белый */
 
-        /* ... (Остальные твои стили icon-row, icon-item, icon-img, icon-label и медиа-запросы остаются без изменений) ... */
+            --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
 
-        .icon-row {
-            display: flex;
-            overflow-x: auto;
-            gap: 24px;
-            justify-content: center;
-            align-items: center;
-            padding-bottom: 10px;
+            --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
 
-            scrollbar-width: thin;
-            scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
-            scroll-behavior: smooth;
-        }
 
-        .icon-row::-webkit-scrollbar {
-            height: 6px;
-            background-color: var(--scrollbar-track-color);
-            border-radius: 3px;
-        }
 
-        .icon-row::-webkit-scrollbar-thumb {
-            background-color: var(--scrollbar-thumb-color);
-            border-radius: 3px;
-            transition: background-color 0.3s ease;
-        }
 
-        .icon-row::-webkit-scrollbar-thumb:hover {
-            background-color: var(--scrollbar-thumb-hover-color);
-        }
 
-        .icon-item {
-            flex: 0 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            transition: transform 0.3s ease;
-        }
+            --container-bg: rgba(255, 255, 255, 0.08);
 
-        .icon-item:hover {
-            transform: scale(var(--icon-hover-scale));
-        }
+            --box-shadow-color: rgba(0, 0, 0, 0.3);
 
-        .icon-img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            border-radius: 14px;
-            margin-bottom: 8px;
-            box-shadow: 0 4px 10px var(--icon-shadow-color);
-            background: rgba(255, 255, 255, 0.1);
-        }
+            --icon-hover-scale: 1.15;
 
-        .icon-label {
-            font-size: 13px;
-            text-align: center;
-            max-width: 80px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+            --icon-shadow-color: rgba(0, 0, 0, 0.4);
 
-        /* Медиа-запросы для адаптации */
-        @media (max-width: 480px) {
-            .donate-container {
-                padding: 20px;
-                border-radius: 18px;
-            }
+            
 
-            .flame-title-wrapper {
-                height: 60px; /* Уменьшаем для мобильных */
-                margin-bottom: 20px;
-                padding-bottom: 3px; /* Меньший отступ для меньшего размера шрифта */
-            }
+            /* Скроллбар тоже сделаем в тон, голубоватым */
 
-            h1 {
-                font-size: 26px;
-                /* margin-bottom: 20px; // Убираем отсюда */
-            }
-            
-            .icon-img {
-                width: 50px;
-                height: 50px;
-            }
+            --scrollbar-track-color: rgba(255, 255, 255, 0.05);
 
-            .icon-label {
-                font-size: 12px;
-                max-width: 60px;
-            }
+            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
 
-            .icon-row {
-                gap: 16px;
-                padding-bottom: 8px;
-            }
-            .icon-row::-webkit-scrollbar {
-                height: 4px;
-            }
-        }
+            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
 
-        @media (max-width: 320px) {
-            .flame-title-wrapper {
-                height: 50px; /* Еще уменьшаем для очень маленьких экранов */
-                margin-bottom: 18px;
-                padding-bottom: 2px;
-            }
-            h1 {
-                font-size: 20px;
-                /* margin-bottom: 18px; // Убираем отсюда */
-            }
-            .icon-img {
-                width: 45px;
-                height: 45px;
-            }
-            .icon-label {
-                font-size: 11px;
-                max-width: 55px;
-            }
-        }
-    </style>
+        }
+
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            height: 100vh;
+
+            background: url('https://github.com/iPAGroove/igroove/blob/main/images/IMG_6677.jpeg?raw=true') no-repeat center center fixed;
+
+            background-size: cover;
+
+            font-family: 'Poppins', sans-serif;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .donate-container {
+
+            background: var(--container-bg);
+
+            border-radius: 24px;
+
+            padding: 30px;
+
+            max-width: 600px;
+
+            width: 100%;
+
+            text-align: center;
+
+            backdrop-filter: blur(18px);
+
+            /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
+
+            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        }
+
+
+
+        h1 {
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 32px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 25px;
+
+
+
+            color: var(--text-color); /* Основной белый цвет для четкости */
+
+            
+
+            /* Упрощенный, более четкий голубоватый градиент */
+
+            background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            background-size: 200% auto;
+
+            animation: textGradientFlow 6s linear infinite;
+
+
+
+            /* Голубовато-синяя тень */
+
+            text-shadow: 
+
+                0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
+
+                0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
+
+                0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
+
+        }
+
+
+
+        /* Анимация движения градиента текста */
+
+        @keyframes textGradientFlow {
+
+            0% { background-position: 0% 50%; }
+
+            100% { background-position: 200% 50%; }
+
+        }
+
+
+
+        /* Анимация свечения текста - можно удалить, если не используется напрямую */
+
+        @keyframes glow {
+
+            0% { 
+
+                text-shadow: 
+
+                    0 0 5px var(--text-glow-color-light),
+
+                    0 0 10px var(--text-glow-color-accent),
+
+                    0 0 15px var(--text-glow-color-accent);
+
+            }
+
+            100% { 
+
+                text-shadow: 
+
+                    0 0 8px var(--text-glow-color-light),
+
+                    0 0 15px var(--text-glow-color-accent),
+
+                    0 0 25px var(--text-glow-color-accent);
+
+            }
+
+        }
+
+
+
+        .icon-row {
+
+            display: flex;
+
+            overflow-x: auto;
+
+            gap: 24px;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding-bottom: 10px;
+
+
+
+            scrollbar-width: thin;
+
+            scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+
+            scroll-behavior: smooth;
+
+        }
+
+
+
+        .icon-row::-webkit-scrollbar {
+
+            height: 6px;
+
+            background-color: var(--scrollbar-track-color);
+
+            border-radius: 3px;
+
+        }
+
+
+
+        .icon-row::-webkit-scrollbar-thumb {
+
+            background-color: var(--scrollbar-thumb-color);
+
+            border-radius: 3px;
+
+            transition: background-color 0.3s ease;
+
+        }
+
+
+
+        .icon-row::-webkit-scrollbar-thumb:hover {
+
+            background-color: var(--scrollbar-thumb-hover-color);
+
+        }
+
+
+
+        .icon-item {
+
+            flex: 0 0 auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            text-decoration: none;
+
+            color: white;
+
+            transition: transform 0.3s ease;
+
+        }
+
+
+
+        .icon-item:hover {
+
+            transform: scale(var(--icon-hover-scale));
+
+        }
+
+
+
+        .icon-img {
+
+            width: 60px;
+
+            height: 60px;
+
+            object-fit: contain;
+
+            border-radius: 14px;
+
+            margin-bottom: 8px;
+
+            box-shadow: 0 4px 10px var(--icon-shadow-color);
+
+            background: rgba(255, 255, 255, 0.1);
+
+        }
+
+
+
+        .icon-label {
+
+            font-size: 13px;
+
+            text-align: center;
+
+            max-width: 80px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+        }
+
+
+
+        /* Медиа-запросы для адаптации */
+
+        @media (max-width: 480px) {
+
+            .donate-container {
+
+                padding: 20px;
+
+                border-radius: 18px;
+
+            }
+
+
+
+            h1 {
+
+                font-size: 26px;
+
+                margin-bottom: 20px;
+
+            }
+
+
+
+            .icon-img {
+
+                width: 50px;
+
+                height: 50px;
+
+            }
+
+
+
+            .icon-label {
+
+                font-size: 12px;
+
+                max-width: 60px;
+
+            }
+
+
+
+            .icon-row {
+
+                gap: 16px;
+
+                padding-bottom: 8px;
+
+            }
+
+            .icon-row::-webkit-scrollbar {
+
+                height: 4px;
+
+            }
+
+        }
+
+
+
+        @media (max-width: 320px) {
+
+            h1 {
+
+                font-size: 20px;
+
+                margin-bottom: 18px;
+
+            }
+
+            .icon-img {
+
+                width: 45px;
+
+                height: 45px;
+
+            }
+
+            .icon-label {
+
+                font-size: 11px;
+
+                max-width: 55px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 <body>
-    <div class="donate-container">
-        <div class="flame-title-wrapper">
-            <h1>Donate iPAGroove</h1>
-            <canvas id="flameCanvas"></canvas>
-        </div>
-        <div class="icon-row">
-            <a href="ВАША_ССЫЛКА_НА_ПРИВАТ" class="icon-item" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
-                <span class="icon-label">ПриватБанк</span>
-            </a>
 
-            <a href="ВАША_ССЫЛКА_НА_МОНОБАНК" class="icon-item" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6669.jpeg?raw=true" alt="Монобанк" class="icon-img">
-                <span class="icon-label">Монобанк</span>
-            </a>
+    <div class="donate-container">
 
-            <a href="ВАША_ССЫЛКА_НА_PAYPAL" class="icon-item" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6667.jpeg?raw=true" alt="PayPal" class="icon-img">
-                <span class="icon-label">PayPal</span>
-            </a>
+        <h1>Donate iPAGroove</h1>
 
-            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-item" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/binance.png?raw=true" alt="Binance" class="icon-img">
-                <span class="icon-label">Binance</span>
-            </a>
+        <div class="icon-row">
 
-            <a href="ВАША_ССЫЛКА_НА_ABANK" class="icon-item" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
-                <span class="icon-label">ABank</span>
-            </a>
+            <a href="ВАША_ССЫЛКА_НА_ПРИВАТ" class="icon-item" target="_blank">
 
-            <a href="ВАША_ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-item" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
-                <span class="icon-label">Telegram</span>
-            </a>
-        </div>
-    </div>
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
 
-    <script>
-        const canvas = document.getElementById('flameCanvas');
-        const gl = canvas.getContext('webgl');
+                <span class="icon-label">ПриватБанк</span>
 
-        if (!gl) {
-            console.error('WebGL not supported');
-            alert('Ваш браузер не поддерживает WebGL, эффект пламени не будет виден.');
-        }
+            </a>
 
-        const vsSource = `
-            attribute vec4 aPosition;
-            void main() {
-                gl_Position = aPosition;
-            }
-        `;
 
-        async function loadShaderSource(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return await response.text();
-            } catch (error) {
-                console.error('Failed to load shader source:', error);
-                return null;
-            }
-        }
 
-        async function init() {
-            const fsSource = await loadShaderSource('flame.frag'); // <- Убедись, что flame.frag лежит рядом с index.html
-            if (!fsSource) {
-                console.error("Fragment shader source not loaded. Aborting WebGL initialization.");
-                return;
-            }
+            <a href="ВАША_ССЫЛКА_НА_МОНОБАНК" class="icon-item" target="_blank">
 
-            function createShader(gl, type, source) {
-                const shader = gl.createShader(type);
-                gl.shaderSource(shader, source);
-                gl.compileShader(shader);
-                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                    console.error('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
-                    gl.deleteShader(shader);
-                    return null;
-                }
-                return shader;
-            }
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6669.jpeg?raw=true" alt="Монобанк" class="icon-img">
 
-            function initShaderProgram(gl, vsSource, fsSource) {
-                const vertexShader = createShader(gl, gl.VERTEX_SHADER, vsSource);
-                const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+                <span class="icon-label">Монобанк</span>
 
-                const shaderProgram = gl.createProgram();
-                gl.attachShader(shaderProgram, vertexShader);
-                gl.attachShader(shaderProgram, fragmentShader);
-                gl.linkProgram(shaderProgram);
+            </a>
 
-                if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                    console.error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
-                    return null;
-                }
-                return shaderProgram;
-            }
 
-            const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-            if (!shaderProgram) {
-                console.error("Shader program failed to initialize. Aborting WebGL initialization.");
-                return;
-            }
 
-            const positionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            <a href="ВАША_ССЫЛКА_НА_PAYPAL" class="icon-item" target="_blank">
 
-            const positions = [
-                -1.0,  1.0,  // Top-left
-                 1.0,  1.0,  // Top-right
-                -1.0, -1.0,  // Bottom-left
-                 1.0, -1.0,  // Bottom-right
-            ];
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6667.jpeg?raw=true" alt="PayPal" class="icon-img">
 
-            const positionLocation = gl.getAttribLocation(shaderProgram, 'aPosition');
-            gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-            gl.enableVertexAttribArray(positionLocation);
+                <span class="icon-label">PayPal</span>
 
-            const resolutionLocation = gl.getUniformLocation(shaderProgram, 'iResolution');
-            const timeLocation = gl.getUniformLocation(shaderProgram, 'iTime');
+            </a>
 
-            let startTime = Date.now();
 
-            function render() {
-                const now = Date.now();
-                const elapsedTime = (now - startTime) * 0.001; // Время в секундах
 
-                const wrapper = document.querySelector('.flame-title-wrapper');
-                // Убедимся, что размеры canvas соответствуют размерам wrapper
-                const dpr = window.devicePixelRatio || 1; // Учитываем Retina-дисплеи
-                canvas.width = wrapper.offsetWidth * dpr;
-                canvas.height = wrapper.offsetHeight * dpr;
-                canvas.style.width = wrapper.offsetWidth + 'px'; // Устанавливаем CSS-размеры
-                canvas.style.height = wrapper.offsetHeight + 'px';
+            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-item" target="_blank">
 
-                gl.viewport(0, 0, canvas.width, canvas.height);
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/binance.png?raw=true" alt="Binance" class="icon-img">
 
-                gl.clearColor(0.0, 0.0, 0.0, 0.0); // Прозрачный фон
-                gl.clear(gl.COLOR_BUFFER_BIT);
+                <span class="icon-label">Binance</span>
 
-                gl.useProgram(shaderProgram);
-                gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-                gl.uniform1f(timeLocation, elapsedTime);
+            </a>
 
-                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-                requestAnimationFrame(render);
-            }
 
-            render();
+            <a href="ВАША_ССЫЛКА_НА_ABANK" class="icon-item" target="_blank">
 
-            // Автоматическое изменение размера canvas при изменении размера окна
-            window.addEventListener('resize', () => {
-                // Вызов render() в resize event listener не нужен, т.к. requestAnimationFrame уже это делает.
-                // Просто убедимся, что Wrapper изменяет размер, и Canvas подстроится.
-            });
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
 
-            // Дополнительно: наблюдение за размером flame-title-wrapper
-            const resizeObserver = new ResizeObserver(entries => {
-                for (let entry of entries) {
-                    if (entry.target === document.querySelector('.flame-title-wrapper')) {
-                        // При изменении размеров wrapper, перерисовываем canvas
-                        // Это также будет учтено в следующем кадре render()
-                    }
-                }
-            });
-            resizeObserver.observe(document.querySelector('.flame-title-wrapper'));
+                <span class="icon-label">ABank</span>
 
-        }
+            </a>
 
-        init(); // Запускаем инициализацию шейдера
-    </script>
+
+
+            <a href="ВАША_ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-item" target="_blank">
+
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
+
+                <span class="icon-label">Telegram</span>
+
+            </a>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>
