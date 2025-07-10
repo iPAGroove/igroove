@@ -44,34 +44,34 @@ document.addEventListener('DOMContentLoaded', () => {
             en: {
                 title: 'Monobank',
                 contentHtml: `
-                    <p>Card Number: <b>YYYY YYYY YYYY YYYY</b></p>
-                    <p>Full Name: <b>Maria Ivanova</b></p>
+                    <p>Card Number: <b>4441 1110 5393 7169</b></p>
+                    <p>Full Name: <b>Liudmyla F.</b></p>
                     <p>Purpose of payment: <b>Support</b></p>
                 `,
                 buttonText: 'Copy card number',
-                copyButtonData: 'YYYY YYYY YYYY YYYY',
+                copyButtonData: '4441 1110 5393 7169',
                 note: 'Your support is very important to us!'
             },
             ru: {
                 title: 'Монобанк',
                 contentHtml: `
-                    <p>Номер карты: <b>YYYY YYYY YYYY YYYY</b></p>
-                    <p>ФИО: <b>Мария Иванова</b></p>
+                    <p>Номер карты: <b>4441 1110 5393 7169</b></p>
+                    <p>ФИО: <b>Людмила Ф.</b></p>
                     <p>Назначение платежа: <b>Поддержка</b></p>
                 `,
                 buttonText: 'Копировать номер карты',
-                copyButtonData: 'YYYY YYYY YYYY YYYY',
+                copyButtonData: '4441 1110 5393 7169',
                 note: 'Ваша поддержка очень важна для нас!'
             },
             ua: {
                 title: 'Монобанк',
                 contentHtml: `
-                    <p>Номер картки: <b>YYYY YYYY YYYY YYYY</b></p>
-                    <p>ПІБ: <b>Марія Іванова</b></p>
+                    <p>Номер картки: <b>4441 1110 5393 7169</b></p>
+                    <p>ПІБ: <b>Людмила Ф.</b></p>
                     <p>Призначення платежу: <b>Підтримка</b></p>
                 `,
                 buttonText: 'Копіювати номер картки',
-                copyButtonData: 'YYYY YYYY YYYY YYYY',
+                copyButtonData: '4441 1110 5393 7169',
                 note: 'Ваша підтримка дуже важлива для нас!'
             }
         },
@@ -270,18 +270,27 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Добавляем новый обработчик события
             if (data.payButtonUrl) {
-                existingButton.removeEventListener('click', handleCopyClick); // Удаляем старый обработчик копирования
+                existingButton.removeEventListener('click', handleCopyClick); // Удаляем старый обработчик копирования (если был)
                 existingButton.addEventListener('click', () => {
                     window.open(data.payButtonUrl, '_blank');
                 });
             } else if (data.copyButtonData) {
-                existingButton.removeEventListener('click', handlePayClick); // Удаляем старый обработчик оплаты
+                existingButton.removeEventListener('click', handlePayClick); // Удаляем старый обработчик оплаты (если был)
                 existingButton.addEventListener('click', async () => {
                     const textToCopy = data.copyButtonData;
                     try {
                         await navigator.clipboard.writeText(textToCopy);
                         const originalText = existingButton.textContent;
-                        existingButton.textContent = translations[lang].buttonText === 'Копировать номер карты' ? 'Скопировано!' : 'Copied!'; // Simplified to use translated 'Copied!'
+                        // Determine "Copied!" text based on current language or button type
+                        let copiedText = '';
+                        if (lang === 'ru') {
+                            copiedText = 'Скопировано!';
+                        } else if (lang === 'ua') {
+                            copiedText = 'Скопійовано!';
+                        } else {
+                            copiedText = 'Copied!';
+                        }
+                        existingButton.textContent = copiedText; 
                         setTimeout(() => {
                             existingButton.textContent = originalText;
                         }, 1500);
@@ -316,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Dummy functions to be removed from event listeners
+    // Dummy functions for removeEventListener
     const handleCopyClick = () => {};
     const handlePayClick = () => {};
 
