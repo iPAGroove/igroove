@@ -1,155 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Donate iPAGroove</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+<html lang="ru"> <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Donate iPAGroove</title>
+    <style>
+        /* Добавил CSS переменные для удобства */
+        :root {
+            --text-gradient-start: #ffffff;
+            --text-gradient-middle: #a37fff;
+            --text-glow-shadow: rgba(163, 127, 255, 0.7); /* Цвет для тени текста */
+            --container-bg: rgba(255, 255, 255, 0.08); /* Чуть ярче фон контейнера */
+            --box-shadow-color: rgba(0, 0, 0, 0.3); /* Цвет тени контейнера */
+            --icon-hover-scale: 1.15; /* Увеличил масштаб при наведении */
+            --icon-shadow-color: rgba(0, 0, 0, 0.4); /* Тень для иконок */
+            --scrollbar-thumb-color: rgba(163, 127, 255, 0.7); /* Цвет скроллбара */
+            --scrollbar-thumb-hover-color: rgba(255, 255, 255, 0.8); /* Цвет скроллбара при наведении */
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
 
-    body {
-      height: 100vh;
-      background: url('https://github.com/iPAGroove/igroove/blob/main/images/IMG_6677.jpeg?raw=true') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .donate-container {
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 24px;
-      padding: 30px;
-      max-width: 600px;
-      width: 100%;
-      text-align: center;
-      backdrop-filter: blur(18px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    }
+        body {
+            height: 100vh;
+            /* Твой фон отличный! Оставляем его. */
+            background: url('https://github.com/iPAGroove/igroove/blob/main/images/IMG_6677.jpeg?raw=true') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    h1 {
-      font-size: 28px;
-      background: linear-gradient(45deg, #ffffff, #a37fff, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 3s ease-in-out infinite alternate;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-    }
+        .donate-container {
+            background: var(--container-bg); /* Использование переменной */
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(18px);
+            /* Улучшил тень, добавив легкое свечение */
+            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(163, 127, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Добавил легкую границу */
+        }
 
-    @keyframes glow {
-      0% { text-shadow: 0 0 4px #ffffff55, 0 0 10px #a37fff44; }
-      100% { text-shadow: 0 0 10px #ffffffaa, 0 0 18px #a37fff; }
-    }
+        h1 {
+            font-size: 28px;
+            background: linear-gradient(45deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-start)); /* Использование переменных */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
 
-    .icon-row {
-      display: flex;
-      overflow-x: auto;
-      gap: 24px;
-      justify-content: center;
-      align-items: center;
-    }
+        @keyframes glow {
+            0% { text-shadow: 0 0 4px #ffffff55, 0 0 10px var(--text-glow-shadow); }
+            100% { text-shadow: 0 0 10px #ffffffaa, 0 0 18px var(--text-glow-shadow); }
+        }
 
-    .icon-item {
-      flex: 0 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: white;
-      transition: transform 0.3s ease;
-    }
+        .icon-row {
+            display: flex;
+            overflow-x: auto; /* Позволяем прокрутку */
+            gap: 24px;
+            justify-content: center; /* Центрируем иконки, если их мало */
+            align-items: center;
+            padding-bottom: 10px; /* Отступ для скроллбара */
 
-    .icon-item:hover {
-      transform: scale(1.1);
-    }
+            /* Красивая прокрутка для Firefox */
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb-color) transparent;
+        }
 
-    .icon-img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      border-radius: 14px;
-      margin-bottom: 8px;
-    }
+        /* Красивая прокрутка для Webkit-браузеров (Chrome, Safari) */
+        .icon-row::-webkit-scrollbar {
+            height: 6px; /* Высота скроллбара */
+            background-color: transparent; /* Фон скроллбара */
+        }
 
-    .icon-label {
-      font-size: 13px;
-      text-align: center;
-      max-width: 80px;
-    }
+        .icon-row::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb-color); /* Цвет ползунка */
+            border-radius: 3px; /* Закругленные углы ползунка */
+        }
 
-    .icon-row::-webkit-scrollbar {
-      display: none;
-    }
+        .icon-row::-webkit-scrollbar-thumb:hover {
+            background-color: var(--scrollbar-thumb-hover-color); /* Цвет ползунка при наведении */
+        }
 
-    @media (max-width: 480px) {
-      .donate-container {
-        padding: 20px;
-      }
+        .icon-item {
+            flex: 0 0 auto; /* Запрещаем сжиматься, сохраняем размер */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s ease;
+        }
 
-      h1 {
-        font-size: 22px;
-      }
+        .icon-item:hover {
+            transform: scale(var(--icon-hover-scale)); /* Использование переменной */
+        }
 
-      .icon-img {
-        width: 50px;
-        height: 50px;
-      }
+        .icon-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 10px var(--icon-shadow-color); /* Более мягкая тень для иконок */
+            background: rgba(255, 255, 255, 0.1); /* Легкий фон для иконки */
+        }
 
-      .icon-label {
-        font-size: 12px;
-        max-width: 70px;
-      }
+        .icon-label {
+            font-size: 13px;
+            text-align: center;
+            max-width: 80px;
+            white-space: nowrap; /* Не переносить текст на новую строку */
+            overflow: hidden; /* Скрыть, если не помещается */
+            text-overflow: ellipsis; /* Добавить многоточие, если текст обрезан */
+        }
 
-      .icon-row {
-        gap: 16px;
-      }
-    }
-  </style>
+        /* Медиа-запросы для адаптации */
+        @media (max-width: 480px) {
+            .donate-container {
+                padding: 20px;
+                border-radius: 18px; /* Чуть меньше закругление на маленьких */
+            }
+
+            h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            .icon-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .icon-label {
+                font-size: 12px;
+                max-width: 60px; /* Немного уменьшил max-width для лейблов */
+            }
+
+            .icon-row {
+                gap: 16px;
+                padding-bottom: 8px; /* Уменьшил padding-bottom для скроллбара */
+            }
+            .icon-row::-webkit-scrollbar {
+                height: 4px; /* Более тонкий скроллбар на мобильных */
+            }
+        }
+
+        @media (max-width: 320px) { /* Для очень маленьких экранов */
+            h1 {
+                font-size: 18px;
+            }
+            .icon-img {
+                width: 45px;
+                height: 45px;
+            }
+            .icon-label {
+                font-size: 11px;
+                max-width: 55px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="donate-container">
-    <h1>Donate iPAGroove</h1>
-    <div class="icon-row">
-      <a href="ССЫЛКА_НА_ПРИВАТ" class="icon-item" target="_blank">
-        <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
-        <span class="icon-label">ПриватБанк</span>
-      </a>
+    <div class="donate-container">
+        <h1>Donate iPAGroove</h1>
+        <div class="icon-row">
+            <a href="ВАША_ССЫЛКА_НА_ПРИВАТ" class="icon-item" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
+                <span class="icon-label">ПриватБанк</span>
+            </a>
 
-      <a href="ССЫЛКА_НА_МОНОБАНК" class="icon-item" target="_blank">
-        <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6669.jpeg?raw=true" alt="Монобанк" class="icon-img">
-        <span class="icon-label">Монобанк</span>
-      </a>
+            <a href="ВАША_ССЫЛКА_НА_МОНОБАНК" class="icon-item" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6669.jpeg?raw=true" alt="Монобанк" class="icon-img">
+                <span class="icon-label">Монобанк</span>
+            </a>
 
-      <a href="ССЫЛКА_НА_PAYPAL" class="icon-item" target="_blank">
-        <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6667.jpeg?raw=true" alt="PayPal" class="icon-img">
-        <span class="icon-label">PayPal</span>
-      </a>
+            <a href="ВАША_ССЫЛКА_НА_PAYPAL" class="icon-item" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6667.jpeg?raw=true" alt="PayPal" class="icon-img">
+                <span class="icon-label">PayPal</span>
+            </a>
 
-      <a href="ССЫЛКА_НА_BINANCE" class="icon-item" target="_blank">
-        <img src="https://github.com/iPAGroove/igroove/blob/main/images/binance.png?raw=true" alt="Binance" class="icon-img">
-        <span class="icon-label">Binance</span>
-      </a>
+            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-item" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/binance.png?raw=true" alt="Binance" class="icon-img">
+                <span class="icon-label">Binance</span>
+            </a>
 
-      <a href="ССЫЛКА_НА_ABANK" class="icon-item" target="_blank">
-        <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
-        <span class="icon-label">ABank</span>
-      </a>
+            <a href="ВАША_ССЫЛКА_НА_ABANK" class="icon-item" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
+                <span class="icon-label">ABank</span>
+            </a>
 
-      <a href="ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-item" target="_blank">
-        <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
-        <span class="icon-label">Telegram</span>
-      </a>
+            <a href="ВАША_ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-item" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
+                <span class="icon-label">Telegram</span>
+            </a>
+        </div>
     </div>
-  </div>
 </body>
 </html>
