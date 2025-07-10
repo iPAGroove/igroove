@@ -148,6 +148,7 @@ h1 {
   transition: width 0.3s ease, padding 0.3s ease, background 0.3s ease, opacity 0.3s ease;
   overflow: hidden; /* Скрывает элементы, которые выходят за рамки */
   white-space: nowrap; /* Предотвращает перенос текста */
+  z-index: 1002; /* НОВЫЙ Z-INDEX: Выше модального окна (1000) и оверлея (999) */
 }
 
 .lang-option {
