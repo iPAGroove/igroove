@@ -1,32 +1,26 @@
-/* Добавил CSS переменные для удобства */
 :root {
-    /* Обновленные переменные для текста - теперь голубовато-синие */
-    --text-color: #ffffff; /* Основной белый цвет для четкости */
-    --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
-    --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
-    --text-gradient-start: #ffffff; /* Начало градиента: белый */
-    --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
-    --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
+    --text-color: #ffffff;
+    --text-glow-color-light: rgba(255, 255, 255, 0.5);
+    --text-glow-color-accent: rgba(135, 206, 250, 0.8);
+    --text-gradient-start: #ffffff;
+    --text-gradient-middle: #ADD8E6;
+    --text-gradient-end: #87CEEB;
 
     --container-bg: rgba(255, 255, 255, 0.08);
     --box-shadow-color: rgba(0, 0, 0, 0.3);
     --icon-hover-scale: 1.15;
     --icon-shadow-color: rgba(0, 0, 0, 0.4);
-    
-    /* Скроллбар тоже сделаем в тон, голубоватым */
-    --scrollbar-track-color: rgba(255, 255, 255, 0.05);
-    --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
-    --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
 
-    /* Переменные для переключателя языка */
+    --scrollbar-track-color: rgba(255, 255, 255, 0.05);
+    --scrollbar-thumb-color: rgba(135, 206, 250, 0.6);
+    --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9);
+
     --lang-switcher-bg: rgba(255, 255, 255, 0.1);
     --lang-switcher-hover-bg: rgba(255, 255, 255, 0.2);
     --lang-switcher-text-color: #ffffff;
     --lang-switcher-active-color: #87CEEB;
     --lang-switcher-border-color: rgba(255, 255, 255, 0.2);
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
 
 * {
     margin: 0;
@@ -44,6 +38,7 @@ body {
     align-items: center;
     padding: 20px;
     overflow: hidden;
+    position: relative;
 }
 
 .donate-container {
@@ -54,54 +49,26 @@ body {
     width: 100%;
     text-align: center;
     backdrop-filter: blur(18px);
-    /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
-    box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
+    box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
-    font-family: 'Poppins', sans-serif;
     font-size: 32px;
     font-weight: 700;
-    letter-spacing: 1px;
     margin-bottom: 25px;
-
-    color: var(--text-color); /* Основной белый цвет для четкости */
-    
-    /* Упрощенный, более четкий голубоватый градиент */
-    background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
+    color: var(--text-color);
+    background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
     animation: textGradientFlow 6s linear infinite;
-
-    /* Голубовато-синяя тень */
-    text-shadow: 
-        0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
-        0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
-        0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
+    text-shadow: 0 0 5px var(--text-glow-color-light), 0 0 10px var(--text-glow-color-accent), 0 0 15px var(--text-glow-color-accent);
 }
 
-/* Анимация движения градиента текста */
 @keyframes textGradientFlow {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
-}
-
-/* Анимация свечения текста - можно удалить, если не используется напрямую */
-@keyframes glow {
-    0% { 
-        text-shadow: 
-            0 0 5px var(--text-glow-color-light),
-            0 0 10px var(--text-glow-color-accent),
-            0 0 15px var(--text-glow-color-accent);
-    }
-    100% { 
-        text-shadow: 
-            0 0 8px var(--text-glow-color-light),
-            0 0 15px var(--text-glow-color-accent),
-            0 0 25px var(--text-glow-color-accent);
-    }
 }
 
 .icon-row {
@@ -111,7 +78,6 @@ h1 {
     justify-content: center;
     align-items: center;
     padding-bottom: 10px;
-
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
     scroll-behavior: smooth;
@@ -126,11 +92,6 @@ h1 {
 .icon-row::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb-color);
     border-radius: 3px;
-    transition: background-color 0.3s ease;
-}
-
-.icon-row::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar-thumb-hover-color);
 }
 
 .icon-item {
@@ -166,132 +127,69 @@ h1 {
     text-overflow: ellipsis;
 }
 
-/* Language Switcher Styles */
+/* Language Switcher */
 .language-switcher {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    color: var(--lang-switcher-text-color);
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    background: var(--lang-switcher-bg);
+    padding: 8px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--lang-switcher-border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     z-index: 1000;
+    user-select: none;
+    touch-action: pan-x;
 }
 
-.current-lang {
-    background: var(--lang-switcher-bg);
-    padding: 8px 12px;
-    border-radius: 8px;
+.lang-option {
+    color: var(--lang-switcher-text-color);
+    font-size: 16px;
+    padding: 6px 14px;
+    border-radius: 10px;
+    transition: background 0.3s ease, color 0.3s ease;
     cursor: pointer;
-    transition: background 0.3s ease;
-    border: 1px solid var(--lang-switcher-border-color);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.language-switcher:hover .current-lang {
+.lang-option.active {
     background: var(--lang-switcher-hover-bg);
-}
-
-.lang-options {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 5px;
-    background: var(--lang-switcher-bg);
-    border-radius: 8px;
-    padding: 5px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--lang-switcher-border-color);
-
-    /* Hide by default, show on hover */
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-}
-
-.language-switcher:hover .lang-options {
-    max-height: 150px; /* Adjust based on number of options */
-    padding: 8px 0;
-}
-
-.lang-options span {
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-    text-align: right;
-}
-
-.lang-options span:hover {
-    background: var(--lang-switcher-hover-bg);
-}
-
-.lang-options span.active {
     color: var(--lang-switcher-active-color);
     font-weight: 700;
 }
 
+.lang-option:hover {
+    background: var(--lang-switcher-hover-bg);
+}
 
-/* Медиа-запросы для адаптации */
 @media (max-width: 480px) {
     .donate-container {
         padding: 20px;
         border-radius: 18px;
     }
-
     h1 {
         font-size: 26px;
         margin-bottom: 20px;
     }
-
     .icon-img {
         width: 50px;
         height: 50px;
     }
-
     .icon-label {
         font-size: 12px;
         max-width: 60px;
     }
-
-    .icon-row {
-        gap: 16px;
-        padding-bottom: 8px;
-    }
-    .icon-row::-webkit-scrollbar {
-        height: 4px;
-    }
-
     .language-switcher {
         bottom: 15px;
-        right: 15px;
-        font-size: 13px;
+        gap: 10px;
+        padding: 6px 12px;
     }
-    .current-lang {
-        padding: 6px 10px;
-    }
-    .lang-options span {
+    .lang-option {
+        font-size: 14px;
         padding: 5px 10px;
-    }
-}
-
-@media (max-width: 320px) {
-    h1 {
-        font-size: 20px;
-        margin-bottom: 18px;
-    }
-    .icon-img {
-        width: 45px;
-        height: 45px;
-    }
-    .icon-label {
-        font-size: 11px;
-        max-width: 55px;
-    }
-    .language-switcher {
-        bottom: 10px;
-        right: 10px;
-        font-size: 12px;
     }
 }
