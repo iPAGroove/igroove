@@ -130,7 +130,6 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             max-width: 90%; /* Адаптивность */
             box-sizing: border-box;
-            /* Добавим минимальную ширину для main-content, чтобы уместить все иконки в одну строку на больших экранах */
             min-width: fit-content; /* Ширина по контенту */
             min-width: -moz-fit-content; /* Для Firefox */
         }
@@ -144,17 +143,25 @@
             color: #fff;
         }
 
-        .icon-container { /* Переименовал .icon-grid в .icon-container */
+        .icon-container {
             margin-top: 30px;
             display: flex; /* Используем flexbox */
             justify-content: center; /* Центрируем иконки */
             gap: 25px; /* Расстояние между иконками */
-            flex-wrap: nowrap; /* ! Важно: Запрещаем перенос на новую строку по умолчанию */
+            flex-wrap: nowrap; /* ! Важно: Запрещаем перенос на новую строку */
             overflow-x: auto; /* Позволяем горизонтальную прокрутку, если иконок очень много */
             padding-bottom: 10px; /* Отступ для скролла, если он появится */
             /* На больших экранах, чтобы иконки не "сжимались", если их мало */
             min-width: fit-content;
             min-width: -moz-fit-content;
+            /* Скрываем полосу прокрутки для более чистого вида (на некоторых браузерах) */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Webkit-браузеры (Chrome, Safari) */
+        .icon-container::-webkit-scrollbar {
+            display: none;
         }
 
         .icon-link {
@@ -168,9 +175,8 @@
             transition: all 0.3s ease;
             cursor: pointer;
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-            /* Важно: Запрещаем иконке сжиматься на широких экранах */
-            flex-shrink: 0;
-            padding: 5px; /* Увеличим padding, чтобы текст "ПриватБанк" не был слишком близко к краям */
+            flex-shrink: 0; /* Важно: Запрещаем иконке сжиматься */
+            padding: 5px;
         }
 
         .icon-link .icon-img {
@@ -194,20 +200,13 @@
             color: #EE1D52;
         }
 
-        /* Медиа-запросы для адаптивности */
+        /* Медиа-запросы теперь только для адаптации размера, не для переноса */
         @media (max-width: 768px) {
             .main-content {
                 padding: 30px 40px;
             }
             .icon-container {
-                gap: 20px;
-                flex-wrap: wrap; /* Разрешаем перенос на мобильных */
-                justify-content: center; /* Центрируем, если переносятся */
-            }
-            .icon-link {
-                /* На мобильных разрешаем им сжиматься или занимать больше места */
-                flex-basis: calc(50% - 20px); /* 2 колонки с учетом gap */
-                max-width: calc(50% - 20px);
+                gap: 15px; /* Уменьшаем gap на мобильных */
             }
             .icon-link .icon-img {
                 width: 70px;
@@ -226,13 +225,10 @@
                 margin: 15px;
             }
             .icon-container {
-                gap: 15px;
-                flex-wrap: wrap; /* Убеждаемся, что перенос работает */
+                gap: 10px; /* Еще уменьшаем gap для очень маленьких экранов */
             }
             .icon-link {
                 font-size: 0.95em;
-                flex-basis: calc(50% - 15px); /* 2 колонки на очень маленьких экранах */
-                max-width: calc(50% - 15px);
             }
             .icon-link .icon-img {
                 width: 60px;
@@ -253,10 +249,6 @@
             .main-content {
                 padding: 20px;
                 margin: 10px;
-            }
-            .icon-link {
-                flex-basis: calc(50% - 10px); /* Продолжаем 2 колонки */
-                max-width: calc(50% - 10px);
             }
             .icon-link .icon-img {
                 width: 50px;
@@ -281,7 +273,8 @@
 
     <div class="main-content">
         <h1>Donate iPAGroove</h1>
-        <div class="icon-container"> <a href="ВАША_ССЫЛКА_НА_ПРИВАТБАНК" class="icon-link" target="_blank">
+        <div class="icon-container">
+            <a href="ВАША_ССЫЛКА_НА_ПРИВАТБАНК" class="icon-link" target="_blank">
                 <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
                 <span>ПриватБанк</span>
             </a>
@@ -304,6 +297,11 @@
             <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-link" target="_blank">
                 <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
                 <span>ABank</span>
+            </a>
+
+            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-link" target="_blank">
+                <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
+                <span>Telegram Wallet</span>
             </a>
 
              </div>
