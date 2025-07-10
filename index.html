@@ -5,33 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Donate iPAGroove</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="modal.css" /> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="donate-container">
     <h1>Donate iPAGroove</h1>
     <div class="icon-row">
-      <a href="#" class="icon-item" target="_blank">
+      <a class="icon-item open-modal" data-modal-target="#privatbank-modal">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
         <span class="icon-label">ПриватБанк</span>
       </a>
-      <a href="#" class="icon-item" target="_blank">
+      <a class="icon-item open-modal" data-modal-target="#monobank-modal">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6669.jpeg?raw=true" alt="Монобанк" class="icon-img">
         <span class="icon-label">Монобанк</span>
       </a>
-      <a href="#" class="icon-item" target="_blank">
+      <a class="icon-item open-modal" data-modal-target="#paypal-modal">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6667.jpeg?raw=true" alt="PayPal" class="icon-img">
         <span class="icon-label">PayPal</span>
       </a>
-      <a href="#" class="icon-item" target="_blank">
+      <a class="icon-item open-modal" data-modal-target="#binance-modal">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/binance.png?raw=true" alt="Binance" class="icon-img">
         <span class="icon-label">Binance</span>
       </a>
-      <a href="#" class="icon-item" target="_blank">
+      <a class="icon-item open-modal" data-modal-target="#abank-modal">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
         <span class="icon-label">ABank</span>
       </a>
-      <a href="#" class="icon-item" target="_blank">
+      <a class="icon-item open-modal" data-modal-target="#telegram-modal">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
         <span class="icon-label">Telegram</span>
       </a>
@@ -44,6 +44,79 @@
     <div class="lang-option" data-lang="ua">UA</div>
   </div>
 
+  <div class="modal" id="privatbank-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>ПриватБанк</h2>
+      <p>Информация о ПриватБанке:</p>
+      <p>Номер карты: <b>XXXX XXXX XXXX XXXX</b></p>
+      <p>ФИО: <b>Иван Петров</b></p>
+      <p>Назначение платежа: <b>Донат</b></p>
+      <button class="copy-button" data-copy-text="XXXX XXXX XXXX XXXX">Копировать номер карты</button>
+      <p class="modal-note">Пожалуйста, используйте эти реквизиты для перевода.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="monobank-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Монобанк</h2>
+      <p>Информация о Монобанке:</p>
+      <p>Номер карты: <b>YYYY YYYY YYYY YYYY</b></p>
+      <p>ФИО: <b>Мария Иванова</b></p>
+      <p>Назначение платежа: <b>Поддержка</b></p>
+      <button class="copy-button" data-copy-text="YYYY YYYY YYYY YYYY">Копировать номер карты</button>
+      <p class="modal-note">Ваша поддержка очень важна для нас!</p>
+    </div>
+  </div>
+
+  <div class="modal" id="paypal-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>PayPal</h2>
+      <p>Для доната через PayPal:</p>
+      <p>Email: <b>your_paypal_email@example.com</b></p>
+      <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Перейти на страницу PayPal.Me</a>
+      <p class="modal-note">Убедитесь, что вы отправляете средства как "Другу или семье", чтобы избежать комиссий.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="binance-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Binance</h2>
+      <p>Для доната через Binance (USDT TRC20):</p>
+      <p>Адрес кошелька: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
+      <button class="copy-button" data-copy-text="TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789">Копировать адрес кошелька</button>
+      <p class="modal-note">Пожалуйста, отправляйте только USDT в сети TRC20.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="abank-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>ABank</h2>
+      <p>Информация об ABank:</p>
+      <p>Номер карты: <b>AAAA AAAA AAAA AAAA</b></p>
+      <p>ФИО: <b>Алексей Кузнецов</b></p>
+      <button class="copy-button" data-copy-text="AAAA AAAA AAAA AAAA">Копировать номер карты</button>
+      <p class="modal-note">Спасибо за ваш вклад!</p>
+    </div>
+  </div>
+
+  <div class="modal" id="telegram-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Telegram Wallet</h2>
+      <p>Для доната через Telegram Wallet:</p>
+      <p>Наш ник в Telegram: <b>@your_telegram_username</b></p>
+      <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Перейти в Telegram чат</a>
+      <p class="modal-note">Вы можете отправить TON или другую криптовалюту через Telegram Wallet.</p>
+    </div>
+  </div>
+
+  <div id="modal-overlay"></div>
+
   <script src="script.js"></script>
-</body>
+  <script src="modal.js"></script> </body>
 </html>
