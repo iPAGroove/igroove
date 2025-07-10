@@ -127,68 +127,102 @@ h1 {
   text-overflow: ellipsis;
 }
 
-/* Language Switcher */
+/* --- LANGUAGE SWITCHER --- */
 .language-switcher {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
-  background: var(--lang-switcher-bg);
-  padding: 10px 20px;
-  border-radius: 18px;
-  border: 1px solid var(--lang-switcher-border-color);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+
+.lang-selected {
+  background: linear-gradient(135deg, #87CEFA, #1E90FF);
+  padding: 10px 24px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(135, 206, 250, 0.7);
+  transition: all 0.3s ease;
+  font-size: 16px;
   user-select: none;
-  touch-action: pan-x;
+  border: 1px solid var(--lang-switcher-border-color);
+}
+
+.lang-options {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
 }
 
 .lang-option {
-  color: var(--lang-switcher-text-color);
-  font-size: 16px;
-  padding: 6px 14px;
-  border-radius: 10px;
-  transition: background 0.3s ease, color 0.3s ease;
+  padding: 6px 16px;
+  margin: 4px 0;
   cursor: pointer;
-}
-
-.lang-option.active {
-  background: var(--lang-switcher-hover-bg);
-  color: var(--lang-switcher-active-color);
-  font-weight: 700;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  text-align: center;
 }
 
 .lang-option:hover {
-  background: var(--lang-switcher-hover-bg);
+  background: rgba(135, 206, 250, 0.2);
 }
 
+.lang-option.active {
+  background: rgba(135, 206, 250, 0.3);
+  color: #87CEFA;
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* --- Адаптация --- */
 @media (max-width: 480px) {
   .donate-container {
     padding: 20px;
     border-radius: 18px;
   }
+
   h1 {
     font-size: 26px;
     margin-bottom: 20px;
   }
+
   .icon-img {
     width: 50px;
     height: 50px;
   }
+
   .icon-label {
     font-size: 12px;
     max-width: 60px;
   }
+
   .language-switcher {
     bottom: 15px;
-    gap: 10px;
-    padding: 6px 12px;
   }
+
+  .lang-selected {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
+
   .lang-option {
     font-size: 14px;
-    padding: 5px 10px;
   }
 }
