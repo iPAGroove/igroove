@@ -142,12 +142,12 @@
             color: #fff;
         }
 
-        .icon-container {
+        .icon-grid {
             margin-top: 30px;
-            display: flex;
-            gap: 30px; /* Расстояние между иконками */
-            justify-content: center;
-            flex-wrap: wrap; /* Для адаптивности */
+            display: grid; /* Используем Grid для более гибкой сетки иконок */
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Автоматическое размещение колонок */
+            gap: 25px; /* Расстояние между иконками */
+            justify-items: center; /* Центрирование иконок в ячейках */
         }
 
         .icon-link {
@@ -156,7 +156,7 @@
             align-items: center;
             text-decoration: none;
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.1em; /* Размер шрифта для названия платежной системы */
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -164,16 +164,19 @@
         }
 
         .icon-link .icon-img {
-            width: 80px; /* Размер изображения иконки */
-            height: 80px; /* Сохраняем пропорции */
+            width: 90px; /* Размер изображения иконки */
+            height: 90px; /* Сохраняем пропорции */
+            object-fit: contain; /* Чтобы изображение полностью вписывалось без обрезки */
             margin-bottom: 10px;
-            transition: transform 0.3s ease;
-            border-radius: 50%; /* Если хочешь, чтобы иконки были круглыми */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* Легкая тень для иконок */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20%; /* Закругленные углы, как у иконок приложений */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Тень для эффекта "app-style" */
+            background-color: rgba(255, 255, 255, 0.05); /* Легкий фон для иконок */
+            padding: 5px; /* Небольшой внутренний отступ для иконки */
         }
 
         .icon-link:hover .icon-img {
-            transform: scale(1.15) translateY(-5px); /* Увеличение и подъем иконки при наведении */
+            transform: scale(1.1) translateY(-5px); /* Увеличение и подъем иконки при наведении */
             box-shadow: 0 0 25px rgba(238, 29, 82, 0.7); /* Яркая тень при наведении */
         }
 
@@ -182,6 +185,20 @@
         }
 
         /* Медиа-запросы для адаптивности */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 30px 40px;
+            }
+            .icon-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Уменьшаем минимальный размер колонки */
+                gap: 20px;
+            }
+            .icon-link .icon-img {
+                width: 70px; /* Уменьшаем размер иконок */
+                height: 70px;
+            }
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.2em;
@@ -192,14 +209,15 @@
                 padding: 25px;
                 margin: 15px;
             }
-            .icon-container {
-                gap: 20px; /* Уменьшаем расстояние между иконками на мобильных */
+            .icon-grid {
+                grid-template-columns: repeat(2, 1fr); /* Две колонки на очень маленьких экранах */
+                gap: 15px;
             }
             .icon-link {
-                font-size: 1em;
+                font-size: 0.95em;
             }
             .icon-link .icon-img {
-                width: 60px; /* Уменьшаем размер иконок на мобильных */
+                width: 60px; /* Ещё уменьшаем размер иконок */
                 height: 60px;
                 margin-bottom: 5px;
             }
@@ -241,16 +259,43 @@
 
     <div class="main-content">
         <h1>Donate iPAGroove</h1>
-        <div class="icon-container">
-            <a href="ua-donations.html" class="icon-link">
-                <img src="images/UA_icon.png" alt="Украина" class="icon-img">
-                <span>Украина</span>
+        <div class="icon-grid">
+            <a href="ВАША_ССЫЛКА_НА_ПРИВАТБАНК" class="icon-link" target="_blank">
+                <img src="images/privatbank_icon.png" alt="ПриватБанк" class="icon-img">
+                <span>ПриватБанк</span>
             </a>
-            <a href="world-donations.html" class="icon-link">
-                <img src="images/WORLD_icon.png" alt="Мир" class="icon-img">
-                <span>Мир</span>
+
+            <a href="ВАША_ССЫЛКА_НА_МОНОБАНК" class="icon-link" target="_blank">
+                <img src="images/monobank_icon.png" alt="Монобанк" class="icon-img">
+                <span>Монобанк</span>
             </a>
-        </div>
+
+            <a href="ВАША_ССЫЛКА_НА_PAYPAL" class="icon-link" target="_blank">
+                <img src="images/paypal_icon.png" alt="PayPal" class="icon-img">
+                <span>PayPal</span>
+            </a>
+
+            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-link" target="_blank">
+                <img src="images/binance_icon.png" alt="Binance" class="icon-img">
+                <span>Binance (USDT)</span>
+            </a>
+
+            <a href="https://www.donationalerts.com/r/ВАШ_НИКНЕЙМ" class="icon-link" target="_blank">
+                <img src="images/donationalerts_icon.png" alt="DonationAlerts" class="icon-img">
+                <span>DonationAlerts</span>
+            </a>
+
+            <a href="https://www.patreon.com/ВАШ_НИКНЕЙМ" class="icon-link" target="_blank">
+                <img src="images/patreon_icon.png" alt="Patreon" class="icon-img">
+                <span>Patreon</span>
+            </a>
+
+            <a href="https://boosty.to/ВАШ_НИКНЕЙМ" class="icon-link" target="_blank">
+                <img src="images/boosty_icon.png" alt="Boosty" class="icon-img">
+                <span>Boosty</span>
+            </a>
+
+            </div>
     </div>
 </body>
 </html>
