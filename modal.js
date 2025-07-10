@@ -9,34 +9,34 @@ document.addEventListener('DOMContentLoaded', () => {
             en: {
                 title: 'PrivatBank',
                 contentHtml: `
-                    <p>Card Number: <b>XXXX XXXX XXXX XXXX</b></p>
-                    <p>Full Name: <b>Ivan Petrov</b></p>
+                    <p>Card Number: <b>4149 4990 9605 8944</b></p>
+                    <p>Full Name: <b>Vadym Frolov</b></p>
                     <p>Purpose of payment: <b>Donation</b></p>
                 `,
-                copyButtonText: 'Copy card number',
-                copyButtonData: 'XXXX XXXX XXXX XXXX',
+                buttonText: 'Pay', // Changed to generic buttonText
+                payButtonUrl: 'https://www.privat24.ua/send/hm8gg', // New field for URL
                 note: 'Please use these details for transfer.'
             },
             ru: {
                 title: 'ПриватБанк',
                 contentHtml: `
-                    <p>Номер карты: <b>XXXX XXXX XXXX XXXX</b></p>
-                    <p>ФИО: <b>Иван Петров</b></p>
+                    <p>Номер карты: <b>4149 4990 9605 8944</b></p>
+                    <p>ФИО: <b>Фролов Вадим</b></p>
                     <p>Назначение платежа: <b>Донат</b></p>
                 `,
-                copyButtonText: 'Копировать номер карты',
-                copyButtonData: 'XXXX XXXX XXXX XXXX',
+                buttonText: 'Оплатить', // Changed
+                payButtonUrl: 'https://www.privat24.ua/send/hm8gg', // New field for URL
                 note: 'Пожалуйста, используйте эти реквизиты для перевода.'
             },
             ua: {
                 title: 'ПриватБанк',
                 contentHtml: `
-                    <p>Номер картки: <b>XXXX XXXX XXXX XXXX</b></p>
-                    <p>ПІБ: <b>Іван Петров</b></p>
+                    <p>Номер картки: <b>4149 4990 9605 8944</b></p>
+                    <p>ПІБ: <b>Фролов Вадим</b></p>
                     <p>Призначення платежу: <b>Донат</b></p>
                 `,
-                copyButtonText: 'Копіювати номер картки',
-                copyButtonData: 'XXXX XXXX XXXX XXXX',
+                buttonText: 'Сплатити', // Changed
+                payButtonUrl: 'https://www.privat24.ua/send/hm8gg', // New field for URL
                 note: 'Будь ласка, використовуйте ці реквізити для переказу.'
             }
         },
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Full Name: <b>Maria Ivanova</b></p>
                     <p>Purpose of payment: <b>Support</b></p>
                 `,
-                copyButtonText: 'Copy card number',
+                buttonText: 'Copy card number',
                 copyButtonData: 'YYYY YYYY YYYY YYYY',
                 note: 'Your support is very important to us!'
             },
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>ФИО: <b>Мария Иванова</b></p>
                     <p>Назначение платежа: <b>Поддержка</b></p>
                 `,
-                copyButtonText: 'Копировать номер карты',
+                buttonText: 'Копировать номер карты',
                 copyButtonData: 'YYYY YYYY YYYY YYYY',
                 note: 'Ваша поддержка очень важна для нас!'
             },
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>ПІБ: <b>Марія Іванова</b></p>
                     <p>Призначення платежу: <b>Підтримка</b></p>
                 `,
-                copyButtonText: 'Копіювати номер картки',
+                buttonText: 'Копіювати номер картки',
                 copyButtonData: 'YYYY YYYY YYYY YYYY',
                 note: 'Ваша підтримка дуже важлива для нас!'
             }
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Email: <b>your_paypal_email@example.com</b></p>
                     <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Go to PayPal.Me page</a>
                 `,
-                copyButtonText: '', // No copy button for PayPal email in this setup
+                buttonText: '', // No button for PayPal email in this setup
                 copyButtonData: '',
                 note: 'Please send funds as "Friend or Family" to avoid fees.'
             },
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Email: <b>your_paypal_email@example.com</b></p>
                     <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Перейти на страницу PayPal.Me</a>
                 `,
-                copyButtonText: '',
+                buttonText: '',
                 copyButtonData: '',
                 note: 'Пожалуйста, отправляйте средства как "Другу или семье", чтобы избежать комиссий.'
             },
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Email: <b>your_paypal_email@example.com</b></p>
                     <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Перейти на сторінку PayPal.Me</a>
                 `,
-                copyButtonText: '',
+                buttonText: '',
                 copyButtonData: '',
                 note: 'Будь ласка, надсилайте кошти як "Другу або родині", щоб уникнути комісій.'
             }
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>For donations via Binance (USDT TRC20):</p>
                     <p>Wallet Address: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
                 `,
-                copyButtonText: 'Copy wallet address',
+                buttonText: 'Copy wallet address',
                 copyButtonData: 'TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789',
                 note: 'Please send only USDT on TRC20 network.'
             },
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Для доната через Binance (USDT TRC20):</p>
                     <p>Адрес кошелька: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
                 `,
-                copyButtonText: 'Копировать адрес кошелька',
+                buttonText: 'Копировать адрес кошелька',
                 copyButtonData: 'TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789',
                 note: 'Пожалуйста, отправляйте только USDT в сети TRC20.'
             },
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Для донату через Binance (USDT TRC20):</p>
                     <p>Адреса гаманця: <b>TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789</b></p>
                 `,
-                copyButtonText: 'Копіювати адресу гаманця',
+                buttonText: 'Копіювати адресу гаманця',
                 copyButtonData: 'TZ1abcdEFGHijklMNOPqrstUVWXYZ123456789',
                 note: 'Будь ласка, надсилайте тільки USDT у мережі TRC20.'
             }
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Card Number: <b>AAAA AAAA AAAA AAAA</b></p>
                     <p>Full Name: <b>Alex Kuznetsov</b></p>
                 `,
-                copyButtonText: 'Copy card number',
+                buttonText: 'Copy card number',
                 copyButtonData: 'AAAA AAAA AAAA AAAA',
                 note: 'Thank you for your contribution!'
             },
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Номер карты: <b>AAAA AAAA AAAA AAAA</b></p>
                     <p>ФИО: <b>Алексей Кузнецов</b></p>
                 `,
-                copyButtonText: 'Копировать номер карты',
+                buttonText: 'Копировать номер карты',
                 copyButtonData: 'AAAA AAAA AAAA AAAA',
                 note: 'Спасибо за ваш вклад!'
             },
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Номер картки: <b>AAAA AAAA AAAA AAAA</b></p>
                     <p>ПІБ: <b>Олексій Кузнецов</b></p>
                 `,
-                copyButtonText: 'Копіювати номер картки',
+                buttonText: 'Копіювати номер картки',
                 copyButtonData: 'AAAA AAAA AAAA AAAA',
                 note: 'Дякуємо за ваш внесок!'
             }
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Our Telegram Nick: <b>@your_telegram_username</b></p>
                     <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Go to Telegram chat</a>
                 `,
-                copyButtonText: '', // No copy button for Telegram nick in this setup
+                buttonText: '', // No button for Telegram nick in this setup
                 copyButtonData: '',
                 note: 'You can send TON or other cryptocurrency via Telegram Wallet.'
             },
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Наш ник в Telegram: <b>@your_telegram_username</b></p>
                     <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Перейти в Telegram чат</a>
                 `,
-                copyButtonText: '',
+                buttonText: '',
                 copyButtonData: '',
                 note: 'Вы можете отправить TON или другую криптовалюту через Telegram Wallet.'
             },
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Наш нік у Telegram: <b>@your_telegram_username</b></p>
                     <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Перейти в Telegram чат</a>
                 `,
-                copyButtonText: '',
+                buttonText: '',
                 copyButtonData: '',
                 note: 'Ви можете надіслати TON або іншу криптовалюту через Telegram Wallet.'
             }
@@ -231,21 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
         modalContentEl.querySelector('h2').textContent = data.title;
 
         // Обновляем основной HTML-контент
-        // Находим место для вставки контента, перед кнопкой копирования и заметкой
-        const existingCopyButton = modalContentEl.querySelector('.copy-button');
+        // Находим место для вставки контента, перед кнопкой и заметкой
+        let existingButton = modalContentEl.querySelector('.modal-button'); // Унифицированный селектор
         const existingNote = modalContentEl.querySelector('.modal-note');
         
-        // Временно удаляем существующие элементы контента, кроме заголовка, кнопки закрытия, кнопки копирования и заметки
+        // Временно удаляем существующие элементы контента, кроме заголовка, кнопки закрытия, кнопки и заметки
         Array.from(modalContentEl.children).forEach(child => {
             if (child.tagName !== 'SPAN' && child.tagName !== 'H2' && 
-                child !== existingCopyButton && child !== existingNote) {
+                child !== existingButton && child !== existingNote) {
                 child.remove();
             }
         });
 
-        // Вставляем новый контент перед кнопкой копирования (если она есть) или перед заметкой
-        if (existingCopyButton) {
-            existingCopyButton.insertAdjacentHTML('beforebegin', data.contentHtml);
+        // Вставляем новый контент перед кнопкой (если она есть) или перед заметкой
+        if (existingButton) {
+            existingButton.insertAdjacentHTML('beforebegin', data.contentHtml);
         } else if (existingNote) {
             existingNote.insertAdjacentHTML('beforebegin', data.contentHtml);
         } else {
@@ -253,38 +253,48 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContentEl.insertAdjacentHTML('beforeend', data.contentHtml);
         }
 
+        // Обновляем кнопку
+        if (data.buttonText) {
+            if (!existingButton) { // Если кнопки не было, но она нужна
+                existingButton = document.createElement('button'); // Создаем новую кнопку
+                existingButton.classList.add('modal-button'); // Используем общий класс
+                modalContentEl.appendChild(existingButton);
+            }
+            existingButton.textContent = data.buttonText;
+            existingButton.style.display = 'block'; // Показываем
 
-        // Обновляем кнопку "Копировать"
-        if (data.copyButtonText) {
-            if (!existingCopyButton) { // Если кнопки не было, но она нужна
-                const newCopyButton = document.createElement('button');
-                newCopyButton.classList.add('copy-button');
-                newCopyButton.setAttribute('data-copy-text', data.copyButtonData);
-                newCopyButton.textContent = data.copyButtonText;
-                // Добавляем обработчик события для новой кнопки
-                newCopyButton.addEventListener('click', async () => {
-                    const textToCopy = newCopyButton.dataset.copyText;
+            // Удаляем старые обработчики событий, чтобы избежать дублирования
+            const oldButton = existingButton.cloneNode(true); // Клонируем, чтобы удалить старые обработчики
+            existingButton.parentNode.replaceChild(oldButton, existingButton);
+            existingButton = oldButton; // Обновляем ссылку на новую кнопку
+            
+            // Добавляем новый обработчик события
+            if (data.payButtonUrl) {
+                existingButton.removeEventListener('click', handleCopyClick); // Удаляем старый обработчик копирования
+                existingButton.addEventListener('click', () => {
+                    window.open(data.payButtonUrl, '_blank');
+                });
+            } else if (data.copyButtonData) {
+                existingButton.removeEventListener('click', handlePayClick); // Удаляем старый обработчик оплаты
+                existingButton.addEventListener('click', async () => {
+                    const textToCopy = data.copyButtonData;
                     try {
                         await navigator.clipboard.writeText(textToCopy);
-                        const originalText = newCopyButton.textContent;
-                        newCopyButton.textContent = 'Скопировано!'; // This should also be translated
+                        const originalText = existingButton.textContent;
+                        existingButton.textContent = translations[lang].buttonText === 'Копировать номер карты' ? 'Скопировано!' : 'Copied!'; // Simplified to use translated 'Copied!'
                         setTimeout(() => {
-                            newCopyButton.textContent = originalText;
+                            existingButton.textContent = originalText;
                         }, 1500);
                     } catch (err) {
-                        console.error('Не удалось скопировать текст: ', err);
-                        alert('Не удалось скопировать текст. Пожалуйста, скопируйте вручную: ' + textToCopy);
+                        console.error('Failed to copy text: ', err);
+                        alert('Failed to copy text. Please copy manually: ' + textToCopy);
                     }
                 });
-                modalContentEl.appendChild(newCopyButton); // Добавляем в конец, или можно вставить перед заметкой
-            } else { // Если кнопка уже есть, обновляем ее
-                existingCopyButton.textContent = data.copyButtonText;
-                existingCopyButton.setAttribute('data-copy-text', data.copyButtonData);
-                existingCopyButton.style.display = 'block'; // Показываем
             }
+
         } else {
-            if (existingCopyButton) { // Если кнопка есть, но она не нужна
-                existingCopyButton.style.display = 'none'; // Скрываем
+            if (existingButton) { // Если кнопка есть, но она не нужна
+                existingButton.style.display = 'none'; // Скрываем
             }
         }
         
@@ -305,6 +315,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     };
+
+    // Dummy functions to be removed from event listeners
+    const handleCopyClick = () => {};
+    const handlePayClick = () => {};
+
 
     // Функция открытия модального окна
     const openModal = (modalId) => {
@@ -364,11 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Для копирования текста в буфер обмена - эту часть мы перенесем в translateModalContent
-    // чтобы она применялась к динамически создаваемым/обновляемым кнопкам.
-    // Код для кнопок копирования:
-    // Мы будем навешивать обработчик прямо в translateModalContent при создании/обновлении кнопки.
-
     // Выставляем функцию перевода в глобальную область видимости, чтобы script.js мог ее вызвать
     window.translateActiveModal = (lang) => {
         const activeModal = document.querySelector('.modal.active');
@@ -377,4 +387,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
-
