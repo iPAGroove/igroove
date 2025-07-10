@@ -1,195 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#000000" />
-    <link rel="icon" href="https://raw.githubusercontent.com/binnichtaktiv/binnichtaktiv.github.io/refs/heads/old/bna.ico" type="image/png" sizes="16x16">
-    <link rel="icon" href="https://raw.githubusercontent.com/binnichtaktiv/binnichtaktiv.github.io/refs/heads/old/bna.ico" type="image/png" sizes="32x32">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Me</title>
-
+    <title>Donate iPAGroove</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(130deg, #010158 0%, #000066 100%);
-            background-size: cover;
-            background-position: left;
-            background-repeat: no-repeat;            
-            font-family: 'CustomFont', sans-serif;
+            font-family: 'Open Sans', sans-serif;
+            color: #fff; /* Белый цвет текста для контраста с темным фоном */
+            display: flex; /* Используем flexbox для центрирования контента */
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /* Центрирование по вертикали */
+            min-height: 100vh; /* Минимальная высота viewport, чтобы занимать весь экран */
+            background: linear-gradient(to right, #ee1d52, #a80034); /* Красивый градиент TikTok */
+            background-size: cover; /* Покрытие всей области */
+            background-position: center;
+            position: relative;
+            overflow: hidden; /* Скрываем возможное переполнение */
         }
 
-        .container {
+        /* Опционально: эффект частиц или паттерн для фона */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/black-linen.png'); /* Пример паттерна, можно заменить или убрать */
+            opacity: 0.1; /* Прозрачность паттерна */
+            z-index: 1;
+        }
+
+        .main-content {
+            z-index: 2; /* Поверх фона */
             text-align: center;
-            padding: 0 20px;
+            background: rgba(0, 0, 0, 0.4); /* Полупрозрачный темный фон для читаемости */
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Большая тень */
+            backdrop-filter: blur(5px); /* Эффект размытия фона за блоком */
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
+            font-family: 'Montserrat', sans-serif; /* Более выразительный шрифт для заголовка */
+            font-size: 3.5em; /* Очень большой размер */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Тень для текста */
+            letter-spacing: 2px; /* Расстояние между буквами */
         }
 
-        p {
-            font-size: 1.2rem;
-            color: #ffffff;
-            margin-bottom: 40px;
-        }
-
-        .icons {
+        .button-container {
+            margin-top: 30px;
             display: flex;
+            gap: 20px; /* Расстояние между кнопками */
             justify-content: center;
-            align-items: center;
-            gap: 40px;
         }
 
-        .icons img {
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            transition: transform 0.3s;
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.5em; /* Крупный текст на кнопках */
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон кнопок */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Полупрозрачная белая рамка */
+            border-radius: 10px;
+            transition: all 0.3s ease; /* Плавный переход при наведении */
+            backdrop-filter: blur(3px); /* Размытие для кнопок */
         }
 
-        .icons img:hover {
-            transform: scale(1.2);
+        .button:hover {
+            background-color: rgba(255, 255, 255, 0.4); /* Увеличиваем прозрачность фона при наведении */
+            border-color: #fff; /* Белая рамка при наведении */
+            transform: translateY(-3px); /* Легкий подъем кнопки */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Тень для кнопок */
         }
 
-        .icons img.large {
-            width: 100px;
-            height: 100px;
-        }
-
-        .popup-icon {
-            max-width: 200px;
-            max-height: 200px;
-            object-fit: contain;
-        }
-
-        @media screen and (max-width: 600px) {
-            .icons {
-                gap: 20px;
+        /* Медиа-запросы для адаптивности на маленьких экранах */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5em; /* Уменьшаем заголовок на мобильных */
             }
-
-            .icons img {
-                width: 40px;
-                height: 40px;
+            .main-content {
+                padding: 30px;
+                margin: 20px;
             }
-
-            .icons img.large {
-                width: 60px;
-                height: 60px;
-            }
-
-            .icons img[src="../images/paypal-whiteBG.svg"] {
-                width: 60px;
-                height: 60px;
-            }
-
-            .icons img[src="../images/binance.png"] {
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        @media screen and (max-width: 400px) {
-            .icons {
+            .button-container {
+                flex-direction: column; /* Кнопки одна под другой на мобильных */
                 gap: 15px;
             }
-
-            .icons img {
-                width: 35px;
-                height: 35px;
-            }
-
-            .icons img.large {
-                width: 50px;
-                height: 50px;
-            }
-
-            .icons img[src="../images/paypal-whiteBG.svg"] {
-                width: 50px;
-                height: 50px;
-            }
-
-            .icons img[src="../images/binance.png"] {
-                width: 40px;
-                height: 40px;
+            .button {
+                width: 100%; /* Кнопки на всю ширину */
+                font-size: 1.2em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Support me</h1>
-        <p>Every donation helps</p>
-
-        <div class="icons">
-
-            <a href="https://paypal.me/ipagroove" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/paypal-whiteBG.svg?raw=true" alt="PayPal" style="width: 100px; height: 100px;">
-            </a>
-            
-            <a href="https://ko-fi.com/ipagroove" target="_blank">
-                <img src="https://github.com/iPAGroove/igroove/blob/main/images/coffee.svg?raw=true" alt="Buy Me a Coffee" style="width: 70px; height: 70px;">
-            </a>
-
-            <a href="https://revolut.me/jonas2xn2" target="_blank">
-                <img src="../images/applepay.svg" alt="Apple Pay" class="large" style="width: 100px; height: 100px;">
-            </a>
-            
-            <a id="binance">
-                <img src="../images/binance.png" alt="Binance" class="large" style="width: 70px; height: 70px;">
-            </a>
+    <div class="main-content">
+        <h1>Donate iPAGroove</h1>
+        <div class="button-container">
+            <a href="ua-donations.html" class="button">UA 🇺🇦</a>
+            <a href="world-donations.html" class="button">WORLD 🌍</a>
         </div>
     </div>
-        
-    <script>
-        document.getElementById('binance').addEventListener('click', function() {
-            const popup = document.createElement('div');
-            popup.style.position = 'fixed';
-            popup.style.top = '50%';
-            popup.style.left = '50%';
-            popup.style.transform = 'translate(-50%, -50%) scale(0)';
-            popup.style.backgroundColor = '#101728';
-            popup.style.color = 'white';
-            popup.style.padding = '40px';
-            popup.style.borderRadius = '20px';
-            popup.style.textAlign = 'center';
-            popup.style.fontFamily = 'sans-serif';
-            popup.style.zIndex = '9999';
-            popup.style.width = '250px';
-            popup.style.border = '1px solid white';
-            popup.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-            popup.style.opacity = '0';
-    
-            const popupContent = document.createElement('div');
-            popupContent.innerHTML = `
-                <img src="https://duckduckgo.com/i/fd3246c8.png" alt="Icon" class="popup-icon">
-                <h2 style="font-size: 24px; margin-bottom: 20px;">My binance ID:<br><br>748789355</h2>
-                <p style="font-size: 18px; margin-bottom: 30px;">If you also have a Binance account, you can send me money free of charge using my <a href="https://www.binance.com/en/support/faq/how-to-send-crypto-to-users-with-binance-pay-b3fa3ae045b9429084203c3a4ff1362f" target="_blank">Binance ID</a></p>
-                <p style="font-size: 18px; margin-bottom: 30px;">If you don't have Binance, <a href="https://binnichtaktiv.github.io/" target="_blank">send me a message</a> so I can give you my wallet address.<br>I accept many cryptocurrencies.</p>
-                <button id="closePopup" style="background-color: white; color: #101728; padding: 14px 28px; border: none; cursor: pointer; border-radius: 20px; font-size: 16px; font-family: sans-serif;">OK</button>
-            `;
-            popup.appendChild(popupContent);
-            document.body.appendChild(popup);
-    
-            setTimeout(() => {
-                popup.style.transform = 'translate(-50%, -50%) scale(1)';
-                popup.style.opacity = '1';
-            }, 10);
-    
-            document.getElementById('closePopup').addEventListener('click', () => {
-                popup.style.transform = 'translate(-50%, -50%) scale(0)';
-                popup.style.opacity = '0';
-                setTimeout(() => {
-                    popup.remove();
-                }, 300);
-            });
-        });
-    </script>
-    
 </body>
 </html>
