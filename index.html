@@ -7,14 +7,14 @@
     <style>
         /* Добавил CSS переменные для удобства */
         :root {
-            /* Обновленные переменные для текста - теперь голубовато-синие */
-            --text-color: #ffffff; /* Основной белый цвет для четкости */
-            --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
-            --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
-            --text-gradient-start: #ffffff; /* Начало градиента: белый */
-            --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
-            --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
-
+            /* Обновленные переменные для текста - теперь голубовато-синие с эффектом пламени */
+            --text-color: #ffffff; /* Основной белый цвет для четкости текста */
+            
+            /* Цвета для "пламени" */
+            --flame-color-inner: #E0FFFF; /* Очень светлый голубой, почти белый, для центра пламени */
+            --flame-color-middle: #ADD8E6; /* Светло-голубой для среднего слоя */
+            --flame-color-outer: #00BFFF; /* Глубокий голубой (DeepSkyBlue) для внешнего слоя */
+            --flame-color-glow: rgba(0, 191, 255, 0.7); /* Цвет свечения вокруг пламени */
 
             --container-bg: rgba(255, 255, 255, 0.08);
             --box-shadow-color: rgba(0, 0, 0, 0.3);
@@ -23,8 +23,8 @@
             
             /* Скроллбар тоже сделаем в тон, голубоватым */
             --scrollbar-track-color: rgba(255, 255, 255, 0.05);
-            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
-            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
+            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6);
+            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9);
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
@@ -55,8 +55,7 @@
             width: 100%;
             text-align: center;
             backdrop-filter: blur(18px);
-            /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
-            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
+            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -67,43 +66,52 @@
             letter-spacing: 1px;
             margin-bottom: 25px;
 
-            color: var(--text-color); /* Основной белый цвет для четкости */
+            color: var(--text-color); /* Основной белый цвет для четкости текста */
             
-            /* Упрощенный, более четкий голубоватый градиент */
-            background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: textGradientFlow 6s linear infinite;
+            /* Нет градиента на тексте, чтобы сохранить четкость и усилить эффект пламени от тени */
+            -webkit-background-clip: text; /* Оставляем, даже если нет градиента, для безопасности */
+            -webkit-text-fill-color: currentcolor; /* Сбрасываем, чтобы color работал */
 
-            /* Голубовато-синяя тень */
-            text-shadow: 
-                0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
-                0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
-                0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
+            /* Анимация "горящего синим пламенем" */
+            animation: 
+                flameGlow 2s infinite alternate ease-in-out, /* Основная анимация пламени */
+                flicker 0.1s infinite alternate; /* Дополнительная анимация мерцания */
         }
 
-        /* Анимация движения градиента текста */
-        @keyframes textGradientFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        /* Анимация свечения текста - можно удалить, если не используется напрямую */
-        @keyframes glow {
-            0% { 
+        /* Анимация "горящего синим пламенем" */
+        @keyframes flameGlow {
+            0% {
                 text-shadow: 
-                    0 0 5px var(--text-glow-color-light),
-                    0 0 10px var(--text-glow-color-accent),
-                    0 0 15px var(--text-glow-color-accent);
+                    0 0 4px var(--flame-color-inner),  /* Внутреннее светлое ядро */
+                    0 0 8px var(--flame-color-middle), /* Средний слой */
+                    0 0 12px var(--flame-color-outer), /* Внешний слой */
+                    0 0 20px var(--flame-color-glow);  /* Распространенное свечение */
+                transform: translateY(0);
             }
-            100% { 
+            50% {
                 text-shadow: 
-                    0 0 8px var(--text-glow-color-light),
-                    0 0 15px var(--text-glow-color-accent),
-                    0 0 25px var(--text-glow-color-accent);
+                    0 0 6px var(--flame-color-inner),
+                    0 0 12px var(--flame-color-middle),
+                    0 0 18px var(--flame-color-outer),
+                    0 0 30px var(--flame-color-glow);
+                transform: translateY(-2px); /* Легкое "подпрыгивание" пламени */
+            }
+            100% {
+                text-shadow: 
+                    0 0 4px var(--flame-color-inner),
+                    0 0 8px var(--flame-color-middle),
+                    0 0 12px var(--flame-color-outer),
+                    0 0 20px var(--flame-color-glow);
+                transform: translateY(0);
             }
         }
+
+        /* Дополнительная анимация для легкого мерцания (flicker) */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; } /* Очень легкое изменение для эффекта мерцания */
+        }
+
 
         .icon-row {
             display: flex;
