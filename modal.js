@@ -181,35 +181,35 @@ document.addEventListener('DOMContentLoaded', () => {
             en: {
                 title: 'Telegram Wallet',
                 contentHtml: `
-                    <p>For donations via Telegram Wallet:</p>
-                    <p>Our Telegram Nick: <b>@your_telegram_username</b></p>
-                    <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Go to Telegram chat</a>
+                    <p>For donations via Telegram Wallet (USDT TRC20):</p>
+                    <p>Wallet Address: <b>TDPsJnnVXeBeTkmZqd8fdtn1uhVyiAGe5n</b></p>
+                    <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6687.jpeg?raw=true" alt="QR Code" class="qr-code-img" style="width: 150px; height: 150px; display: block; margin: 15px auto;">
                 `,
-                buttonText: '', // No button for Telegram nick in this setup
-                copyButtonData: '',
-                note: 'You can send TON or other cryptocurrency via Telegram Wallet.'
+                buttonText: 'Copy wallet address',
+                copyButtonData: 'TDPsJnnVXeBeTkmZqd8fdtn1uhVyiAGe5n',
+                note: 'Please send only USDT on TRC20 network.'
             },
             ru: {
                 title: 'Telegram Wallet',
                 contentHtml: `
-                    <p>Для доната через Telegram Wallet:</p>
-                    <p>Наш ник в Telegram: <b>@your_telegram_username</b></p>
-                    <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Перейти в Telegram чат</a>
+                    <p>Для доната через Telegram Wallet (USDT TRC20):</p>
+                    <p>Адрес кошелька: <b>TDPsJnnVXeBeTkmZqd8fdtn1uhVyiAGe5n</b></p>
+                    <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6687.jpeg?raw=true" alt="QR Code" class="qr-code-img" style="width: 150px; height: 150px; display: block; margin: 15px auto;">
                 `,
-                buttonText: '',
-                copyButtonData: '',
-                note: 'Вы можете отправить TON или другую криптовалюту через Telegram Wallet.'
+                buttonText: 'Копировать адрес кошелька',
+                copyButtonData: 'TDPsJnnVXeBeTkmZqd8fdtn1uhVyiAGe5n',
+                note: 'Пожалуйста, отправляйте только USDT в сети TRC20.'
             },
             ua: {
                 title: 'Telegram Wallet',
                 contentHtml: `
-                    <p>Для донату через Telegram Wallet:</p>
-                    <p>Наш нік у Telegram: <b>@your_telegram_username</b></p>
-                    <a href="https://t.me/your_telegram_username" target="_blank" class="modal-link">Перейти в Telegram чат</a>
+                    <p>Для донату через Telegram Wallet (USDT TRC20):</p>
+                    <p>Адреса гаманця: <b>TDPsJnnVXeBeTkmZqd8fdtn1uhVyiAGe5n</b></p>
+                    <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6687.jpeg?raw=true" alt="QR Code" class="qr-code-img" style="width: 150px; height: 150px; display: block; margin: 15px auto;">
                 `,
-                buttonText: '',
-                copyButtonData: '',
-                note: 'Ви можете надіслати TON або іншу криптовалюту через Telegram Wallet.'
+                buttonText: 'Копіювати адресу гаманця',
+                copyButtonData: 'TDPsJnnVXeBeTkmZqd8fdtn1uhVyiAGe5n',
+                note: 'Будь ласка, надсилайте тільки USDT у мережі TRC20.'
             }
         }
     };
