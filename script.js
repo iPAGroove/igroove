@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const switcher = document.getElementById('language-switcher');
-  const options = switcher.querySelectorAll('.lang-option');
-  let activeIndex = Array.from(options).findIndex(opt => opt.classList.contains('active'));
+  const options = document.querySelectorAll('.lang-option');
+  let activeIndex = 0;
 
   const setActive = (index) => {
     options.forEach(opt => opt.classList.remove('active'));
@@ -16,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Swipe gesture
+  // Touch support for swipe
+  const switcher = document.getElementById('language-switcher');
   let startX = null;
 
   switcher.addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
-    switcher.classList.add('expanded');
   });
 
   switcher.addEventListener('touchend', e => {
@@ -37,22 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       setActive(activeIndex);
     }
-
-    setTimeout(() => {
-      switcher.classList.remove('expanded');
-    }, 1500);
-
     startX = null;
   });
 
-  // Hover expand (optional on desktop)
-  switcher.addEventListener('mouseenter', () => {
-    switcher.classList.add('expanded');
-  });
-  switcher.addEventListener('mouseleave', () => {
-    switcher.classList.remove('expanded');
-  });
-
   // Default language
+  activeIndex = 0;
   setActive(activeIndex);
 });
