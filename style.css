@@ -142,75 +142,76 @@ h1 {
   border: 1px solid var(--lang-switcher-border-color);
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   user-select: none;
-  touch-action: pan-x; /* Разрешает горизонтальный свайп */
-  cursor: grab; /* Показывает, что можно перетаскивать */
-  min-width: 80px; /* Минимальная ширина для элемента */
-  width: auto; /* Ширина под контент в свернутом состоянии */
-  overflow: hidden; /* Скрывает контент, который выходит за границы */
+  touch-action: pan-x;
+  cursor: grab;
+  /* Добавим плавные переходы для изменений ширины и прозрачности */
+  transition: width 0.3s ease, padding 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+  overflow: hidden; /* Скрывает элементы, которые выходят за рамки */
   white-space: nowrap; /* Предотвращает перенос текста */
-  transition: width 0.3s ease, padding 0.3s ease, background 0.3s ease; /* Для плавных переходов */
-  position: relative; /* Для абсолютного позиционирования expanded-options */
 }
 
-/* Элемент, отображающий текущий язык (виден в свернутом состоянии) */
-#current-lang-display {
-  color: var(--lang-switcher-text-color);
-  font-size: 18px;
-  font-weight: 700;
-  transition: opacity 0.3s ease;
-  display: block; /* По умолчанию виден */
-}
-
-/* Контейнер со всеми языками (скрыт по умолчанию) */
-.lang-options-expanded {
-  display: flex; /* Используем flexbox для расположения языков в ряд */
-  position: absolute; /* Абсолютное позиционирование внутри language-switcher */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  justify-content: space-around; /* Распределяем языки равномерно */
-  align-items: center;
-  gap: 15px; /* Промежуток между языками */
-  opacity: 0; /* Скрываем по умолчанию */
-  pointer-events: none; /* Не реагирует на события, пока скрыт */
-  transition: opacity 0.3s ease;
-}
-
-/* Элементы отдельного языка внутри expanded-options */
-.lang-option-item {
+.lang-option {
   color: var(--lang-switcher-text-color);
   font-size: 16px;
   padding: 6px 14px;
   border-radius: 10px;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
   cursor: pointer;
+  flex-shrink: 0; /* Не сжимать элементы */
+  opacity: 1; /* По умолчанию видимы */
+  pointer-events: auto; /* По умолчанию реагируют на события */
 }
 
-.lang-option-item.active {
-  background: var(--lang-switcher-hover-bg); /* Подсветка активного языка */
+.lang-option.active {
+  background: var(--lang-switcher-hover-bg);
   color: var(--lang-switcher-active-color);
   font-weight: 700;
 }
 
-/* Состояние "развернуто" для language-switcher */
+.lang-option:hover {
+  background: var(--lang-switcher-hover-bg);
+}
+
+/* Состояние "свернуто" */
+.language-switcher.collapsed {
+    width: 60px; /* Ширина для одного языка (примерная) */
+    padding: 10px 0; /* Отступы для одного языка */
+    justify-content: center; /* Центрировать один язык */
+}
+
+.language-switcher.collapsed .lang-option:not(.active) {
+    opacity: 0; /* Скрыть неактивные языки */
+    width: 0; /* Убрать ширину */
+    padding: 0; /* Убрать padding */
+    margin: 0; /* Убрать margin */
+    pointer-events: none; /* Не реагирует на события */
+    transform: scale(0.5); /* Визуально уменьшить */
+}
+
+.language-switcher.collapsed .lang-option.active {
+    width: auto; /* Активный элемент занимает необходимую ширину */
+    padding: 6px 14px; /* Сохранить отступы для активного */
+    transform: scale(1); /* Вернуть нормальный размер */
+    pointer-events: auto;
+}
+
+/* Состояние "развернуто" */
 .language-switcher.expanded {
-  width: 200px; /* Примерная ширина, чтобы вместить все языки. Настройте при необходимости. */
-  padding: 10px 10px; /* Немного уменьшим padding, чтобы было больше места для языков */
+    width: 200px; /* Ширина для всех языков (примерная) */
+    padding: 10px 20px; /* Отступы для всех языков */
+    justify-content: space-around; /* Распределить языки */
 }
 
-.language-switcher.expanded #current-lang-display {
-  opacity: 0; /* Скрываем одиночный язык при разворачивании */
-  pointer-events: none; /* Не реагирует на события */
+.language-switcher.expanded .lang-option {
+    opacity: 1; /* Все языки видны */
+    width: auto; /* Все языки занимают необходимую ширину */
+    padding: 6px 14px; /* Отступы для всех языков */
+    margin: 0; /* Сбросить margin */
+    pointer-events: auto;
+    transform: scale(1);
 }
 
-.language-switcher.expanded .lang-options-expanded {
-  opacity: 1; /* Показываем все языки при разворачивании */
-  pointer-events: auto; /* Реагирует на события */
-}
 
-
-/* Медиа-запросы для адаптации */
 @media (max-width: 480px) {
   .donate-container {
     padding: 20px;
@@ -228,21 +229,18 @@ h1 {
     font-size: 12px;
     max-width: 60px;
   }
-  .language-switcher {
+  .language-switcher.collapsed {
     bottom: 15px;
-    padding: 8px 15px;
-    border-radius: 15px;
-    min-width: 60px;
+    width: 50px;
+    padding: 6px 0;
   }
-  #current-lang-display {
-    font-size: 16px;
-  }
-  .language-switcher.expanded {
-    width: 180px; /* Уменьшаем ширину для мобильных при разворачивании */
-    padding: 8px 8px;
-  }
-  .lang-option-item {
+  .lang-option {
     font-size: 14px;
     padding: 5px 10px;
+  }
+  .language-switcher.expanded {
+    bottom: 15px;
+    width: 180px;
+    padding: 6px 10px;
   }
 }
