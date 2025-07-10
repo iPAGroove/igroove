@@ -6,18 +6,36 @@
     <title>Donate iPAGroove</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-red: #EE1D52; /* Основной акцентный красный (как TikTok) */
+            --primary-blue: #00F2EA; /* Основной акцентный бирюзовый */
+            --dark-background: #1a1a2e; /* Более мягкий темный фон */
+            --card-background: rgba(255, 255, 255, 0.1); /* Прозрачный белый для карточек */
+            --card-border: rgba(255, 255, 255, 0.3); /* Граница карточек */
+            --text-color: #f0f0f0; /* Светлый текст */
+        }
+
         body {
             margin: 0;
             padding: 0;
             font-family: 'Open Sans', sans-serif;
-            color: #fff;
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #0d0d21; /* Очень темный фон */
-            overflow: hidden;
+            /* Изменил фон на более динамичный градиент */
+            background: linear-gradient(135deg, #1a1a2e, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            overflow: hidden; /* Скрываем общий оверфлоу */
             position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Динамичный фон: Пузыри / Элементы */
@@ -33,135 +51,90 @@
             position: absolute;
             display: block;
             list-style: none;
-            background: rgba(238, 29, 82, 0.1); /* Прозрачный TikTok-красный */
+            background: rgba(var(--primary-red), 0.15); /* Чуть более яркий красный */
             animation: animate 25s linear infinite;
-            bottom: -150px; /* Начинают из-за экрана */
+            bottom: -150px;
+            border-radius: 50%; /* Все элементы круглые */
+            opacity: 0.7;
         }
 
-        .background-elements span:nth-child(1) {
-            left: 25%;
-            width: 80px;
-            height: 80px;
-            animation-delay: 0s;
+        .background-elements span:nth-child(even) {
+            background: rgba(var(--primary-blue), 0.15); /* Бирюзовый для четных */
         }
-        .background-elements span:nth-child(2) {
-            left: 10%;
-            width: 20px;
-            height: 20px;
-            animation-delay: 2s;
-            animation-duration: 12s;
-            background: rgba(0, 242, 234, 0.1); /* Прозрачный бирюзовый */
-        }
-        .background-elements span:nth-child(3) {
-            left: 70%;
-            width: 20px;
-            height: 20px;
-            animation-delay: 4s;
-        }
-        .background-elements span:nth-child(4) {
-            left: 40%;
-            width: 60px;
-            height: 60px;
-            animation-delay: 0s;
-            animation-duration: 18s;
-            background: rgba(0, 242, 234, 0.1);
-        }
-        .background-elements span:nth-child(5) {
-            left: 65%;
-            width: 20px;
-            height: 20px;
-            animation-delay: 0s;
-        }
-        .background-elements span:nth-child(6) {
-            left: 75%;
-            width: 110px;
-            height: 110px;
-            animation-delay: 3s;
-        }
-        .background-elements span:nth-child(7) {
-            left: 35%;
-            width: 150px;
-            height: 150px;
-            animation-delay: 7s;
-            background: rgba(0, 242, 234, 0.1);
-        }
-        .background-elements span:nth-child(8) {
-            left: 50%;
-            width: 25px;
-            height: 25px;
-            animation-delay: 15s;
-            animation-duration: 45s;
-        }
-        .background-elements span:nth-child(9) {
-            left: 20%;
-            width: 15px;
-            height: 15px;
-            animation-delay: 2s;
-            animation-duration: 35s;
-        }
-        .background-elements span:nth-child(10) {
-            left: 85%;
-            width: 150px;
-            height: 150px;
-            animation-delay: 11s;
-        }
+
+        .background-elements span:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .background-elements span:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .background-elements span:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .background-elements span:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .background-elements span:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .background-elements span:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .background-elements span:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .background-elements span:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .background-elements span:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+        .background-elements span:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 11s; }
 
         @keyframes animate {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 0.8;
-                border-radius: 0;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg) scale(0.5);
-                opacity: 0;
-                border-radius: 50%;
-            }
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-1000px) rotate(720deg) scale(0.5); opacity: 0; }
         }
 
         .main-content {
-            z-index: 2; /* Поверх фона */
+            z-index: 2;
             text-align: center;
-            background: rgba(0, 0, 0, 0.7); /* Темный полупрозрачный фон для читаемости */
+            /* Более светлый и прозрачный фон для окна */
+            background: var(--card-background);
             padding: 40px 60px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px); /* Сильное размытие фона за блоком */
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 90%; /* Адаптивность */
+            border-radius: 20px; /* Больше закругления */
+            /* Более мягкая и цветная тень */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--primary-red);
+            backdrop-filter: blur(15px); /* Сильнее размытие */
+            border: 1px solid var(--card-border); /* Более заметная граница */
+            max-width: 95%; /* Лучшая адаптивность для ширины */
+            width: fit-content; /* Ширина по содержимому */
             box-sizing: border-box;
-            min-width: fit-content; /* Ширина по контенту */
-            min-width: -moz-fit-content; /* Для Firefox */
         }
 
         h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 3.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+            margin-bottom: 25px; /* Увеличил отступ */
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.7); /* Более выраженная тень текста */
             letter-spacing: 2px;
-            color: #fff;
+            color: var(--text-color);
+            line-height: 1.2;
         }
 
         .icon-container {
             margin-top: 30px;
-            display: flex; /* Используем flexbox */
-            justify-content: center; /* Центрируем иконки */
-            gap: 25px; /* Расстояние между иконками */
-            flex-wrap: nowrap; /* ! Важно: Запрещаем перенос на новую строку */
-            overflow-x: auto; /* Позволяем горизонтальную прокрутку, если иконок очень много */
-            padding-bottom: 10px; /* Отступ для скролла, если он появится */
-            /* На больших экранах, чтобы иконки не "сжимались", если их мало */
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: nowrap;
+            overflow-x: auto; /* Позволяем горизонтальную прокрутку */
+            padding-bottom: 15px; /* Отступ для красивой прокрутки */
             min-width: fit-content;
             min-width: -moz-fit-content;
-            /* Скрываем полосу прокрутки для более чистого вида (на некоторых браузерах) */
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+
+            /* Красивая прокрутка */
+            scrollbar-width: thin; /* Firefox: тонкий скроллбар */
+            scrollbar-color: var(--primary-red) transparent; /* Firefox: цвет скроллбара */
         }
 
-        /* Webkit-браузеры (Chrome, Safari) */
+        /* Webkit-браузеры (Chrome, Safari): стили для скроллбара */
         .icon-container::-webkit-scrollbar {
-            display: none;
+            height: 8px; /* Высота скроллбара */
+            background-color: transparent; /* Фон скроллбара прозрачный */
+        }
+
+        .icon-container::-webkit-scrollbar-thumb {
+            background-color: var(--primary-red); /* Цвет ползунка */
+            border-radius: 4px; /* Закругленные углы ползунка */
+            border: 2px solid transparent; /* Граница, чтобы ползунок был чуть меньше */
+            background-clip: padding-box; /* Фон только внутри границы */
+        }
+
+        .icon-container::-webkit-scrollbar-thumb:hover {
+            background-color: var(--primary-blue); /* Цвет ползунка при наведении */
         }
 
         .icon-link {
@@ -169,13 +142,13 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: #fff;
+            color: var(--text-color);
             font-size: 1.1em;
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: pointer;
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-            flex-shrink: 0; /* Важно: Запрещаем иконке сжиматься */
+            flex-shrink: 0;
             padding: 5px;
         }
 
@@ -186,31 +159,40 @@
             margin-bottom: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 20%;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Более выраженная тень */
+            background-color: rgba(255, 255, 255, 0.1); /* Чуть более заметный фон для иконки */
+            padding: 8px; /* Немного больший внутренний отступ */
         }
 
         .icon-link:hover .icon-img {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 0 25px rgba(238, 29, 82, 0.7);
+            transform: scale(1.15) translateY(-8px); /* Увеличил эффект при наведении */
+            box-shadow: 0 0 35px var(--primary-blue); /* Яркая тень при наведении, используем бирюзовый */
         }
 
         .icon-link:hover {
-            color: #EE1D52;
+            color: var(--primary-blue); /* Цвет текста меняется на бирюзовый при наведении */
         }
 
-        /* Медиа-запросы теперь только для адаптации размера, не для переноса */
+        /* Медиа-запросы для адаптивности */
         @media (max-width: 768px) {
             .main-content {
                 padding: 30px 40px;
+                border-radius: 15px; /* Чуть меньше закругления на мобильных */
+            }
+            h1 {
+                font-size: 2.8em;
+                margin-bottom: 20px;
             }
             .icon-container {
-                gap: 15px; /* Уменьшаем gap на мобильных */
+                gap: 15px;
             }
             .icon-link .icon-img {
                 width: 70px;
                 height: 70px;
+                padding: 6px;
+            }
+            .icon-link {
+                font-size: 1em;
             }
         }
 
@@ -223,26 +205,28 @@
             .main-content {
                 padding: 25px;
                 margin: 15px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Меньше тень на мобильных */
             }
             .icon-container {
-                gap: 10px; /* Еще уменьшаем gap для очень маленьких экранов */
+                gap: 10px;
+                padding-bottom: 10px;
             }
             .icon-link {
-                font-size: 0.95em;
+                font-size: 0.9em;
             }
             .icon-link .icon-img {
                 width: 60px;
                 height: 60px;
                 margin-bottom: 5px;
+                padding: 5px;
             }
-            /* Уменьшаем размер фоновых элементов на мобильных */
             .background-elements span {
                 width: 40px !important;
                 height: 40px !important;
             }
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 480px) {
             h1 {
                 font-size: 1.8em;
             }
@@ -294,17 +278,17 @@
                 <span>Binance (USDT)</span>
             </a>
 
-            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-link" target="_blank">
+            <a href="ВАША_ССЫЛКА_НА_ABANK" class="icon-link" target="_blank">
                 <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
                 <span>ABank</span>
             </a>
 
-            <a href="ВАША_ССЫЛКА_НА_BINANCE" class="icon-link" target="_blank">
+            <a href="ВАША_ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-link" target="_blank">
                 <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
                 <span>Telegram Wallet</span>
             </a>
 
-             </div>
+            </div>
     </div>
 </body>
 </html>
