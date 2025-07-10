@@ -7,22 +7,23 @@
     <style>
         /* Добавил CSS переменные для удобства */
         :root {
-            --text-color: #ffffff; /* Основной белый цвет для четкости текста */
-            
-            /* Цвета для пламени (используются в GLSL, но здесь для справки) */
-            --flame-blue-light: #87CEEB; /* Небесно-голубой */
-            --flame-blue-medium: #00BFFF; /* Глубокий небесно-голубой (DeepSkyBlue) */
-            --flame-blue-dark: #1E90FF; /* Доджер блю */
-            --flame-blue-glow: rgba(0, 191, 255, 0.6); /* Свечение вокруг пламени */
+            /* Обновленные переменные для текста - теперь голубовато-синие */
+            --text-color: #ffffff; /* Основной белый цвет для четкости */
+            --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
+            --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
+            --text-gradient-start: #ffffff; /* Начало градиента: белый */
+            --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
+            --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
 
             --container-bg: rgba(255, 255, 255, 0.08);
             --box-shadow-color: rgba(0, 0, 0, 0.3);
             --icon-hover-scale: 1.15;
             --icon-shadow-color: rgba(0, 0, 0, 0.4);
             
+            /* Скроллбар тоже сделаем в тон, голубоватым */
             --scrollbar-track-color: rgba(255, 255, 255, 0.05);
-            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6);
-            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9);
+            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
+            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
@@ -53,7 +54,8 @@
             width: 100%;
             text-align: center;
             backdrop-filter: blur(18px);
-            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3);
+            /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
+            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -68,7 +70,9 @@
             overflow: hidden; /* Обрезаем пламя, которое выходит за границы */
             display: flex; /* Для выравнивания h1 и canvas */
             justify-content: center; /* Центрируем h1 и canvas внутри wrapper */
-            align-items: center; /* Выравниваем по центру по вертикали */
+            align-items: flex-end; /* Выравниваем по низу, чтобы пламя было над текстом */
+            box-sizing: border-box; /* Учитываем padding/border в размере */
+            padding-bottom: 5px; /* Небольшой отступ, чтобы пламя было над буквами */
         }
 
         h1 {
@@ -76,24 +80,49 @@
             font-size: 32px;
             font-weight: 700;
             letter-spacing: 1px;
-            color: var(--text-color); /* Белый цвет текста */
-            position: relative; /* Чтобы текст был поверх Canvas */
+            /* margin-bottom: 25px; // Убираем отсюда, т.к. wrapper управляет отступом */
+            
+            color: var(--text-color); /* Основной белый цвет для четкости */
+            
+            /* Возвращаем градиент */
+            background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: textGradientFlow 6s linear infinite;
+
+            /* Возвращаем голубовато-синюю тень */
+            text-shadow: 
+                0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
+                0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
+                0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
+
+            position: relative; /* Чтобы текст был над канвасом для mix-blend-mode */
             z-index: 2; /* Текст должен быть выше Canvas */
-            text-shadow: none; /* Убираем все text-shadow, пламя будет от Canvas */
-            pointer-events: none; /* Текст не должен ловить события мыши, если под ним canvas */
+            /* pointer-events: none; // Убираем, если хотим, чтобы текст был интерактивным, но тогда Canvas должен быть фоновым */
+        }
+
+        /* Анимация движения градиента текста */
+        @keyframes textGradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         #flameCanvas {
             position: absolute;
-            top: 0;
+            /* top: 0; // Убираем top:0, чтобы Canvas был позиционирован относительно нижней части wrapper */
+            bottom: 0; /* Привязываем к низу flame-title-wrapper */
             left: 0;
             width: 100%; /* Заполнит всю ширину .flame-title-wrapper */
             height: 100%; /* Заполнит всю высоту .flame-title-wrapper */
             z-index: 1; /* Canvas под текстом */
             pointer-events: none; /* Canvas не должен ловить события мыши */
+            /* Добавляем эффект смешивания, чтобы пламя "светилось" сквозь текст */
+            mix-blend-mode: screen; /* или lighter, overlay, hard-light, color-dodge */
+            /* filter: brightness(1.5) contrast(1.2); // Можно добавить для усиления яркости пламени */
         }
 
-        /* ... (Остальные твои стили для icon-row, icon-item и т.д. остаются без изменений) ... */
+        /* ... (Остальные твои стили icon-row, icon-item, icon-img, icon-label и медиа-запросы остаются без изменений) ... */
 
         .icon-row {
             display: flex;
@@ -167,10 +196,12 @@
             .flame-title-wrapper {
                 height: 60px; /* Уменьшаем для мобильных */
                 margin-bottom: 20px;
+                padding-bottom: 3px; /* Меньший отступ для меньшего размера шрифта */
             }
 
             h1 {
                 font-size: 26px;
+                /* margin-bottom: 20px; // Убираем отсюда */
             }
             
             .icon-img {
@@ -196,9 +227,11 @@
             .flame-title-wrapper {
                 height: 50px; /* Еще уменьшаем для очень маленьких экранов */
                 margin-bottom: 18px;
+                padding-bottom: 2px;
             }
             h1 {
                 font-size: 20px;
+                /* margin-bottom: 18px; // Убираем отсюда */
             }
             .icon-img {
                 width: 45px;
@@ -259,7 +292,6 @@
             alert('Ваш браузер не поддерживает WebGL, эффект пламени не будет виден.');
         }
 
-        // Вершинный шейдер - обычно он стандартный для рендеринга 2D-эффектов
         const vsSource = `
             attribute vec4 aPosition;
             void main() {
@@ -267,7 +299,6 @@
             }
         `;
 
-        // Фрагментный шейдер - загружаем его асинхронно из файла flame.frag
         async function loadShaderSource(url) {
             try {
                 const response = await fetch(url);
@@ -337,7 +368,6 @@
             gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
             gl.enableVertexAttribArray(positionLocation);
 
-            // ИЗМЕНЕНИЯ ЗДЕСЬ: используем 'iResolution' и 'iTime'
             const resolutionLocation = gl.getUniformLocation(shaderProgram, 'iResolution');
             const timeLocation = gl.getUniformLocation(shaderProgram, 'iTime');
 
@@ -373,8 +403,8 @@
 
             // Автоматическое изменение размера canvas при изменении размера окна
             window.addEventListener('resize', () => {
-                // Чтобы избежать дублирования render(), просто обновляем размеры canvas
-                // Следующий кадр requestAnimationFrame сам вызовет render() с новыми размерами
+                // Вызов render() в resize event listener не нужен, т.к. requestAnimationFrame уже это делает.
+                // Просто убедимся, что Wrapper изменяет размер, и Canvas подстроится.
             });
 
             // Дополнительно: наблюдение за размером flame-title-wrapper
@@ -383,8 +413,6 @@
                     if (entry.target === document.querySelector('.flame-title-wrapper')) {
                         // При изменении размеров wrapper, перерисовываем canvas
                         // Это также будет учтено в следующем кадре render()
-                        // console.log('Wrapper resized, re-rendering canvas.');
-                        // Нет необходимости вызывать render() напрямую, requestAnimationFrame позаботится
                     }
                 }
             });
