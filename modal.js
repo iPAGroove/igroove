@@ -147,33 +147,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'ABank',
                 contentHtml: `
                     <p>ABank Information:</p>
-                    <p>Card Number: <b>AAAA AAAA AAAA AAAA</b></p>
+                    <p>Card Number: <b>4323 3450 4333 7048</b></p>
                     <p>Full Name: <b>Alex Kuznetsov</b></p>
                 `,
-                buttonText: 'Copy card number',
-                copyButtonData: 'AAAA AAAA AAAA AAAA',
+                buttonText: 'Pay',
+                payButtonUrl: 'https://pay.a-bank.com.ua/card/tZ5Q1Uw8dbog38NI',
                 note: 'Thank you for your contribution!'
             },
             ru: {
                 title: 'ABank',
                 contentHtml: `
                     <p>Информация об ABank:</p>
-                    <p>Номер карты: <b>AAAA AAAA AAAA AAAA</b></p>
+                    <p>Номер карты: <b>4323 3450 4333 7048</b></p>
                     <p>ФИО: <b>Алексей Кузнецов</b></p>
                 `,
-                buttonText: 'Копировать номер карты',
-                copyButtonData: 'AAAA AAAA AAAA AAAA',
+                buttonText: 'Оплатить',
+                payButtonUrl: 'https://pay.a-bank.com.ua/card/tZ5Q1Uw8dbog38NI',
                 note: 'Спасибо за ваш вклад!'
             },
             ua: {
                 title: 'ABank',
                 contentHtml: `
                     <p>Інформація про ABank:</p>
-                    <p>Номер картки: <b>AAAA AAAA AAAA AAAA</b></p>
+                    <p>Номер картки: <b>4323 3450 4333 7048</b></p>
                     <p>ПІБ: <b>Олексій Кузнецов</b></p>
                 `,
-                buttonText: 'Копіювати номер картки',
-                copyButtonData: 'AAAA AAAA AAAA AAAA',
+                buttonText: 'Сплатити',
+                payButtonUrl: 'https://pay.a-bank.com.ua/card/tZ5Q1Uw8dbog38NI',
                 note: 'Дякуємо за ваш внесок!'
             }
         },
