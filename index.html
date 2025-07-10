@@ -5,145 +5,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Donate iPAGroove</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
     }
 
     body {
       height: 100vh;
-      background: linear-gradient(120deg, #8e2de2, #4a00e0);
+      background: linear-gradient(120deg, #1b0044, #44006f, #3d0075, #2b004f);
       background-size: 300% 300%;
-      animation: moveGradient 15s ease infinite;
+      animation: bgMove 15s ease infinite;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
 
-    @keyframes moveGradient {
+    @keyframes bgMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    .donate-container {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 24px;
-      border-radius: 24px;
-      backdrop-filter: blur(18px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 500px;
+    .content {
       text-align: center;
+      max-width: 600px;
+      width: 100%;
     }
 
     h1 {
-      color: white;
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: 28px;
+      background: linear-gradient(45deg, #ffffff, #a37fff, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 3s ease-in-out infinite alternate;
+      margin-bottom: 30px;
+      font-weight: 700;
       letter-spacing: 1px;
     }
 
-    .icon-scroll {
+    @keyframes glow {
+      0% { text-shadow: 0 0 4px #ffffff55, 0 0 10px #a37fff44; }
+      100% { text-shadow: 0 0 10px #ffffffaa, 0 0 18px #a37fff; }
+    }
+
+    .icon-row {
       display: flex;
       overflow-x: auto;
-      gap: 14px;
-      padding-bottom: 4px;
-      scroll-snap-type: x mandatory;
+      gap: 24px;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 10px;
     }
 
-    .icon-link {
+    .icon-item {
       flex: 0 0 auto;
-      scroll-snap-align: center;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 14px;
-      padding: 12px;
-      width: 100px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-decoration: none;
       color: white;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
-    .icon-link:hover {
-      background: rgba(255, 255, 255, 0.25);
-      transform: scale(1.05);
+    .icon-item:hover {
+      transform: scale(1.1);
     }
 
     .icon-img {
-      width: 48px;
-      height: 48px;
+      width: 60px;
+      height: 60px;
       object-fit: contain;
-      margin-bottom: 8px;
-      border-radius: 10px;
+      border-radius: 16px;
+      margin-bottom: 6px;
     }
 
-    .icon-link span {
+    .icon-label {
       font-size: 13px;
-      word-wrap: break-word;
+      text-align: center;
+      max-width: 80px;
     }
 
-    /* Scroll bar hidden for mobile clean look */
-    .icon-scroll::-webkit-scrollbar {
+    .icon-row::-webkit-scrollbar {
       display: none;
     }
 
     @media (max-width: 480px) {
       h1 {
-        font-size: 20px;
-      }
-
-      .icon-link {
-        width: 90px;
-        padding: 10px;
+        font-size: 22px;
       }
 
       .icon-img {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
       }
 
-      .icon-link span {
+      .icon-label {
         font-size: 12px;
+        max-width: 70px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="donate-container">
+  <div class="content">
     <h1>Donate iPAGroove</h1>
-    <div class="icon-scroll">
-      <a href="ССЫЛКА_НА_ПРИВАТ" class="icon-link" target="_blank">
+    <div class="icon-row">
+      <a href="ССЫЛКА_НА_ПРИВАТ" class="icon-item" target="_blank">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
-        <span>ПриватБанк</span>
+        <span class="icon-label">ПриватБанк</span>
       </a>
 
-      <a href="ССЫЛКА_НА_МОНОБАНК" class="icon-link" target="_blank">
+      <a href="ССЫЛКА_НА_МОНОБАНК" class="icon-item" target="_blank">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6669.jpeg?raw=true" alt="Монобанк" class="icon-img">
-        <span>Монобанк</span>
+        <span class="icon-label">Монобанк</span>
       </a>
 
-      <a href="ССЫЛКА_НА_PAYPAL" class="icon-link" target="_blank">
+      <a href="ССЫЛКА_НА_PAYPAL" class="icon-item" target="_blank">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6667.jpeg?raw=true" alt="PayPal" class="icon-img">
-        <span>PayPal</span>
+        <span class="icon-label">PayPal</span>
       </a>
 
-      <a href="ССЫЛКА_НА_BINANCE" class="icon-link" target="_blank">
+      <a href="ССЫЛКА_НА_BINANCE" class="icon-item" target="_blank">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/binance.png?raw=true" alt="Binance" class="icon-img">
-        <span>Binance (USDT)</span>
+        <span class="icon-label">Binance (USDT)</span>
       </a>
 
-      <a href="ССЫЛКА_НА_ABANK" class="icon-link" target="_blank">
+      <a href="ССЫЛКА_НА_ABANK" class="icon-item" target="_blank">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6670.jpeg?raw=true" alt="ABank" class="icon-img">
-        <span>ABank</span>
+        <span class="icon-label">ABank</span>
       </a>
 
-      <a href="ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-link" target="_blank">
+      <a href="ССЫЛКА_НА_TELEGRAM_WALLET" class="icon-item" target="_blank">
         <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6672.jpeg?raw=true" alt="Telegram Wallet" class="icon-img">
-        <span>Telegram Wallet</span>
+        <span class="icon-label">Telegram Wallet</span>
       </a>
     </div>
   </div>
