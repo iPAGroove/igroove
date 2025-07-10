@@ -7,21 +7,19 @@
     <style>
         /* Добавил CSS переменные для удобства */
         :root {
-            --text-gradient-start: #ffffff;
-            --text-gradient-middle: #a37fff;
-            --text-gradient-end: #6e00ff; /* Новый цвет для градиента */
-            --text-glow-shadow: rgba(163, 127, 255, 0.8); /* Цвет для тени текста, чуть ярче */
-            --text-glow-shadow-secondary: rgba(255, 255, 255, 0.3); /* Дополнительная тень */
+            /* Обновленные переменные для текста - более мягкие и четкие */
+            --text-color: #ffffff; /* Основной белый цвет для четкости */
+            --text-glow-color-light: rgba(255, 255, 255, 0.4); /* Легкое белое свечение */
+            --text-glow-color-accent: rgba(175, 139, 255, 0.7); /* Акцентное фиолетовое свечение, чуть светлее */
 
-            --container-bg: rgba(255, 255, 255, 0.08); /* Чуть ярче фон контейнера */
-            --box-shadow-color: rgba(0, 0, 0, 0.3); /* Цвет тени контейнера */
-            --icon-hover-scale: 1.15; /* Увеличил масштаб при наведении */
-            --icon-shadow-color: rgba(0, 0, 0, 0.4); /* Тень для иконок */
+            --container-bg: rgba(255, 255, 255, 0.08);
+            --box-shadow-color: rgba(0, 0, 0, 0.3);
+            --icon-hover-scale: 1.15;
+            --icon-shadow-color: rgba(0, 0, 0, 0.4);
             
-            /* Новые переменные для стилей скроллбара */
-            --scrollbar-track-color: rgba(255, 255, 255, 0.05); /* Цвет фона дорожки скроллбара */
-            --scrollbar-thumb-color: rgba(163, 127, 255, 0.5); /* Полупрозрачный фиолетовый для ползунка */
-            --scrollbar-thumb-hover-color: rgba(163, 127, 255, 0.8); /* Более яркий фиолетовый при наведении */
+            --scrollbar-track-color: rgba(255, 255, 255, 0.05);
+            --scrollbar-thumb-color: rgba(163, 127, 255, 0.5);
+            --scrollbar-thumb-hover-color: rgba(163, 127, 255, 0.8);
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
@@ -41,11 +39,11 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            overflow: hidden; /* <-- Убирает прокрутку для всего body */
+            overflow: hidden;
         }
 
         .donate-container {
-            background: var(--container-bg); /* Использование переменной */
+            background: var(--container-bg);
             border-radius: 24px;
             padding: 30px;
             max-width: 600px;
@@ -53,89 +51,90 @@
             text-align: center;
             backdrop-filter: blur(18px);
             box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(163, 127, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Добавил легкую границу */
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h1 {
-            font-family: 'Poppins', sans-serif; /* Убедимся, что Poppins используется для h1 */
-            font-size: 38px; /* Немного увеличим размер для выразительности */
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px; /* Уменьшаем размер */
             font-weight: 700;
-            letter-spacing: 2px; /* Чуть больше расстояние между буквами */
-            margin-bottom: 35px; /* Увеличим отступ снизу */
+            letter-spacing: 1px; /* Уменьшаем интервал */
+            margin-bottom: 25px; /* Корректируем отступ */
 
-            /* Улучшенный градиент */
-            background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
-            background-size: 200% auto; /* Позволяет градиенту двигаться */
+            /* Основной белый цвет для четкости */
+            color: var(--text-color);
+            
+            /* Упрощенный, более четкий градиент */
+            background: linear-gradient(90deg, #ffffff, #d3c0ff, #ffffff); /* Более мягкий градиент */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: 
-                textGradientFlow 8s linear infinite, /* Анимация движения градиента */
-                glow 3s ease-in-out infinite alternate; /* Анимация свечения */
-            
-            /* Добавим легкий 3D-эффект */
-            transform: perspective(500px) rotateX(7deg) translateY(-5px); /* Легкий наклон и поднятие */
+            background-size: 200% auto; /* Оставляем для тонкого эффекта движения */
+            animation: textGradientFlow 6s linear infinite; /* Немного ускорим движение */
+
+            /* Улучшенная, более четкая тень, без 3D-трансформации */
             text-shadow: 
-                0 0 8px var(--text-glow-shadow-secondary), /* Белая/прозрачная тень */
-                0 0 15px var(--text-glow-shadow), /* Основная фиолетовая тень */
-                0 0 25px var(--text-glow-shadow); /* Более сильное фиолетовое свечение */
-            transition: transform 0.3s ease; /* Плавный переход для трансформации */
+                0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
+                0 0 10px var(--text-glow-color-accent), /* Акцентное фиолетовое свечение */
+                0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
+            /* Убираем transform для плоского текста */
         }
 
-        /* Анимация движения градиента текста */
+        /* Анимация движения градиента текста - без изменений, если устраивает */
         @keyframes textGradientFlow {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
 
-        /* Анимация свечения текста */
-        @keyframes glow {
+        /* Анимация свечения текста - корректируем для более тонкого эффекта */
+        @keyframes glow { /* Мы не используем эту анимацию напрямую на h1, но можем удалить или переиспользовать */
             0% { 
                 text-shadow: 
-                    0 0 6px var(--text-glow-shadow-secondary),
-                    0 0 12px var(--text-glow-shadow),
-                    0 0 20px var(--text-glow-shadow);
+                    0 0 5px var(--text-glow-color-light),
+                    0 0 10px var(--text-glow-color-accent),
+                    0 0 15px var(--text-glow-color-accent);
             }
             100% { 
                 text-shadow: 
-                    0 0 10px var(--text-glow-shadow-secondary),
-                    0 0 20px var(--text-glow-shadow),
-                    0 0 35px var(--text-glow-shadow);
+                    0 0 8px var(--text-glow-color-light),
+                    0 0 15px var(--text-glow-color-accent),
+                    0 0 25px var(--text-glow-color-accent);
             }
         }
 
+        /* Если хочешь, чтобы свечение анимировалось, как раньше, раскомментируй animation: glow; в h1 */
+        /* Сейчас на h1 осталась только textGradientFlow */
+
         .icon-row {
             display: flex;
-            overflow-x: auto; /* Позволяем прокрутку */
+            overflow-x: auto;
             gap: 24px;
-            justify-content: center; /* Центрируем иконки, если их мало */
+            justify-content: center;
             align-items: center;
-            padding-bottom: 10px; /* Отступ для скроллбара */
+            padding-bottom: 10px;
 
-            /* Красивая прокрутка для Firefox */
             scrollbar-width: thin;
-            scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color); /* Ползунок и дорожка */
-            scroll-behavior: smooth; /* Плавная прокрутка */
+            scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+            scroll-behavior: smooth;
         }
 
-        /* Красивая прокрутка для Webkit-браузеров (Chrome, Safari) */
         .icon-row::-webkit-scrollbar {
-            height: 6px; /* Высота скроллбара */
-            background-color: var(--scrollbar-track-color); /* Фон дорожки скроллбара */
-            border-radius: 3px; /* Закругленные углы дорожки */
+            height: 6px;
+            background-color: var(--scrollbar-track-color);
+            border-radius: 3px;
         }
 
         .icon-row::-webkit-scrollbar-thumb {
-            background-color: var(--scrollbar-thumb-color); /* Цвет ползунка */
-            border-radius: 3px; /* Закругленные углы ползунка */
-            transition: background-color 0.3s ease; /* Плавное изменение цвета */
+            background-color: var(--scrollbar-thumb-color);
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
         }
 
         .icon-row::-webkit-scrollbar-thumb:hover {
-            background-color: var(--scrollbar-thumb-hover-color); /* Цвет ползунка при наведении */
+            background-color: var(--scrollbar-thumb-hover-color);
         }
 
         .icon-item {
-            flex: 0 0 auto; /* Запрещаем сжиматься, сохраняем размер */
+            flex: 0 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -145,7 +144,7 @@
         }
 
         .icon-item:hover {
-            transform: scale(var(--icon-hover-scale)); /* Использование переменной */
+            transform: scale(var(--icon-hover-scale));
         }
 
         .icon-img {
@@ -154,30 +153,29 @@
             object-fit: contain;
             border-radius: 14px;
             margin-bottom: 8px;
-            box-shadow: 0 4px 10px var(--icon-shadow-color); /* Более мягкая тень для иконок */
-            background: rgba(255, 255, 255, 0.1); /* Легкий фон для иконки */
+            box-shadow: 0 4px 10px var(--icon-shadow-color);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .icon-label {
             font-size: 13px;
             text-align: center;
             max-width: 80px;
-            white-space: nowrap; /* Не переносить текст на новую строку */
-            overflow: hidden; /* Скрыть, если не помещается */
-            text-overflow: ellipsis; /* Добавить многоточие, если текст обрезан */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Медиа-запросы для адаптации */
         @media (max-width: 480px) {
             .donate-container {
                 padding: 20px;
-                border-radius: 18px; /* Чуть меньше закругление на маленьких */
+                border-radius: 18px;
             }
 
             h1 {
-                font-size: 28px; /* Уменьшим размер h1 на мобильных, но оставим больше, чем было */
-                margin-bottom: 25px; /* Адаптивный отступ */
-                transform: perspective(300px) rotateX(5deg) translateY(-3px); /* Меньший 3D-эффект на мобильных */
+                font-size: 26px; /* Уменьшаем еще больше для мобильных */
+                margin-bottom: 20px;
             }
 
             .icon-img {
@@ -187,22 +185,22 @@
 
             .icon-label {
                 font-size: 12px;
-                max-width: 60px; /* Немного уменьшил max-width для лейблов */
+                max-width: 60px;
             }
 
             .icon-row {
                 gap: 16px;
-                padding-bottom: 8px; /* Уменьшил padding-bottom для скроллбара */
+                padding-bottom: 8px;
             }
             .icon-row::-webkit-scrollbar {
-                height: 4px; /* Более тонкий скроллбар на мобильных */
+                height: 4px;
             }
         }
 
-        @media (max-width: 320px) { /* Для очень маленьких экранов */
+        @media (max-width: 320px) {
             h1 {
-                font-size: 22px; /* Еще меньше для совсем маленьких экранов */
-                margin-bottom: 20px;
+                font-size: 20px; /* Для совсем маленьких экранов */
+                margin-bottom: 18px;
             }
             .icon-img {
                 width: 45px;
