@@ -127,28 +127,28 @@ h1 {
   text-overflow: ellipsis;
 }
 
-/* Language Switcher */
+/* Language Switcher - ВСЕГДА В РАЗВЕРНУТОМ СОСТОЯНИИ */
 .language-switcher {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  justify-content: center;
+  justify-content: space-around; /* Распределить языки равномерно */
   align-items: center;
   background: var(--lang-switcher-bg);
-  padding: 10px 20px;
+  padding: 10px 20px; /* Отступы для всех языков */
   border-radius: 18px;
   border: 1px solid var(--lang-switcher-border-color);
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   user-select: none;
-  touch-action: pan-x;
-  cursor: grab;
-  /* Добавим плавные переходы для изменений ширины и прозрачности */
-  transition: width 0.3s ease, padding 0.3s ease, background 0.3s ease, opacity 0.3s ease;
-  overflow: hidden; /* Скрывает элементы, которые выходят за рамки */
+  touch-action: none; /* Отключаем touch-action, т.к. нет свайпов */
+  cursor: default; /* Обычный курсор, т.к. нет перетаскивания */
+  width: 200px; /* Ширина для всех языков (примерная) */
+  transition: none; /* Удаляем все переходы, т.к. нет состояний */
+  overflow: visible; /* Убираем скрытие overflow, все элементы всегда видны */
   white-space: nowrap; /* Предотвращает перенос текста */
-  z-index: 1002; /* НОВЫЙ Z-INDEX: Выше модального окна (1000) и оверлея (999) */
+  z-index: 1002; /* Выше модального окна (1000) и оверлея (999) */
 }
 
 .lang-option {
@@ -156,11 +156,12 @@ h1 {
   font-size: 16px;
   padding: 6px 14px;
   border-radius: 10px;
-  transition: background 0.3s ease, color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease; /* Только переходы для hover/active */
   cursor: pointer;
-  flex-shrink: 0; /* Не сжимать элементы */
-  opacity: 1; /* По умолчанию видимы */
-  pointer-events: auto; /* По умолчанию реагируют на события */
+  flex-shrink: 0;
+  opacity: 1; /* Всегда полностью видим */
+  pointer-events: auto; /* Всегда реагируем на события */
+  transform: scale(1); /* Всегда нормальный размер */
 }
 
 .lang-option.active {
@@ -173,45 +174,7 @@ h1 {
   background: var(--lang-switcher-hover-bg);
 }
 
-/* Состояние "свернуто" */
-.language-switcher.collapsed {
-    width: 60px; /* Ширина для одного языка (примерная) */
-    padding: 10px 0; /* Отступы для одного языка */
-    justify-content: center; /* Центрировать один язык */
-}
-
-.language-switcher.collapsed .lang-option:not(.active) {
-    opacity: 0; /* Скрыть неактивные языки */
-    width: 0; /* Убрать ширину */
-    padding: 0; /* Убрать padding */
-    margin: 0; /* Убрать margin */
-    pointer-events: none; /* Не реагирует на события */
-    transform: scale(0.5); /* Визуально уменьшить */
-}
-
-.language-switcher.collapsed .lang-option.active {
-    width: auto; /* Активный элемент занимает необходимую ширину */
-    padding: 6px 14px; /* Сохранить отступы для активного */
-    transform: scale(1); /* Вернуть нормальный размер */
-    pointer-events: auto;
-}
-
-/* Состояние "развернуто" */
-.language-switcher.expanded {
-    width: 200px; /* Ширина для всех языков (примерная) */
-    padding: 10px 20px; /* Отступы для всех языков */
-    justify-content: space-around; /* Распределить языки */
-}
-
-.language-switcher.expanded .lang-option {
-    opacity: 1; /* Все языки видны */
-    width: auto; /* Все языки занимают необходимую ширину */
-    padding: 6px 14px; /* Отступы для всех языков */
-    margin: 0; /* Сбросить margin */
-    pointer-events: auto;
-    transform: scale(1);
-}
-
+/* Удалены правила для .collapsed и .expanded, т.к. теперь одно состояние */
 
 @media (max-width: 480px) {
   .donate-container {
@@ -230,18 +193,13 @@ h1 {
     font-size: 12px;
     max-width: 60px;
   }
-  .language-switcher.collapsed {
+  .language-switcher { /* Обновлено для мобильных */
     bottom: 15px;
-    width: 50px;
-    padding: 6px 0;
+    width: 180px; /* Ширина для всех языков на мобильных */
+    padding: 6px 10px;
   }
   .lang-option {
     font-size: 14px;
     padding: 5px 10px;
-  }
-  .language-switcher.expanded {
-    bottom: 15px;
-    width: 180px;
-    padding: 6px 10px;
   }
 }
