@@ -1,4 +1,4 @@
-// flame.frag (обновленное содержимое)
+// flame.frag
 
 precision highp float;
 uniform vec2 iResolution;
@@ -47,7 +47,7 @@ float fbm(vec2 uv)
 }
 
 // no defines, standard redish flames
-#define BLUE_FLAME // <-- РАСКОММЕНТИРОВАТЬ ЭТУ СТРОКУ
+#define BLUE_FLAME // <-- Раскомментировано для синего пламени
 //#define GREEN_FLAME
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
@@ -76,7 +76,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 #endif
 	
 	float a = c * (1.-pow(uv.y,3.));
-	fragColor = vec4( mix(vec3(0.),col,a), 1.0); // <-- Внимание: alpha тут 1.0, пламя будет непрозрачным
+	fragColor = vec4( mix(vec3(0.),col,a), a); // <-- Альфа-канал теперь 'a' для прозрачности
 }
 
 void main() {
