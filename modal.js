@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Full Name: <b>Vadym Frolov</b></p>
                     <p>Purpose of payment: <b>Donation</b></p>
                 `,
-                buttonText: 'Pay', // Changed to generic buttonText
-                payButtonUrl: 'https://www.privat24.ua/send/hm8gg', // New field for URL
+                buttonText: 'Pay',
+                payButtonUrl: 'https://www.privat24.ua/send/hm8gg',
                 note: 'Please use these details for transfer.'
             },
             ru: {
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>ФИО: <b>Фролов Вадим</b></p>
                     <p>Назначение платежа: <b>Донат</b></p>
                 `,
-                buttonText: 'Оплатить', // Changed
-                payButtonUrl: 'https://www.privat24.ua/send/hm8gg', // New field for URL
+                buttonText: 'Оплатить',
+                payButtonUrl: 'https://www.privat24.ua/send/hm8gg',
                 note: 'Пожалуйста, используйте эти реквизиты для перевода.'
             },
             ua: {
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>ПІБ: <b>Фролов Вадим</b></p>
                     <p>Призначення платежу: <b>Донат</b></p>
                 `,
-                buttonText: 'Сплатити', // Changed
-                payButtonUrl: 'https://www.privat24.ua/send/hm8gg', // New field for URL
+                buttonText: 'Сплатити',
+                payButtonUrl: 'https://www.privat24.ua/send/hm8gg',
                 note: 'Будь ласка, використовуйте ці реквізити для переказу.'
             }
         },
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 note: 'Ваша поддержка очень важна для нас!'
             },
             ua: {
-                title: 'Монобанк',
+                title: 'Monobank',
                 contentHtml: `
                     <p>Номер картки: <b>4441 1110 5393 7169</b></p>
                     <p>ПІБ: <b>Людмила Ф.</b></p>
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'PayPal',
                 contentHtml: `
                     <p>For donations via PayPal:</p>
-                    <p>Email: <b>your_paypal_email@example.com</b></p>
-                    <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Go to PayPal.Me page</a>
+                    <p>Email: <b>ipagroove@gmail.com</b></p>
+                    <a href="https://paypal.me/ipagroove" target="_blank" class="modal-link">Go to PayPal.Me page</a>
                 `,
                 buttonText: '', // No button for PayPal email in this setup
                 copyButtonData: '',
@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'PayPal',
                 contentHtml: `
                     <p>Для доната через PayPal:</p>
-                    <p>Email: <b>your_paypal_email@example.com</b></p>
-                    <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Перейти на страницу PayPal.Me</a>
+                    <p>Email: <b>ipagroove@gmail.com</b></p>
+                    <a href="https://paypal.me/ipagroove" target="_blank" class="modal-link">Перейти на страницу PayPal.Me</a>
                 `,
                 buttonText: '',
                 copyButtonData: '',
@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'PayPal',
                 contentHtml: `
                     <p>Для донату через PayPal:</p>
-                    <p>Email: <b>your_paypal_email@example.com</b></p>
-                    <a href="https://www.paypal.me/yourusername" target="_blank" class="modal-link">Перейти на сторінку PayPal.Me</a>
+                    <p>Email: <b>ipagroove@gmail.com</b></p>
+                    <a href="https://paypal.me/ipagroove" target="_blank" class="modal-link">Перейти на сторінку PayPal.Me</a>
                 `,
                 buttonText: '',
                 copyButtonData: '',
@@ -270,18 +270,21 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Добавляем новый обработчик события
             if (data.payButtonUrl) {
-                existingButton.removeEventListener('click', handleCopyClick); // Удаляем старый обработчик копирования (если был)
+                // Убедимся, что нет других лишних обработчиков, перед добавлением нового
+                existingButton.removeEventListener('click', handleCopyClick);
+                existingButton.removeEventListener('click', handlePayClick); // Удаляем возможные предыдущие
                 existingButton.addEventListener('click', () => {
                     window.open(data.payButtonUrl, '_blank');
                 });
             } else if (data.copyButtonData) {
-                existingButton.removeEventListener('click', handlePayClick); // Удаляем старый обработчик оплаты (если был)
+                // Убедимся, что нет других лишних обработчиков, перед добавлением нового
+                existingButton.removeEventListener('click', handlePayClick);
+                existingButton.removeEventListener('click', handleCopyClick); // Удаляем возможные предыдущие
                 existingButton.addEventListener('click', async () => {
                     const textToCopy = data.copyButtonData;
                     try {
                         await navigator.clipboard.writeText(textToCopy);
                         const originalText = existingButton.textContent;
-                        // Determine "Copied!" text based on current language or button type
                         let copiedText = '';
                         if (lang === 'ru') {
                             copiedText = 'Скопировано!';
