@@ -15,72 +15,122 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); /* Темно-синий/серый градиент */
+            background: #0d0d21; /* Очень темный фон */
             overflow: hidden;
             position: relative;
         }
 
-        /* Эффект сетки/линий */
-        body::before {
-            content: '';
+        /* Динамичный фон: Пузыри / Элементы */
+        .background-elements {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 30px 30px; /* Размер ячеек сетки */
-            z-index: 1;
-            opacity: 0.5;
-        }
-
-        /* Мягкие акцентные пятна */
-        .gradient-spot-1, .gradient-spot-2 {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.6;
+            overflow: hidden;
             z-index: 0;
-            animation: pulseEffect 8s infinite alternate ease-in-out;
-        }
-        .gradient-spot-1 {
-            background: #e74c3c; /* Красный акцент */
-            width: 400px;
-            height: 400px;
-            top: 10%;
-            left: 5%;
-        }
-        .gradient-spot-2 {
-            background: #3498db; /* Синий акцент */
-            width: 350px;
-            height: 350px;
-            bottom: 15%;
-            right: 8%;
-            animation-delay: 2s;
         }
 
-        @keyframes pulseEffect {
-            0% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.05); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 0.6; }
+        .background-elements span {
+            position: absolute;
+            display: block;
+            list-style: none;
+            background: rgba(238, 29, 82, 0.1); /* Прозрачный TikTok-красный */
+            animation: animate 25s linear infinite;
+            bottom: -150px; /* Начинают из-за экрана */
         }
+
+        .background-elements span:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+        .background-elements span:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+            background: rgba(0, 242, 234, 0.1); /* Прозрачный бирюзовый */
+        }
+        .background-elements span:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+        .background-elements span:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+            background: rgba(0, 242, 234, 0.1);
+        }
+        .background-elements span:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+        .background-elements span:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+        .background-elements span:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+            background: rgba(0, 242, 234, 0.1);
+        }
+        .background-elements span:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+        .background-elements span:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+        .background-elements span:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 11s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0.8;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg) scale(0.5);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
 
         .main-content {
-            z-index: 2;
+            z-index: 2; /* Поверх фона */
             text-align: center;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.7); /* Темный полупрозрачный фон для читаемости */
             padding: 40px 60px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); /* Сильное размытие фона за блоком */
             border: 1px solid rgba(255, 255, 255, 0.2);
-            /* Добавляем max-width, чтобы блок не растягивался на очень больших экранах,
-               но также и min-width для очень маленьких, если это нужно */
-            max-width: 90%; /* Ограничиваем ширину на больших экранах, оставляя отступы */
-            box-sizing: border-box; /* Учитываем padding в ширине */
+            max-width: 90%; /* Адаптивность */
+            box-sizing: border-box;
         }
 
         h1 {
@@ -90,94 +140,111 @@
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
             letter-spacing: 2px;
             color: #fff;
-            /* Дополнительно: font-size будет уменьшен в медиазапросе */
         }
 
-        .button-container {
+        .icon-container {
             margin-top: 30px;
             display: flex;
-            gap: 20px;
+            gap: 30px; /* Увеличиваем расстояние между иконками */
             justify-content: center;
-            flex-wrap: wrap; /* Кнопки могут переноситься на новую строку при нехватке места */
+            flex-wrap: wrap; /* Для адаптивности */
         }
 
-        .button {
-            display: inline-block;
-            padding: 15px 40px;
-            font-size: 1.5em;
-            font-weight: 700;
+        .icon-link {
+            display: flex;
+            flex-direction: column; /* Иконка над текстом */
+            align-items: center;
             text-decoration: none;
             color: #fff;
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            border: none;
-            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            /* Добавляем flex-shrink, чтобы кнопки могли уменьшаться */
-            flex-shrink: 1;
-            /* Устанавливаем минимальную ширину, чтобы кнопки не становились слишком узкими */
-            min-width: 150px;
+            cursor: pointer;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
         }
 
-        .button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-            background: linear-gradient(45deg, #c0392b, #a52a2a);
+        .icon-link .icon {
+            font-size: 5em; /* Очень большая иконка */
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+            line-height: 1; /* Убираем лишние отступы у иконок-эмодзи */
         }
 
-        /* Медиа-запросы для адаптивности на маленьких экранах */
+        .icon-link:hover .icon {
+            transform: scale(1.15) translateY(-5px); /* Увеличение и подъем иконки при наведении */
+        }
+
+        .icon-link:hover {
+            color: #EE1D52; /* Цвет текста меняется на акцентный при наведении */
+        }
+
+        /* Медиа-запросы для адаптивности */
         @media (max-width: 600px) {
             h1 {
-                font-size: 2.2em; /* Немного уменьшил для совсем маленьких экранов */
+                font-size: 2.2em;
                 margin-bottom: 15px;
+                letter-spacing: 1px;
             }
             .main-content {
-                padding: 25px; /* Уменьшаем padding на мобильных */
-                margin: 15px; /* Уменьшаем margin, чтобы больше места для контента */
+                padding: 25px;
+                margin: 15px;
             }
-            .button-container {
-                flex-direction: column; /* Кнопки одна под другой */
-                gap: 12px; /* Уменьшаем расстояние между кнопками */
+            .icon-container {
+                gap: 20px; /* Уменьшаем расстояние между иконками на мобильных */
             }
-            .button {
-                width: 90%; /* Кнопки почти на всю ширину контейнера */
-                font-size: 1.1em; /* Уменьшаем размер шрифта */
-                padding: 12px 20px; /* Уменьшаем padding кнопок */
-                margin: 0 auto; /* Центрируем кнопки, если flex-direction column */
+            .icon-link {
+                font-size: 1em;
             }
-            /* Для фоновых пятен, чтобы они не выходили слишком сильно за пределы */
-            .gradient-spot-1, .gradient-spot-2 {
-                width: 300px;
-                height: 300px;
-                filter: blur(60px); /* Меньше размытия на маленьких экранах */
+            .icon-link .icon {
+                font-size: 4em; /* Уменьшаем размер иконок на мобильных */
+                margin-bottom: 5px;
+            }
+            /* Уменьшаем размер фоновых элементов на мобильных */
+            .background-elements span {
+                width: 40px !important;
+                height: 40px !important;
             }
         }
 
-        /* Медиа-запрос для очень маленьких экранов (например, iPhone SE) */
         @media (max-width: 380px) {
             h1 {
                 font-size: 1.8em;
-                letter-spacing: 1px;
             }
             .main-content {
                 padding: 20px;
                 margin: 10px;
             }
-            .button {
-                font-size: 1em;
-                padding: 10px 15px;
+            .icon-link .icon {
+                font-size: 3.5em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="gradient-spot-1"></div>
-    <div class="gradient-spot-2"></div>
+    <div class="background-elements">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
     <div class="main-content">
         <h1>Donate iPAGroove</h1>
-        <div class="button-container">
-            <a href="ua-donations.html" class="button">UA 🇺🇦</a>
-            <a href="world-donations.html" class="button">WORLD 🌍</a>
+        <div class="icon-container">
+            <a href="ua-donations.html" class="icon-link">
+                <span class="icon">🇺🇦</span>
+                <span>Украина</span>
+            </a>
+            <a href="world-donations.html" class="icon-link">
+                <span class="icon">🌍</span>
+                <span>Мир</span>
+            </a>
         </div>
     </div>
 </body>
