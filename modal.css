@@ -1,0 +1,181 @@
+/* modal.css - Стили для модальных окон */
+
+/* Общие стили для модального окна (скрыто по умолчанию) */
+.modal {
+    position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
+    top: 50%; /* Сдвигаем на 50% вниз */
+    left: 50%; /* Сдвигаем на 50% вправо */
+    transform: translate(-50%, -50%) scale(0.9); /* Центрируем и уменьшаем для анимации */
+    background: rgba(255, 255, 255, 0.15); /* Полупрозрачный фон */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(135, 206, 250, 0.5); /* Объемная тень */
+    padding: 30px;
+    z-index: 1000; /* Выше основного контента и переключателя языка */
+    opacity: 0; /* Изначально полностью прозрачно */
+    visibility: hidden; /* Изначально скрыто */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Плавный переход */
+    max-width: 90%; /* Максимальная ширина, чтобы поместиться на маленьких экранах */
+    width: 450px; /* Фиксированная ширина для удобства, на десктопе */
+    color: var(--text-color); /* Цвет текста */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    backdrop-filter: blur(15px); /* Эффект размытия фона под окном */
+}
+
+/* Стили для открытого модального окна */
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1); /* Возвращаем к нормальному размеру */
+}
+
+/* Контент внутри модального окна */
+.modal-content {
+    position: relative; /* Для позиционирования кнопки закрытия */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Промежуток между элементами контента */
+    width: 100%;
+}
+
+.modal-content h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 5px var(--text-glow-color-light);
+}
+
+.modal-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 5px 0;
+}
+
+.modal-content p b {
+    color: var(--lang-switcher-active-color); /* Выделим важные данные */
+    font-weight: 700;
+}
+
+/* Кнопка закрытия */
+.close-button {
+    position: absolute;
+    top: -15px; /* Выносим кнопку немного за пределы окна */
+    right: -15px;
+    color: var(--text-color);
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Кнопка "Копировать" */
+.copy-button {
+    background: var(--lang-switcher-active-color); /* Цвет кнопки как акцентный */
+    color: #000; /* Темный текст на светлой кнопке */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(135, 206, 250, 0.4);
+}
+
+.copy-button:hover {
+    background: #7bd4ff; /* Немного светлее при наведении */
+    transform: translateY(-2px);
+}
+
+.copy-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(135, 206, 250, 0.3);
+}
+
+/* Примечания в модальном окне */
+.modal-note {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+/* Ссылки внутри модального окна */
+.modal-link {
+    color: var(--lang-switcher-active-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.modal-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Оверлей */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Темный полупрозрачный фон */
+    backdrop-filter: blur(5px); /* Легкое размытие под оверлеем */
+    z-index: 999; /* Ниже модального окна, но выше основного контента */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 480px) {
+    .modal {
+        padding: 20px;
+        border-radius: 15px;
+        width: 95%; /* Ширина на мобильных */
+    }
+
+    .modal-content h2 {
+        font-size: 24px;
+    }
+
+    .modal-content p, .copy-button {
+        font-size: 14px;
+    }
+
+    .close-button {
+        top: -10px;
+        right: -10px;
+        width: 35px;
+        height: 35px;
+        font-size: 26px;
+    }
+}
