@@ -133,38 +133,29 @@ h1 {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
+  display: flex; /* Flexbox для центрирования текста внутри */
   justify-content: center;
   align-items: center;
-  gap: 16px;
   background: var(--lang-switcher-bg);
-  padding: 10px 20px;
-  border-radius: 18px;
+  padding: 10px 20px; /* Увеличенные отступы */
+  border-radius: 18px; /* Скругленные края */
   border: 1px solid var(--lang-switcher-border-color);
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   user-select: none;
-  touch-action: pan-x;
+  touch-action: pan-x; /* Разрешает горизонтальный свайп */
+  cursor: grab; /* Показывает, что можно перетаскивать */
+  min-width: 80px; /* Минимальная ширина для элемента */
 }
 
-.lang-option {
+#current-lang-display {
   color: var(--lang-switcher-text-color);
-  font-size: 16px;
-  padding: 6px 14px;
-  border-radius: 10px;
-  transition: background 0.3s ease, color 0.3s ease;
-  cursor: pointer;
+  font-size: 18px; /* Увеличенный размер шрифта */
+  font-weight: 700; /* Жирный шрифт */
+  padding: 0; /* Убираем padding, так как он уже есть у родителя */
+  transition: color 0.3s ease;
 }
 
-.lang-option.active {
-  background: var(--lang-switcher-hover-bg);
-  color: var(--lang-switcher-active-color);
-  font-weight: 700;
-}
-
-.lang-option:hover {
-  background: var(--lang-switcher-hover-bg);
-}
-
+/* Медиа-запросы для адаптации */
 @media (max-width: 480px) {
   .donate-container {
     padding: 20px;
@@ -184,11 +175,11 @@ h1 {
   }
   .language-switcher {
     bottom: 15px;
-    gap: 10px;
-    padding: 6px 12px;
+    padding: 8px 15px;
+    border-radius: 15px;
+    min-width: 60px;
   }
-  .lang-option {
-    font-size: 14px;
-    padding: 5px 10px;
+  #current-lang-display {
+    font-size: 16px;
   }
 }
