@@ -7,19 +7,24 @@
     <style>
         /* Добавил CSS переменные для удобства */
         :root {
-            /* Обновленные переменные для текста - более мягкие и четкие */
+            /* Обновленные переменные для текста - теперь голубовато-синие */
             --text-color: #ffffff; /* Основной белый цвет для четкости */
-            --text-glow-color-light: rgba(255, 255, 255, 0.4); /* Легкое белое свечение */
-            --text-glow-color-accent: rgba(175, 139, 255, 0.7); /* Акцентное фиолетовое свечение, чуть светлее */
+            --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
+            --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
+            --text-gradient-start: #ffffff; /* Начало градиента: белый */
+            --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
+            --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
+
 
             --container-bg: rgba(255, 255, 255, 0.08);
             --box-shadow-color: rgba(0, 0, 0, 0.3);
             --icon-hover-scale: 1.15;
             --icon-shadow-color: rgba(0, 0, 0, 0.4);
             
+            /* Скроллбар тоже сделаем в тон, голубоватым */
             --scrollbar-track-color: rgba(255, 255, 255, 0.05);
-            --scrollbar-thumb-color: rgba(163, 127, 255, 0.5);
-            --scrollbar-thumb-hover-color: rgba(163, 127, 255, 0.8);
+            --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
+            --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
@@ -50,43 +55,42 @@
             width: 100%;
             text-align: center;
             backdrop-filter: blur(18px);
-            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(163, 127, 255, 0.3);
+            /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
+            box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: 32px; /* Уменьшаем размер */
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: 1px; /* Уменьшаем интервал */
-            margin-bottom: 25px; /* Корректируем отступ */
+            letter-spacing: 1px;
+            margin-bottom: 25px;
 
-            /* Основной белый цвет для четкости */
-            color: var(--text-color);
+            color: var(--text-color); /* Основной белый цвет для четкости */
             
-            /* Упрощенный, более четкий градиент */
-            background: linear-gradient(90deg, #ffffff, #d3c0ff, #ffffff); /* Более мягкий градиент */
+            /* Упрощенный, более четкий голубоватый градиент */
+            background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-size: 200% auto; /* Оставляем для тонкого эффекта движения */
-            animation: textGradientFlow 6s linear infinite; /* Немного ускорим движение */
+            background-size: 200% auto;
+            animation: textGradientFlow 6s linear infinite;
 
-            /* Улучшенная, более четкая тень, без 3D-трансформации */
+            /* Голубовато-синяя тень */
             text-shadow: 
                 0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
-                0 0 10px var(--text-glow-color-accent), /* Акцентное фиолетовое свечение */
+                0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
                 0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
-            /* Убираем transform для плоского текста */
         }
 
-        /* Анимация движения градиента текста - без изменений, если устраивает */
+        /* Анимация движения градиента текста */
         @keyframes textGradientFlow {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
 
-        /* Анимация свечения текста - корректируем для более тонкого эффекта */
-        @keyframes glow { /* Мы не используем эту анимацию напрямую на h1, но можем удалить или переиспользовать */
+        /* Анимация свечения текста - можно удалить, если не используется напрямую */
+        @keyframes glow {
             0% { 
                 text-shadow: 
                     0 0 5px var(--text-glow-color-light),
@@ -100,9 +104,6 @@
                     0 0 25px var(--text-glow-color-accent);
             }
         }
-
-        /* Если хочешь, чтобы свечение анимировалось, как раньше, раскомментируй animation: glow; в h1 */
-        /* Сейчас на h1 осталась только textGradientFlow */
 
         .icon-row {
             display: flex;
@@ -174,7 +175,7 @@
             }
 
             h1 {
-                font-size: 26px; /* Уменьшаем еще больше для мобильных */
+                font-size: 26px;
                 margin-bottom: 20px;
             }
 
@@ -199,7 +200,7 @@
 
         @media (max-width: 320px) {
             h1 {
-                font-size: 20px; /* Для совсем маленьких экранов */
+                font-size: 20px;
                 margin-bottom: 18px;
             }
             .icon-img {
