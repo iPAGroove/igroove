@@ -337,8 +337,9 @@
             gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
             gl.enableVertexAttribArray(positionLocation);
 
-            const resolutionLocation = gl.getUniformLocation(shaderProgram, 'resolution');
-            const timeLocation = gl.getUniformLocation(shaderProgram, 'time');
+            // ИЗМЕНЕНИЯ ЗДЕСЬ: используем 'iResolution' и 'iTime'
+            const resolutionLocation = gl.getUniformLocation(shaderProgram, 'iResolution');
+            const timeLocation = gl.getUniformLocation(shaderProgram, 'iTime');
 
             let startTime = Date.now();
 
