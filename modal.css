@@ -1,181 +1,180 @@
-/* modal.css - Стили для модальных окон */
-
-/* Общие стили для модального окна (скрыто по умолчанию) */
+/* modal.css */
+/* Основные стили модального окна */
 .modal {
-    position: fixed; /* Фиксированное позиционирование относительно окна просмотра */
-    top: 50%; /* Сдвигаем на 50% вниз */
-    left: 50%; /* Сдвигаем на 50% вправо */
-    transform: translate(-50%, -50%) scale(0.9); /* Центрируем и уменьшаем для анимации */
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Позиционирование относительно viewport */
+    z-index: 1000; /* Находится поверх всего, но под оверлеем */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Центрирование */
+    width: 90%; /* Ширина, можно настроить */
+    max-width: 450px; /* Максимальная ширина */
     background: rgba(255, 255, 255, 0.15); /* Полупрозрачный фон */
-    border-radius: 20px;
+    backdrop-filter: blur(10px); /* Эффект размытия */
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(135, 206, 250, 0.5); /* Объемная тень */
-    padding: 30px;
-    z-index: 1000; /* Выше основного контента и переключателя языка */
-    opacity: 0; /* Изначально полностью прозрачно */
-    visibility: hidden; /* Изначально скрыто */
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Плавный переход */
-    max-width: 90%; /* Максимальная ширина, чтобы поместиться на маленьких экранах */
-    width: 450px; /* Фиксированная ширина для удобства, на десктопе */
-    color: var(--text-color); /* Цвет текста */
-    display: flex;
-    flex-direction: column;
+    padding: 25px;
+    box-sizing: border-box;
+    color: white;
     text-align: center;
-    backdrop-filter: blur(15px); /* Эффект размытия фона под окном */
+    opacity: 0; /* Начальная прозрачность для анимации */
+    transform: translate(-50%, -50%) scale(0.9); /* Начальный размер для анимации */
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Стили для открытого модального окна */
+/* Активное состояние модального окна */
 .modal.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) scale(1); /* Возвращаем к нормальному размеру */
+    display: block; /* Показываем */
+    opacity: 1; /* Полностью прозрачно */
+    transform: translate(-50%, -50%) scale(1); /* Возвращаем нормальный размер */
 }
 
-/* Контент внутри модального окна */
+/* Стили для контента внутри модального окна */
 .modal-content {
-    position: relative; /* Для позиционирования кнопки закрытия */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px; /* Промежуток между элементами контента */
-    width: 100%;
+    position: relative;
+    padding: 0; /* Отступы регулируются основным padding модала */
 }
 
 .modal-content h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--text-color);
-    background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 5px var(--text-glow-color-light);
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(135, 206, 250, 0.6);
 }
 
 .modal-content p {
     font-size: 16px;
-    line-height: 1.5;
-    margin: 5px 0;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #e0e0e0;
 }
 
-.modal-content p b {
-    color: var(--lang-switcher-active-color); /* Выделим важные данные */
+.modal-content b {
+    color: #87CEEB; /* Акцентный цвет для важных данных */
     font-weight: 700;
 }
 
 /* Кнопка закрытия */
 .close-button {
     position: absolute;
-    top: -15px; /* Выносим кнопку немного за пределы окна */
-    right: -15px;
-    color: var(--text-color);
-    font-size: 30px;
+    top: 5px;
+    right: 10px;
+    color: #fff;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 5px; /* Увеличим область для клика */
 }
 
-.close-button:hover {
-    background: rgba(255, 255, 255, 0.4);
-    color: #fff;
-    transform: scale(1.1);
+.close-button:hover,
+.close-button:focus {
+    color: #87CEEB;
+    transform: rotate(90deg);
 }
 
-/* Кнопка "Копировать" */
-.copy-button {
-    background: var(--lang-switcher-active-color); /* Цвет кнопки как акцентный */
-    color: #000; /* Темный текст на светлой кнопке */
+/* Кнопка действия (копировать/оплатить) */
+.modal-button { /* Изменен класс с .copy-button на .modal-button */
+    background-color: rgba(135, 206, 250, 0.8); /* Светло-голубой */
+    color: #1a1a1a;
     border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 15px;
-    transition: background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 15px rgba(135, 206, 250, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: block; /* Занимает всю доступную ширину */
+    width: fit-content; /* Ширина по контенту */
+    margin-left: auto; /* Центрирование */
+    margin-right: auto; /* Центрирование */
 }
 
-.copy-button:hover {
-    background: #7bd4ff; /* Немного светлее при наведении */
+.modal-button:hover {
+    background-color: #87CEEB; /* Чуть темнее при наведении */
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-.copy-button:active {
+.modal-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(135, 206, 250, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Примечания в модальном окне */
+/* Примечание */
 .modal-note {
-    font-size: 13px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.7);
-    margin-top: 5px;
+    margin-top: 15px;
+    font-style: italic;
 }
 
-/* Ссылки внутри модального окна */
+/* Ссылка внутри модала (для PayPal) */
 .modal-link {
-    color: var(--lang-switcher-active-color);
+    color: #87CEEB;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .modal-link:hover {
-    color: #fff;
+    color: #ADD8E6;
     text-decoration: underline;
 }
 
 /* Оверлей */
 #modal-overlay {
+    display: none; /* Скрыто по умолчанию */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Темный полупрозрачный фон */
-    backdrop-filter: blur(5px); /* Легкое размытие под оверлеем */
-    z-index: 999; /* Ниже модального окна, но выше основного контента */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background: rgba(0, 0, 0, 0.6); /* Полупрозрачный черный фон */
+    z-index: 999; /* Находится под модальным окном */
+    opacity: 0; /* Начальная прозрачность для анимации */
+    transition: opacity 0.3s ease;
 }
 
 #modal-overlay.active {
+    display: block;
     opacity: 1;
-    visibility: visible;
 }
 
-/* Адаптация для мобильных */
+/* Медиа-запросы для адаптации модальных окон */
 @media (max-width: 480px) {
     .modal {
         padding: 20px;
-        border-radius: 15px;
-        width: 95%; /* Ширина на мобильных */
+        border-radius: 12px;
     }
 
     .modal-content h2 {
-        font-size: 24px;
+        font-size: 20px;
+        margin-bottom: 15px;
     }
 
-    .modal-content p, .copy-button {
+    .modal-content p {
         font-size: 14px;
+        margin-bottom: 10px;
     }
 
     .close-button {
-        top: -10px;
-        right: -10px;
-        width: 35px;
-        height: 35px;
-        font-size: 26px;
+        font-size: 28px;
+        top: 0px;
+        right: 5px;
+    }
+
+    .modal-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+    .modal-note {
+        font-size: 12px;
+        margin-top: 10px;
     }
 }
