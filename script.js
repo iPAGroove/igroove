@@ -1,45 +1,82 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const options = document.querySelectorAll('.lang-option');
-  let activeIndex = 0;
+  const languageSwitcher = document.getElementById('language-switcher'); // Основной контейнер для свайпа
+  const currentLangDisplay = document.getElementById('current-lang-display'); // Элемент для отображения текущего языка
+  
+  // Определяем порядок языков для переключения
+  const langs = ['en', 'ru', 'ua'];
+  let currentLang = 'en'; // Язык по умолчанию, как запрошено
 
-  const setActive = (index) => {
-    options.forEach(opt => opt.classList.remove('active'));
-    options[index].classList.add('active');
-    console.log(`Language set to: ${options[index].dataset.lang.toUpperCase()}`);
+  // Функция для установки активного языка и обновления отображения
+  const setActiveLang = (lang) => {
+    currentLang = lang;
+    currentLangDisplay.textContent = lang.toUpperCase(); // Обновляем текст
+    currentLangDisplay.dataset.lang = lang; // Обновляем data-lang атрибут
+    console.log(`Language set to: ${lang}`);
+    // Опционально, можно сохранить предпочтения языка в localStorage
+    // localStorage.setItem('userLang', lang); 
   };
 
-  options.forEach((opt, i) => {
-    opt.addEventListener('click', () => {
-      activeIndex = i;
-      setActive(activeIndex);
-    });
-  });
-
-  // Touch support for swipe
-  const switcher = document.getElementById('language-switcher');
+  // --- Логика свайпа/перетаскивания ---
   let startX = null;
-
-  switcher.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
+  
+  // События мыши для десктопов
+  languageSwitcher.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    languageSwitcher.style.cursor = 'grabbing'; // Меняем курсор, показывая возможность перетаскивания
   });
 
-  switcher.addEventListener('touchend', e => {
+  languageSwitcher.addEventListener('mouseup', (e) => {
     if (startX === null) return;
-    const endX = e.changedTouches[0].clientX;
-    const diff = endX - startX;
+    languageSwitcher.style.cursor = 'grab'; // Возвращаем обычный курсор
 
-    if (Math.abs(diff) > 30) {
-      if (diff < 0) {
-        activeIndex = (activeIndex + 1) % options.length;
-      } else {
-        activeIndex = (activeIndex - 1 + options.length) % options.length;
+    const endX = e.clientX;
+    const diff = endX - startX;
+    const threshold = 30; // Минимальное расстояние в пикселях для срабатывания свайпа
+
+    if (Math.abs(diff) > threshold) {
+      let currentIndex = langs.indexOf(currentLang);
+      if (diff < 0) { // Свайп влево
+        currentIndex = (currentIndex + 1) % langs.length;
+      } else { // Свайп вправо
+        currentIndex = (currentIndex - 1 + langs.length) % langs.length;
       }
-      setActive(activeIndex);
+      setActiveLang(langs[currentIndex]);
     }
     startX = null;
   });
 
-  // Default language
-  activeIndex = 0;
-  setActive(activeIndex);
+  // Предотвращаем выделение текста во время перетаскивания на десктопе
+  languageSwitcher.addEventListener('mousemove', (e) => {
+    if (startX !== null) {
+      e.preventDefault();
+    }
+  });
+
+  // Сенсорные события для мобильных устройств
+  languageSwitcher.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true }); // Используем passive для улучшения производительности прокрутки
+
+  languageSwitcher.addEventListener('touchend', (e) => {
+    if (startX === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - startX;
+    const threshold = 30; // Минимальное расстояние в пикселях для срабатывания свайпа
+
+    if (Math.abs(diff) > threshold) {
+      let currentIndex = langs.indexOf(currentLang);
+      if (diff < 0) { // Свайп влево
+        currentIndex = (currentIndex + 1) % langs.length;
+      } else { // Свайп вправо
+        currentIndex = (currentIndex - 1 + langs.length) % langs.length;
+      }
+      setActiveLang(langs[currentIndex]);
+    }
+    startX = null;
+  }, { passive: true }); // Используем passive для улучшения производительности прокрутки
+
+  // Устанавливаем начальный язык при загрузке страницы
+  // Опционально: можно использовать localStorage, чтобы загрузить ранее выбранный язык
+  // const savedLang = localStorage.getItem('userLang') || 'en';
+  setActiveLang('en'); // Устанавливаем 'en' как язык по умолчанию
 });
