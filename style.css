@@ -20,17 +20,10 @@
 
     /* Переменные для переключателя языка */
     --lang-switcher-bg: rgba(255, 255, 255, 0.1);
-    --lang-switcher-border-color: rgba(255, 255, 255, 0.2);
+    --lang-switcher-hover-bg: rgba(255, 255, 255, 0.2);
     --lang-switcher-text-color: #ffffff;
-    --lang-switcher-active-color: #87CEEB; /* Голубой для активного */
-    --lang-switcher-inactive-color: rgba(255, 255, 255, 0.6); /* Чуть тусклее для неактивных */
-    --lang-selector-indicator-color: #87CEEB; /* Цвет ползунка */
-
-    --lang-switcher-font-size: 18px; /* Увеличенный размер шрифта */
-    --lang-switcher-padding-x: 20px; /* Отступы по горизонтали */
-    --lang-switcher-padding-y: 12px; /* Отступы по вертикали */
-    --lang-switcher-border-radius: 20px; /* Более скругленные края */
-    --lang-switcher-gap: 25px; /* Увеличенный зазор между языками */
+    --lang-switcher-active-color: #87CEEB;
+    --lang-switcher-border-color: rgba(255, 255, 255, 0.2);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
@@ -61,7 +54,8 @@ body {
     width: 100%;
     text-align: center;
     backdrop-filter: blur(18px);
-    box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3);
+    /* Тень контейнера тоже можно слегка подкрасить в голубой, если хочется */
+    box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3); /* Голубая тень для контейнера */
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -71,21 +65,43 @@ h1 {
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 25px;
-    color: var(--text-color);
+
+    color: var(--text-color); /* Основной белый цвет для четкости */
+    
+    /* Упрощенный, более четкий голубоватый градиент */
     background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
     animation: textGradientFlow 6s linear infinite;
+
+    /* Голубовато-синяя тень */
     text-shadow: 
-        0 0 5px var(--text-glow-color-light),
-        0 0 10px var(--text-glow-color-accent),
-        0 0 15px var(--text-glow-color-accent);
+        0 0 5px var(--text-glow-color-light), /* Легкое белое свечение */
+        0 0 10px var(--text-glow-color-accent), /* Акцентное голубое свечение */
+        0 0 15px var(--text-glow-color-accent); /* Чуть более сильное акцентное свечение */
 }
 
+/* Анимация движения градиента текста */
 @keyframes textGradientFlow {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
+}
+
+/* Анимация свечения текста - можно удалить, если не используется напрямую */
+@keyframes glow {
+    0% { 
+        text-shadow: 
+            0 0 5px var(--text-glow-color-light),
+            0 0 10px var(--text-glow-color-accent),
+            0 0 15px var(--text-glow-color-accent);
+    }
+    100% { 
+        text-shadow: 
+            0 0 8px var(--text-glow-color-light),
+            0 0 15px var(--text-glow-color-accent),
+            0 0 25px var(--text-glow-color-accent);
+    }
 }
 
 .icon-row {
@@ -95,6 +111,7 @@ h1 {
     justify-content: center;
     align-items: center;
     padding-bottom: 10px;
+
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
     scroll-behavior: smooth;
@@ -152,64 +169,69 @@ h1 {
 /* Language Switcher Styles */
 .language-switcher {
     position: fixed;
-    bottom: 30px; /* Отступ от низа */
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 20px;
+    right: 20px;
     display: flex;
-    align-items: center;
-    background: var(--lang-switcher-bg);
-    border-radius: var(--lang-switcher-border-radius);
-    border: 1px solid var(--lang-switcher-border-color);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Более выраженная тень */
+    flex-direction: column;
+    align-items: flex-end;
+    color: var(--lang-switcher-text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
     z-index: 1000;
-    cursor: grab; /* Показывает, что элемент можно перетаскивать */
-    padding: var(--lang-switcher-padding-y) var(--lang-switcher-padding-x);
-    position: relative; /* Для позиционирования индикатора */
-    overflow: hidden; /* Чтобы индикатор не вылезал за границы */
+}
+
+.current-lang {
+    background: var(--lang-switcher-bg);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border: 1px solid var(--lang-switcher-border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.language-switcher:hover .current-lang {
+    background: var(--lang-switcher-hover-bg);
 }
 
 .lang-options {
     display: flex;
-    gap: var(--lang-switcher-gap);
-    font-size: var(--lang-switcher-font-size);
-    font-weight: 500;
-    color: var(--lang-switcher-inactive-color); /* Изначально неактивный цвет */
-    position: relative; /* Для корректного z-index текста */
-    z-index: 2; /* Убедимся, что текст поверх индикатора */
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+    background: var(--lang-switcher-bg);
+    border-radius: 8px;
+    padding: 5px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--lang-switcher-border-color);
+
+    /* Hide by default, show on hover */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.language-switcher:hover .lang-options {
+    max-height: 150px; /* Adjust based on number of options */
+    padding: 8px 0;
 }
 
 .lang-options span {
+    padding: 6px 12px;
     cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 0 5px; /* Небольшой padding для удобства клика */
+    transition: background 0.2s ease, color 0.2s ease;
+    text-align: right;
+}
+
+.lang-options span:hover {
+    background: var(--lang-switcher-hover-bg);
 }
 
 .lang-options span.active {
-    color: var(--lang-switcher-text-color); /* Активный язык белый */
+    color: var(--lang-switcher-active-color);
     font-weight: 700;
 }
 
-/* Индикатор выбранного языка (ползунок) */
-.lang-selector-indicator {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 80%; /* Высота ползунка */
-    background: var(--lang-selector-indicator-color);
-    border-radius: var(--lang-switcher-border-radius);
-    z-index: 1; /* Под текстом */
-    transition: left 0.3s ease-in-out, width 0.3s ease-in-out, opacity 0.3s ease; /* Анимация перемещения */
-    opacity: 0.8; /* Полупрозрачность */
-    box-shadow: 0 0 10px var(--lang-selector-indicator-color); /* Свечение ползунка */
-}
-
-/* Отключаем выделение текста для переключателя */
-.language-switcher {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
 
 /* Медиа-запросы для адаптации */
 @media (max-width: 480px) {
@@ -242,13 +264,15 @@ h1 {
     }
 
     .language-switcher {
-        bottom: 20px; /* Чуть выше на мобильных */
-        font-size: 16px;
-        padding: 10px 15px;
-        border-radius: 15px;
+        bottom: 15px;
+        right: 15px;
+        font-size: 13px;
     }
-    .lang-options {
-        gap: 18px;
+    .current-lang {
+        padding: 6px 10px;
+    }
+    .lang-options span {
+        padding: 5px 10px;
     }
 }
 
@@ -266,12 +290,8 @@ h1 {
         max-width: 55px;
     }
     .language-switcher {
-        bottom: 15px;
-        font-size: 14px;
-        padding: 8px 12px;
-        border-radius: 12px;
-    }
-    .lang-options {
-        gap: 12px;
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
     }
 }
