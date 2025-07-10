@@ -119,7 +119,6 @@
             }
         }
 
-
         .main-content {
             z-index: 2; /* Поверх фона */
             text-align: center;
@@ -131,6 +130,9 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             max-width: 90%; /* Адаптивность */
             box-sizing: border-box;
+            /* Добавим минимальную ширину для main-content, чтобы уместить все иконки в одну строку на больших экранах */
+            min-width: fit-content; /* Ширина по контенту */
+            min-width: -moz-fit-content; /* Для Firefox */
         }
 
         h1 {
@@ -142,46 +144,54 @@
             color: #fff;
         }
 
-        .icon-grid {
+        .icon-container { /* Переименовал .icon-grid в .icon-container */
             margin-top: 30px;
-            display: grid; /* Используем Grid для более гибкой сетки иконок */
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Автоматическое размещение колонок */
+            display: flex; /* Используем flexbox */
+            justify-content: center; /* Центрируем иконки */
             gap: 25px; /* Расстояние между иконками */
-            justify-items: center; /* Центрирование иконок в ячейках */
+            flex-wrap: nowrap; /* ! Важно: Запрещаем перенос на новую строку по умолчанию */
+            overflow-x: auto; /* Позволяем горизонтальную прокрутку, если иконок очень много */
+            padding-bottom: 10px; /* Отступ для скролла, если он появится */
+            /* На больших экранах, чтобы иконки не "сжимались", если их мало */
+            min-width: fit-content;
+            min-width: -moz-fit-content;
         }
 
         .icon-link {
             display: flex;
-            flex-direction: column; /* Иконка над текстом */
+            flex-direction: column;
             align-items: center;
             text-decoration: none;
             color: #fff;
-            font-size: 1.1em; /* Размер шрифта для названия платежной системы */
+            font-size: 1.1em;
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: pointer;
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            /* Важно: Запрещаем иконке сжиматься на широких экранах */
+            flex-shrink: 0;
+            padding: 5px; /* Увеличим padding, чтобы текст "ПриватБанк" не был слишком близко к краям */
         }
 
         .icon-link .icon-img {
-            width: 90px; /* Размер изображения иконки */
-            height: 90px; /* Сохраняем пропорции */
-            object-fit: contain; /* Чтобы изображение полностью вписывалось без обрезки */
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
             margin-bottom: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 20%; /* Закругленные углы, как у иконок приложений */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Тень для эффекта "app-style" */
-            background-color: rgba(255, 255, 255, 0.05); /* Легкий фон для иконок */
-            padding: 5px; /* Небольшой внутренний отступ для иконки */
+            border-radius: 20%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 5px;
         }
 
         .icon-link:hover .icon-img {
-            transform: scale(1.1) translateY(-5px); /* Увеличение и подъем иконки при наведении */
-            box-shadow: 0 0 25px rgba(238, 29, 82, 0.7); /* Яркая тень при наведении */
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 0 25px rgba(238, 29, 82, 0.7);
         }
 
         .icon-link:hover {
-            color: #EE1D52; /* Цвет текста меняется на акцентный при наведении */
+            color: #EE1D52;
         }
 
         /* Медиа-запросы для адаптивности */
@@ -189,12 +199,18 @@
             .main-content {
                 padding: 30px 40px;
             }
-            .icon-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Уменьшаем минимальный размер колонки */
+            .icon-container {
                 gap: 20px;
+                flex-wrap: wrap; /* Разрешаем перенос на мобильных */
+                justify-content: center; /* Центрируем, если переносятся */
+            }
+            .icon-link {
+                /* На мобильных разрешаем им сжиматься или занимать больше места */
+                flex-basis: calc(50% - 20px); /* 2 колонки с учетом gap */
+                max-width: calc(50% - 20px);
             }
             .icon-link .icon-img {
-                width: 70px; /* Уменьшаем размер иконок */
+                width: 70px;
                 height: 70px;
             }
         }
@@ -209,15 +225,17 @@
                 padding: 25px;
                 margin: 15px;
             }
-            .icon-grid {
-                grid-template-columns: repeat(2, 1fr); /* Две колонки на очень маленьких экранах */
+            .icon-container {
                 gap: 15px;
+                flex-wrap: wrap; /* Убеждаемся, что перенос работает */
             }
             .icon-link {
                 font-size: 0.95em;
+                flex-basis: calc(50% - 15px); /* 2 колонки на очень маленьких экранах */
+                max-width: calc(50% - 15px);
             }
             .icon-link .icon-img {
-                width: 60px; /* Ещё уменьшаем размер иконок */
+                width: 60px;
                 height: 60px;
                 margin-bottom: 5px;
             }
@@ -235,6 +253,10 @@
             .main-content {
                 padding: 20px;
                 margin: 10px;
+            }
+            .icon-link {
+                flex-basis: calc(50% - 10px); /* Продолжаем 2 колонки */
+                max-width: calc(50% - 10px);
             }
             .icon-link .icon-img {
                 width: 50px;
@@ -259,8 +281,7 @@
 
     <div class="main-content">
         <h1>Donate iPAGroove</h1>
-        <div class="icon-grid">
-            <a href="ВАША_ССЫЛКА_НА_ПРИВАТБАНК" class="icon-link" target="_blank">
+        <div class="icon-container"> <a href="ВАША_ССЫЛКА_НА_ПРИВАТБАНК" class="icon-link" target="_blank">
                 <img src="https://github.com/iPAGroove/igroove/blob/main/images/IMG_6668.jpeg?raw=true" alt="ПриватБанк" class="icon-img">
                 <span>ПриватБанк</span>
             </a>
@@ -285,7 +306,7 @@
                 <span>ABank</span>
             </a>
 
-            </div>
+             </div>
     </div>
 </body>
 </html>
