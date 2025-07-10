@@ -1,277 +1,144 @@
-/* Добавил CSS переменные для удобства */
-:root {
-    /* Обновленные переменные для текста - теперь голубовато-синие */
-    --text-color: #ffffff; /* Основной белый цвет для четкости */
-    --text-glow-color-light: rgba(255, 255, 255, 0.5); /* Легкое белое свечение */
-    --text-glow-color-accent: rgba(135, 206, 250, 0.8); /* Светло-голубой акцент */
-    --text-gradient-start: #ffffff; /* Начало градиента: белый */
-    --text-gradient-middle: #ADD8E6; /* Середина градиента: Светло-голубой */
-    --text-gradient-end: #87CEEB; /* Конец градиента: Голубой */
+document.addEventListener('DOMContentLoaded', () => {
+    const languageSwitcher = document.getElementById('language-switcher');
+    const langOptionsContainer = document.getElementById('lang-options');
+    const langOptions = langOptionsContainer.querySelectorAll('span');
+    const langSelectorIndicator = document.getElementById('lang-selector-indicator');
 
-    --container-bg: rgba(255, 255, 255, 0.08);
-    --box-shadow-color: rgba(0, 0, 0, 0.3);
-    --icon-hover-scale: 1.15;
-    --icon-shadow-color: rgba(0, 0, 0, 0.4);
-    
-    /* Скроллбар тоже сделаем в тон, голубоватым */
-    --scrollbar-track-color: rgba(255, 255, 255, 0.05);
-    --scrollbar-thumb-color: rgba(135, 206, 250, 0.6); /* Полупрозрачный светло-голубой для ползунка */
-    --scrollbar-thumb-hover-color: rgba(135, 206, 250, 0.9); /* Более яркий светло-голубой при наведении */
+    const languages = Array.from(langOptions).map(span => span.getAttribute('data-lang'));
+    let currentLangIndex; // Будет хранить индекс активного языка
 
-    /* Переменные для переключателя языка */
-    --lang-switcher-bg: rgba(255, 255, 255, 0.1);
-    --lang-switcher-border-color: rgba(255, 255, 255, 0.2);
-    --lang-switcher-text-color: #ffffff;
-    --lang-switcher-active-color: #87CEEB; /* Голубой для активного */
-    --lang-switcher-inactive-color: rgba(255, 255, 255, 0.6); /* Чуть тусклее для неактивных */
-    --lang-selector-indicator-color: #87CEEB; /* Цвет ползунка */
+    // Function to update the active language and indicator position
+    const setActiveLanguage = (lang) => {
+        // Remove 'active' class from all options
+        langOptions.forEach((option, index) => {
+            option.classList.remove('active');
+            if (option.getAttribute('data-lang') === lang) {
+                currentLangIndex = index; // Store the index of the active language
+            }
+        });
 
-    --lang-switcher-font-size: 18px; /* Увеличенный размер шрифта */
-    --lang-switcher-padding-x: 20px; /* Отступы по горизонтали */
-    --lang-switcher-padding-y: 12px; /* Отступы по вертикали */
-    --lang-switcher-border-radius: 20px; /* Более скругленные края */
-    --lang-switcher-gap: 25px; /* Увеличенный зазор между языками */
-}
+        // Add 'active' class to the selected language
+        const selectedOption = langOptionsContainer.querySelector(`[data-lang="${lang}"]`);
+        if (selectedOption) {
+            selectedOption.classList.add('active');
+            // Update indicator position
+            updateIndicatorPosition(selectedOption);
+            console.log(`Language set to: ${lang.toUpperCase()}`);
+            // Save to localStorage (optional)
+            localStorage.setItem('userLang', lang);
+        }
+    };
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+    // Function to update the indicator's position and width
+    const updateIndicatorPosition = (activeElement) => {
+        if (!activeElement) return;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        const containerRect = languageSwitcher.getBoundingClientRect();
+        const activeRect = activeElement.getBoundingClientRect();
 
-body {
-    height: 100vh;
-    background: url('https://github.com/iPAGroove/igroove/blob/main/images/IMG_6677.jpeg?raw=true') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    overflow: hidden;
-}
+        // Calculate position relative to the languageSwitcher container's padding box
+        const leftOffset = activeRect.left - containerRect.left - parseFloat(window.getComputedStyle(languageSwitcher).paddingLeft);
+        const topOffset = activeRect.top - containerRect.top - parseFloat(window.getComputedStyle(languageSwitcher).paddingTop);
 
-.donate-container {
-    background: var(--container-bg);
-    border-radius: 24px;
-    padding: 30px;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-    backdrop-filter: blur(18px);
-    box-shadow: 0 8px 32px var(--box-shadow-color), 0 0 25px rgba(135, 206, 250, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+        langSelectorIndicator.style.left = `${leftOffset}px`;
+        langSelectorIndicator.style.width = `${activeRect.width}px`;
+        // Ensure indicator is vertically centered within the available space
+        // This makes `top: 50%; transform: translateY(-50%);` in CSS work correctly.
+    };
 
-h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-    color: var(--text-color);
-    background: linear-gradient(90deg, var(--text-gradient-start), var(--text-gradient-middle), var(--text-gradient-end), var(--text-gradient-middle), var(--text-gradient-start));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
-    animation: textGradientFlow 6s linear infinite;
-    text-shadow: 
-        0 0 5px var(--text-glow-color-light),
-        0 0 10px var(--text-glow-color-accent),
-        0 0 15px var(--text-glow-color-accent);
-}
+    // --- Swipe/Drag Logic ---
+    let isDragging = false;
+    let startX;
+    let startLeft;
 
-@keyframes textGradientFlow {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
-}
+    languageSwitcher.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startLeft = languageSwitcher.offsetLeft; // Get current left position of the switcher
+        languageSwitcher.style.cursor = 'grabbing';
+    });
 
-.icon-row {
-    display: flex;
-    overflow-x: auto;
-    gap: 24px;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 10px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
-    scroll-behavior: smooth;
-}
+    languageSwitcher.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault(); // Prevent text selection
+        const dx = e.clientX - startX;
+        // Simple drag, not direct language switching yet
+        // languageSwitcher.style.left = `${startLeft + dx}px`; 
+    });
 
-.icon-row::-webkit-scrollbar {
-    height: 6px;
-    background-color: var(--scrollbar-track-color);
-    border-radius: 3px;
-}
+    languageSwitcher.addEventListener('mouseup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        languageSwitcher.style.cursor = 'grab';
 
-.icon-row::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb-color);
-    border-radius: 3px;
-    transition: background-color 0.3s ease;
-}
+        const endX = e.clientX;
+        const dragDistance = endX - startX;
+        const threshold = 30; // Min pixels to register a swipe
 
-.icon-row::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar-thumb-hover-color);
-}
+        if (Math.abs(dragDistance) > threshold) {
+            let nextLangIndex = currentLangIndex;
+            if (dragDistance < 0) { // Swiped left
+                nextLangIndex = Math.min(languages.length - 1, currentLangIndex + 1);
+            } else { // Swiped right
+                nextLangIndex = Math.max(0, currentLangIndex - 1);
+            }
 
-.icon-item {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-    transition: transform 0.3s ease;
-}
+            if (nextLangIndex !== currentLangIndex) {
+                setActiveLanguage(languages[nextLangIndex]);
+            }
+        }
+    });
 
-.icon-item:hover {
-    transform: scale(var(--icon-hover-scale));
-}
+    // Handle touch events for mobile
+    languageSwitcher.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        // startLeft = languageSwitcher.offsetLeft; // Not needed for swipe-to-change-language
+    }, { passive: true }); // Use passive to improve scrolling performance
 
-.icon-img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 14px;
-    margin-bottom: 8px;
-    box-shadow: 0 4px 10px var(--icon-shadow-color);
-    background: rgba(255, 255, 255, 0.1);
-}
+    languageSwitcher.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        // No e.preventDefault() here if we want to allow scrolling too
+        // We are just tracking touch position for swipe detection on touchEnd
+    }, { passive: true });
 
-.icon-label {
-    font-size: 13px;
-    text-align: center;
-    max-width: 80px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    languageSwitcher.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
 
-/* Language Switcher Styles */
-.language-switcher {
-    position: fixed;
-    bottom: 30px; /* Отступ от низа */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    background: var(--lang-switcher-bg);
-    border-radius: var(--lang-switcher-border-radius);
-    border: 1px solid var(--lang-switcher-border-color);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Более выраженная тень */
-    z-index: 1000;
-    cursor: grab; /* Показывает, что элемент можно перетаскивать */
-    padding: var(--lang-switcher-padding-y) var(--lang-switcher-padding-x);
-    position: relative; /* Для позиционирования индикатора */
-    overflow: hidden; /* Чтобы индикатор не вылезал за границы */
-}
+        const endX = e.changedTouches[0].clientX;
+        const dragDistance = endX - startX;
+        const threshold = 30; // Min pixels to register a swipe
 
-.lang-options {
-    display: flex;
-    gap: var(--lang-switcher-gap);
-    font-size: var(--lang-switcher-font-size);
-    font-weight: 500;
-    color: var(--lang-switcher-inactive-color); /* Изначально неактивный цвет */
-    position: relative; /* Для корректного z-index текста */
-    z-index: 2; /* Убедимся, что текст поверх индикатора */
-}
+        if (Math.abs(dragDistance) > threshold) {
+            let nextLangIndex = currentLangIndex;
+            if (dragDistance < 0) { // Swiped left
+                nextLangIndex = Math.min(languages.length - 1, currentLangIndex + 1);
+            } else { // Swiped right
+                nextLangIndex = Math.max(0, currentLangIndex - 1);
+            }
 
-.lang-options span {
-    cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 0 5px; /* Небольшой padding для удобства клика */
-}
+            if (nextLangIndex !== currentLangIndex) {
+                setActiveLanguage(languages[nextLangIndex]);
+            }
+        }
+    });
 
-.lang-options span.active {
-    color: var(--lang-switcher-text-color); /* Активный язык белый */
-    font-weight: 700;
-}
+    // Handle clicks directly on language spans (fallback/alternative to swipe)
+    langOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            setActiveLanguage(option.getAttribute('data-lang'));
+        });
+    });
 
-/* Индикатор выбранного языка (ползунок) */
-.lang-selector-indicator {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 80%; /* Высота ползунка */
-    background: var(--lang-selector-indicator-color);
-    border-radius: var(--lang-switcher-border-radius);
-    z-index: 1; /* Под текстом */
-    transition: left 0.3s ease-in-out, width 0.3s ease-in-out, opacity 0.3s ease; /* Анимация перемещения */
-    opacity: 0.8; /* Полупрозрачность */
-    box-shadow: 0 0 10px var(--lang-selector-indicator-color); /* Свечение ползунка */
-}
-
-/* Отключаем выделение текста для переключателя */
-.language-switcher {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Медиа-запросы для адаптации */
-@media (max-width: 480px) {
-    .donate-container {
-        padding: 20px;
-        border-radius: 18px;
-    }
-
-    h1 {
-        font-size: 26px;
-        margin-bottom: 20px;
-    }
-
-    .icon-img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .icon-label {
-        font-size: 12px;
-        max-width: 60px;
-    }
-
-    .icon-row {
-        gap: 16px;
-        padding-bottom: 8px;
-    }
-    .icon-row::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .language-switcher {
-        bottom: 20px; /* Чуть выше на мобильных */
-        font-size: 16px;
-        padding: 10px 15px;
-        border-radius: 15px;
-    }
-    .lang-options {
-        gap: 18px;
-    }
-}
-
-@media (max-width: 320px) {
-    h1 {
-        font-size: 20px;
-        margin-bottom: 18px;
-    }
-    .icon-img {
-        width: 45px;
-        height: 45px;
-    }
-    .icon-label {
-        font-size: 11px;
-        max-width: 55px;
-    }
-    .language-switcher {
-        bottom: 15px;
-        font-size: 14px;
-        padding: 8px 12px;
-        border-radius: 12px;
-    }
-    .lang-options {
-        gap: 12px;
-    }
-}
+    // Initial setup: set default language and position indicator
+    const defaultLang = localStorage.getItem('userLang') || 'en'; // Default to 'en'
+    setActiveLanguage(defaultLang);
+    // Recalculate indicator position on window resize
+    window.addEventListener('resize', () => {
+        const activeOption = langOptionsContainer.querySelector('.lang-options span.active');
+        if (activeOption) {
+            updateIndicatorPosition(activeOption);
+        }
+    });
+});
