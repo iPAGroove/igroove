@@ -1,40 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <title>iOSGods Auto-Login — iPA Groove</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;background:#0f1115;color:#e6e6e6;margin:0;padding:24px}
-    h1{font-size:20px;margin:0 0 12px}
-    p{opacity:.85}
-    .buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-    a.btn{display:inline-block;padding:12px 16px;border:1px solid #333;border-radius:12px;text-decoration:none;color:#e6e6e6;background:rgba(255,255,255,.04)}
-    code{background:#1a1f29;padding:2px 6px;border-radius:6px}
-    .note{margin-top:16px;font-size:14px;opacity:.8}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Инструкция по сертификатам iOS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>iOSGods Auto-Login — iPA Groove</h1>
-  <p>Перетащи ссылки ниже в закладки. Открой <code>https://iosgods.com/login/</code> и нажми закладку.</p>
 
-  <div class="buttons">
-    <!-- 1) Просто логин с фиксированными данными -->
-    <a class="btn" href='javascript:(()=>{const U="iPA Groove";const P="iPhone2025";const onLogin=()=>/iosgods\.com$/.test(location.hostname)||/\.iosgods\.com$/.test(location.hostname);if(!onLogin()){location.href="https://iosgods.com/login/";return}const authSel=`input[name="auth"],input[type="email"],input[placeholder*="Display Name" i],input[placeholder*="Email" i]`;const passSel=`input[name="password"],input[type="password"]`;const fill=(sel,val)=>{const el=document.querySelector(sel);if(!el)return null;el.focus();el.value=val;el.dispatchEvent(new InputEvent("input",{bubbles:true}));el.dispatchEvent(new Event("change",{bubbles:true}));return el};const a=fill(authSel,U),b=fill(passSel,P);if(!(a&&b)){alert("Не нашёл поля логина. Открой https://iosgods.com/login/");return}const btn=[...document.querySelectorAll("button, input[type=submit]")].find(x=>((x.value||x.textContent||"").toLowerCase().includes("sign in")));btn?btn.click():(b.form&&b.form.submit());})();'>🔑 IG Login (iPA Groove)</a>
+<header>
+  <h1>📘 Полный гид по сертификатам iOS</h1>
+  <p>Пошаговая инструкция: покупка, установка установщиков, импорт сертификата и установка iPA</p>
+</header>
 
-    <!-- 2) Логин + открыть Store после входа -->
-    <a class="btn" href='javascript:(()=>{const U="iPA Groove";const P="iPhone2025";const go=()=>{const authSel=`input[name="auth"],input[type="email"],input[placeholder*="Display Name" i],input[placeholder*="Email" i]`;const passSel=`input[name="password"],input[type="password"]`;const fill=(sel,val)=>{const el=document.querySelector(sel);if(!el)return null;el.focus();el.value=val;el.dispatchEvent(new InputEvent("input",{bubbles:true}));el.dispatchEvent(new Event("change",{bubbles:true}));return el};const a=fill(authSel,U),b=fill(passSel,P);if(!(a&&b)){alert("Не нашёл поля логина. Открой https://iosgods.com/login/");return}const btn=[...document.querySelectorAll("button, input[type=submit]")].find(x=>((x.value||x.textContent||"").toLowerCase().includes("sign in")));btn?btn.click():(b.form&&b.form.submit());setTimeout(()=>{location.href="https://app.iosgods.com/store/games"},4000)};if(!/iosgods\.com$/.test(location.hostname)&&!/\.(iosgods\.com)$/.test(location.hostname)){location.href="https://iosgods.com/login/";setTimeout(go,1200)}else{go()}})();'>🚀 IG Login + Open Store</a>
+<main>
 
-    <!-- 3) Очистить только что введённые значения в форме (без влияния на сохранённые аккаунты) -->
-    <a class="btn" href='javascript:(()=>{const authSel=`input[name="auth"],input[type="email"],input[placeholder*="Display Name" i],input[placeholder*="Email" i]`;const passSel=`input[name="password"],input[type="password"]`;const a=document.querySelector(authSel);const b=document.querySelector(passSel);if(a){a.value="";a.dispatchEvent(new InputEvent("input",{bubbles:true}))}if(b){b.value="";b.dispatchEvent(new InputEvent("input",{bubbles:true}))}alert("Поля очищены.");})();'>🧹 Clear Form</a>
-  </div>
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>❓ FAQ</h2>
+    <div class="accordion">
+      <button class="accordion-btn">Что такое сертификат?</button>
+      <div class="accordion-content">
+        <p>Сертификат — это цифровой ключ, который регистрирует твой UDID в режиме разработчика у Apple. 
+        Благодаря этому можно устанавливать любые сторонние iPA файлы на iPhone/iPad.</p>
+      </div>
 
-  <div class="note">
+      <button class="accordion-btn">Где узнать UDID?</button>
+      <div class="accordion-content">
+        <p>На сайте <a href="https://udid.tech" target="_blank">udid.tech</a>. Там же есть видео инструкция.</p>
+      </div>
+
+      <button class="accordion-btn">Какие бывают сертификаты?</button>
+      <div class="accordion-content">
+        <p><b>Обычный:</b> регистрация до 72 часов, без гарантии, риск чёрного списка.<br>
+        <b>Супер-моментальный:</b> мгновенная регистрация, обходит blacklist, гарантия 6 мес.</p>
+      </div>
+
+      <button class="accordion-btn">Сколько живёт сертификат?</button>
+      <div class="accordion-content">
+        <p>До 1 года. Гарантия на работу — 6 месяцев.</p>
+      </div>
+
+      <button class="accordion-btn">Сколько приложений можно установить?</button>
+      <div class="accordion-content">
+        <p>Неограниченно. Сертификат общий для всех iPA.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Покупка -->
+  <section>
+    <h2>🛒 Как купить сертификат?</h2>
+    <ol>
+      <li>Выбери тип сертификата: обычный или супер-моментальный.</li>
+      <li>Оплати (Visa, PayPal, Binance, USDT, Apple Gift Card).</li>
+      <li>Отправь свой UDID.</li>
+      <li>Жди подтверждения регистрации.</li>
+    </ol>
+  </section>
+
+  <!-- Установщики -->
+  <section>
+    <h2>📲 Установщики приложений</h2>
+    <div class="installers">
+      <a href="https://esign.yyy" target="_blank" class="btn">⬇️ ESign</a>
+      <a href="https://usescarlet.com" target="_blank" class="btn">⬇️ Scarlet</a>
+      <a href="https://gbox.run" target="_blank" class="btn">⬇️ GBox</a>
+      <a href="https://featherapp.io" target="_blank" class="btn">⬇️ Feather</a>
+    </div>
+  </section>
+
+  <!-- Импорт сертификата -->
+  <section>
+    <h2>🗝 Импорт сертификата (.p12 + .mobileprovision)</h2>
     <ul>
-      <li>Если появится капча/2FA — пройди вручную, затем снова нажми закладку.</li>
-      <li>Это <b>публичный</b> хардкод логина/пароля в букмарклете. Храни файл приватно.</li>
+      <li><b>ESign:</b> Certificate Manager → Import → выбрать файлы.</li>
+      <li><b>Scarlet:</b> Certificates → Import → Apply.</li>
+      <li><b>GBox:</b> Certificate Manager → Import → подтвердить.</li>
+      <li><b>Feather:</b> Profiles → Add → выбрать файлы.</li>
     </ul>
-  </div>
+  </section>
+
+  <!-- Установка iPA -->
+  <section>
+    <h2>📥 Установка iPA</h2>
+    <p>Процесс почти одинаковый во всех установщиках:</p>
+    <ol>
+      <li>Импортируй iPA файл в приложение.</li>
+      <li>Нажми «Sign & Install».</li>
+      <li>Жди пока иконка появится на рабочем столе.</li>
+    </ol>
+  </section>
+
+  <!-- Где искать IPA -->
+  <section>
+    <h2>🔍 Где искать iPA?</h2>
+    <ul>
+      <li>📂 Наш репозиторий (ссылка вставляется здесь)</li>
+      <li>📱 Telegram-каналы (например, iPA Groove)</li>
+      <li>🌐 Сайты: iosninja, appdb и т.д.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 iPA Groove — все права защищены</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
